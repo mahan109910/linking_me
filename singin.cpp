@@ -2,6 +2,7 @@
 #include "singin.h"
 #include "ui_singin.h"
 #include "email_number.h"
+#include "welcome.h"
 #include <QIntValidator>
 #include <QMessageBox>
 #include <QRandomGenerator>
@@ -13,6 +14,7 @@
 #include "QSqlQuery"
 #include "QSqlQueryModel"
 
+//extern int selectedLanguage ;
 singIn::singIn(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::singIn)
@@ -30,9 +32,9 @@ singIn::singIn(QWidget *parent)
 
     QRegularExpressionValidator *passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
     ui->lineEdit_sing_password->setValidator(passwordValidator);
-
+    qDebug() << selectedLanguage;
     // Initialize selectedLanguage to 0 (default)
-    selectedLanguage = 0;
+   // selectedLanguage = 0;
 }
 
 singIn::~singIn()
@@ -122,9 +124,9 @@ void singIn::on_pushButton_ok_sing_clicked()
                         qDebug() << "Record inserted successfully!";
                         QMessageBox::information(this, "موفقیت", "ثبت نام با موفقیت انجام شد.");
                         // Redirect to phone_number page
-                        email_number *email_number_Page = new email_number();
+                        /*email_number *email_number_Page = new email_number();
                         email_number_Page->show();
-                        this->hide();
+                        this->hide();*///این جا اضافه شدن صفحه ی بعد
                     } else {
                         qDebug() << "Failed to insert record:" << q.lastError().text();
                     }

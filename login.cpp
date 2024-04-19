@@ -117,9 +117,9 @@ void LogIn::on_pushButton_ok_log_clicked()
                     this->hide();
                 }else{
                     // Open the completion_information page
-                    Completion_information *Completion_information_Page = new Completion_information();
+                    /*Completion_information *Completion_information_Page = new Completion_information();
                     Completion_information_Page->show();
-                    this->hide();
+                    this->hide();*///این جا اضافه شدن صفحه ی بعد
                 }
             }
         }

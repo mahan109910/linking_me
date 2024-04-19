@@ -12,11 +12,11 @@ class email_number : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit email_number(QWidget *parent = nullptr);
-    ~email_number();
+    explicit email_number(QWidget *parent = nullptr); // افزودن constructor با پارامتر پیش‌فرض
+    ~email_number(); // اضافه کردن destructor
 
 private slots:
-    void on_pushButton_ok_email_clicked();
+               // اینجا می‌توانید اسلات‌های خود را اضافه کنید
 
 private:
     Ui::email_number *ui;

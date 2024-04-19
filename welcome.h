@@ -7,12 +7,14 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class welcome; }
 QT_END_NAMESPACE
 
+
 class welcome : public QMainWindow
 {
     Q_OBJECT
 
 public:
     welcome(QWidget *parent = nullptr);
+    static int selectedLanguage;
     ~welcome();
 
 private slots:
@@ -25,7 +27,6 @@ private slots:
 
 private:
     Ui::welcome *ui;
-    int selectedLanguage; // Store selected language (1 for Persian, 2 for English)
 };
 
 #endif // WELCOME_H

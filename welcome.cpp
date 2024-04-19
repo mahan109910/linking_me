@@ -6,27 +6,15 @@
 #include <QMessageBox>
 #include <QRandomGenerator>
 #include <QDebug>
-//inchude database
-#include "QSqlDatabase"
-#include "QSqlDriver"
-#include "QSqlQuery"
-#include "QSqlQueryModel"
 
+// Initialize selectedLanguage to 0 (default)
+int welcome::selectedLanguage = 0;
 
 welcome::welcome(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::welcome)
 {
     ui->setupUi(this);
-    QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("d:\\database_linking.db");
-    database.open();
-
-    // Initialize selectedLanguage to 0 (default)
-    selectedLanguage = 0;
-
-    ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt8.png);");
     ui->pushButton_E_LonIn->hide();
     ui->pushButton_E_Register->hide();
     ui->pushButton_P_LogIn->hide();
@@ -64,28 +52,28 @@ void welcome::on_pushButton_English_clicked()
 
 void welcome::on_pushButton_P_Register_clicked()
 {
-    singIn *w2 = new singIn;
-    // Pass the selectedLanguage to singIn
-    w2->setLanguage(selectedLanguage);
-    w2->show();
+    singIn *singInPage = new singIn;
+    singInPage->setLanguage(selectedLanguage);
+    singInPage->show();
 }
 
 void welcome::on_pushButton_P_LogIn_clicked()
 {
-    LogIn *wlog = new LogIn;
-    wlog->show();
+    LogIn *LogInPage = new LogIn;
+    LogInPage->setLanguage(selectedLanguage);
+    LogInPage->show();
 }
 
 void welcome::on_pushButton_E_Register_clicked()
 {
-    singIn *w2 = new singIn;
-    // Pass the selectedLanguage to singIn
-    w2->setLanguage(selectedLanguage);
-    w2->show();
+    singIn *singInPage = new singIn;
+    singInPage->setLanguage(selectedLanguage);
+    singInPage->show();
 }
 
 void welcome::on_pushButton_E_LonIn_clicked()
 {
-    LogIn *wlog = new LogIn;
-    wlog->show();
+    LogIn *LogInPage = new LogIn;
+    LogInPage->setLanguage(selectedLanguage);
+    LogInPage->show();
 }

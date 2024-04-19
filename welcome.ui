@@ -52,7 +52,7 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">image: url(:/new/prefix1/image/qt8.png);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -162,6 +162,9 @@ background-color: rgb(12, 53, 106);</string>
      <string notr="true">font: 900 11pt &quot;Segoe UI Black&quot;;
 color: rgb(255, 196, 54);
 background-color: rgb(12, 53, 106);</string>
+    </property>
+    <property name="inputMethodHints">
+     <set>Qt::ImhNone</set>
     </property>
     <property name="text">
      <string>You have already registered, enter</string>
