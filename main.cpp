@@ -1,5 +1,5 @@
 #include "welcome.h"
-#include "singin.h"
+#include "signin.h"
 #include "login.h"
 #include <QApplication>
 

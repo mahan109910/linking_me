@@ -1,7 +1,7 @@
 #include "welcome.h"
 #include "./ui_welcome.h"
 #include "login.h"
-#include "singin.h"
+#include "signin.h"
 #include <QIntValidator>
 #include <QMessageBox>
 #include <QRandomGenerator>
@@ -30,7 +30,7 @@ void welcome::on_pushButton_Persian_clicked()
 {
     selectedLanguage = 1;
     ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt2.png);");
-    setStyleSheet("background-color: rgb(255, 196, 54);");
+    setStyleSheet("background-color: rgb(252, 220, 116);");
     ui->backgroundFrame->show();
     ui->pushButton_P_LogIn->show();
     ui->pushButton_P_Register->show();
@@ -42,7 +42,7 @@ void welcome::on_pushButton_English_clicked()
 {
     selectedLanguage = 2;
     ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt1.png);");
-    setStyleSheet("background-color: rgb(255, 196, 54);");
+    setStyleSheet("background-color: rgb(252, 220, 116);");
     ui->backgroundFrame->show();
     ui->pushButton_P_LogIn->hide();
     ui->pushButton_P_Register->hide();

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LogIn</class>
- <widget class="QMainWindow" name="LogIn">
+ <class>singIn</class>
+ <widget class="QMainWindow" name="singIn">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,29 +23,42 @@
    <string notr="true">background-color: rgb(145, 206, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="frame_Log">
+   <widget class="QWidget" name="widget_p_sing" native="true">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>30</y>
-      <width>871</width>
-      <height>361</height>
+      <x>170</x>
+      <y>20</y>
+      <width>861</width>
+      <height>321</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt_log_e.png);</string>
+     <string notr="true">image: url(:/new/prefix1/image/qt_sing_p.png);</string>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QLineEdit" name="lineEdit_log_name">
+    <widget class="QLineEdit" name="lineEdit_sing_name">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>70</y>
+       <x>310</x>
+       <y>30</y>
+       <width>191</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="inputMethodHints">
+      <set>Qt::ImhNone</set>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit_sing_password">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>120</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -54,11 +67,11 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_log_Password">
+    <widget class="QLineEdit" name="lineEdit_sing_REpassword">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>160</y>
+       <x>310</x>
+       <y>200</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -67,11 +80,11 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_log_safe">
+    <widget class="QLineEdit" name="lineEdit_safe_sing">
      <property name="geometry">
       <rect>
-       <x>340</x>
-       <y>240</y>
+       <x>310</x>
+       <y>280</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -81,17 +94,17 @@
      </property>
     </widget>
    </widget>
-   <widget class="QFrame" name="frame_Poetry_log">
+   <widget class="QFrame" name="frame_Poetry">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>470</y>
-      <width>871</width>
-      <height>291</height>
+      <x>170</x>
+      <y>420</y>
+      <width>881</width>
+      <height>301</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt_Poetry.png);</string>
+     <string notr="true">image: url(:/new/prefix1/image/qt_Poetry2.png);</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -99,10 +112,10 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton_ok_log">
+    <widget class="QPushButton" name="pushButton_ok_sing">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>360</x>
        <y>40</y>
        <width>101</width>
        <height>31</height>
@@ -110,19 +123,101 @@
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(9, 0, 137);
-image: url(:/new/prefix1/image/rang2.png);
-background-color: rgb(0, 96, 202);</string>
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
      </property>
      <property name="text">
       <string>تایید</string>
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="pushButton_menu_sign_p">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>101</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(9, 0, 137);
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
+    </property>
+    <property name="text">
+     <string>صفحه اول</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_English_sign">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>100</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(9, 0, 137);
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
+    </property>
+    <property name="text">
+     <string>English</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_Persian_sign">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>100</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(9, 0, 137);
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
+    </property>
+    <property name="text">
+     <string>فارسی</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_menu_sign_e">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>140</y>
+      <width>101</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(9, 0, 137);
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
+    </property>
+    <property name="text">
+     <string>menu</string>
+    </property>
+   </widget>
    <widget class="QGroupBox" name="groupBox_safe_sing">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>390</y>
+      <x>300</x>
+      <y>340</y>
       <width>661</width>
       <height>81</height>
      </rect>
@@ -133,7 +228,7 @@ background-color: rgb(0, 96, 202);</string>
     <property name="title">
      <string/>
     </property>
-    <widget class="QFrame" name="frame_safe_2l">
+    <widget class="QFrame" name="frame_safe_2_sign">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -153,7 +248,7 @@ background-color: rgb(0, 96, 202);</string>
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_3l">
+    <widget class="QFrame" name="frame_safe_3_sign">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -173,7 +268,7 @@ background-color: rgb(0, 96, 202);</string>
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_4l">
+    <widget class="QFrame" name="frame_safe_4_sign">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -193,7 +288,7 @@ background-color: rgb(0, 96, 202);</string>
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_show_safe_l">
+    <widget class="QPushButton" name="pushButton_show_safe_sign">
      <property name="geometry">
       <rect>
        <x>452</x>
@@ -204,13 +299,16 @@ background-color: rgb(0, 96, 202);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(9, 0, 137);
-background-color: rgb(0, 96, 202);</string>
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
      </property>
      <property name="text">
       <string>نمایش عدد</string>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_1l">
+    <widget class="QFrame" name="frame_safe_1_sign">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -231,86 +329,13 @@ background-color: rgb(0, 96, 202);</string>
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_menu_log_p">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>10</y>
-      <width>101</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(9, 0, 137);
-font: 700 11pt &quot;Segoe UI&quot;;
-background-color: rgb(0, 96, 202);
-
-</string>
-    </property>
-    <property name="text">
-     <string>صفحه اول</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_Persian_log">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>50</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(9, 0, 137);
-font: 700 11pt &quot;Segoe UI&quot;;
-background-color: rgb(0, 96, 202);
-
-</string>
-    </property>
-    <property name="text">
-     <string>فارسی</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_English_log">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>90</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(9, 0, 137);
-font: 700 11pt &quot;Segoe UI&quot;;
-background-color: rgb(0, 96, 202);
-
-</string>
-    </property>
-    <property name="text">
-     <string>English</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_menu_log_e">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>130</y>
-      <width>101</width>
-      <height>29</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(9, 0, 137);
-font: 700 11pt &quot;Segoe UI&quot;;
-background-color: rgb(0, 96, 202);
-
-</string>
-    </property>
-    <property name="text">
-     <string>menu</string>
-    </property>
-   </widget>
+   <zorder>frame_Poetry</zorder>
+   <zorder>widget_p_sing</zorder>
+   <zorder>pushButton_menu_sign_p</zorder>
+   <zorder>pushButton_English_sign</zorder>
+   <zorder>pushButton_Persian_sign</zorder>
+   <zorder>pushButton_menu_sign_e</zorder>
+   <zorder>groupBox_safe_sing</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

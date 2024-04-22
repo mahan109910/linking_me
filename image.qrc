@@ -19,7 +19,10 @@
         <file>image/qt2.png</file>
         <file>image/qt8.png</file>
         <file>image/rang1.png</file>
-        <file>image/shQt.png</file>
+        <file>image/rang2.png</file>
+        <file>image/rang3.png</file>
+        <file>image/rang4.png</file>
+        <file>image/qt_Poetry2.png</file>
     </qresource>
     <qresource prefix="/new/prefix2"/>
 </RCC>

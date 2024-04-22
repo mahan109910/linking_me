@@ -1,7 +1,7 @@
 #include "login.h"
 #include "ui_login.h"
 #include "welcome.h"
-#include "singin.h"
+#include "signin.h"
 #include "managers.h"
 #include "Completion_information.h"
 #include <QIntValidator>
@@ -63,10 +63,10 @@ void LogIn::setLanguage(int language) {
     // Set image based on selected language
     if (selectedLanguage == 1) {
         qDebug() << "Setting Persian Image";
-        ui->frame_Log->setStyleSheet(":image: url(:/new/prefix1/image/qt_sing_p.png);");
+        ui->frame_Log->setStyleSheet(":image: url(:/new/prefix1/image/qt_log_p.png);");
     } else if (selectedLanguage == 2) {
         qDebug() << "Setting English Image";
-        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_sing_e.png);");
+        ui->frame_Log->setStyleSheet(":image: url(:/new/prefix1/image/qt_log_e.png);");
     } else {
         qDebug() << "Invalid Language Code: " << selectedLanguage;
     }

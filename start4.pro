@@ -12,21 +12,21 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     managers.cpp \
+    signin.cpp \
     welcome.cpp\
-    singin.cpp\
     login.cpp\
 
 HEADERS += \
     managers.h \
+    signin.h \
     welcome.h\
-    singin.h\
     login.h\
 
 
 FORMS += \
     managers.ui \
+    signin.ui \
     welcome.ui\
-    singin.ui\
     login.ui\
 
 
