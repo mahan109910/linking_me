@@ -8,7 +8,8 @@
 #include <QDebug>
 
 // Initialize selectedLanguage to 0 (default)
-int welcome::selectedLanguage = 0;
+extern int welcome::selectedLanguage = 0;
+//extern int selectedLanguage = 0;
 
 welcome::welcome(QWidget *parent)
     : QMainWindow(parent)
@@ -53,7 +54,7 @@ void welcome::on_pushButton_English_clicked()
 void welcome::on_pushButton_P_Register_clicked()
 {
     signin *signinPage = new signin;
-    signinPage->setLanguage(selectedLanguage);
+    //signinPage->setLanguage(selectedLanguage);
     signinPage->show();
 }
 
@@ -67,7 +68,7 @@ void welcome::on_pushButton_P_LogIn_clicked()
 void welcome::on_pushButton_E_Register_clicked()
 {
     signin *signinPage = new signin;
-    signinPage->setLanguage(selectedLanguage);
+    //signinPage->setLanguage(selectedLanguage);
     signinPage->show();
 }
 

@@ -25,6 +25,12 @@ signin::signin(QWidget *parent)
     database.setDatabaseName("d:\\database_linking.db");
     database.open();
 
+    if(selectedLanguage == 1){
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
+    }else if(selectedLanguage == 2){
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
+    }
+
     ui->lineEdit_safe_signin->setValidator(new QIntValidator);
 
     QRegularExpressionValidator *nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
@@ -33,8 +39,6 @@ signin::signin(QWidget *parent)
     QRegularExpressionValidator *passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
     ui->lineEdit_signin_password->setValidator(passwordValidator);
     qDebug() << selectedLanguage;
-    // Initialize selectedLanguage to 0 (default)
-   // selectedLanguage = 0;
 }
 
 signin::~signin()
@@ -54,7 +58,7 @@ void signin::generateSafeCode() {
     }
 }
 
-void signin::setLanguage(int language) {
+/*void signin::setLanguage(int language) {
     selectedLanguage = language;
     // Set image based on selected language
     if (selectedLanguage == 1) {
@@ -66,7 +70,7 @@ void signin::setLanguage(int language) {
     } else {
         qDebug() << "Invalid Language Code: " << selectedLanguage;
     }
-}
+}*/
 
 void signin::on_pushButton_show_safe_signin_clicked()
 {
