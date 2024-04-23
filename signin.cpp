@@ -14,7 +14,6 @@
 #include "QSqlQuery"
 #include "QSqlQueryModel"
 
-//extern int selectedLanguage ;
 signin::signin(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::signin)
@@ -25,9 +24,13 @@ signin::signin(QWidget *parent)
     database.setDatabaseName("d:\\database_linking.db");
     database.open();
 
-    if(selectedLanguage == 1){
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome
+
+    if(welcomeInstance.selectedLanguage == 1){
         ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
-    }else if(selectedLanguage == 2){
+    }else if(welcomeInstance.selectedLanguage == 2){
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
+    }else {
         ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
     }
 
@@ -38,7 +41,6 @@ signin::signin(QWidget *parent)
 
     QRegularExpressionValidator *passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
     ui->lineEdit_signin_password->setValidator(passwordValidator);
-    qDebug() << selectedLanguage;
 }
 
 signin::~signin()
@@ -57,20 +59,6 @@ void signin::generateSafeCode() {
         setSafeImage(safeFrames[i], safeCode[i]);
     }
 }
-
-/*void signin::setLanguage(int language) {
-    selectedLanguage = language;
-    // Set image based on selected language
-    if (selectedLanguage == 1) {
-        qDebug() << "Setting Persian Image";
-        ui->widget_p_signin->setStyleSheet(":image: url(:/new/prefix1/image/qt_signin_p.png);");
-    } else if (selectedLanguage == 2) {
-        qDebug() << "Setting English Image";
-        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
-    } else {
-        qDebug() << "Invalid Language Code: " << selectedLanguage;
-    }
-}*/
 
 void signin::on_pushButton_show_safe_signin_clicked()
 {

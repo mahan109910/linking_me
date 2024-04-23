@@ -16,8 +16,6 @@ public:
     signin(QWidget *parent = nullptr);
     ~signin();
 
-    void setLanguage(int language);
-
 private slots:
     void on_pushButton_ok_signin_clicked();
 
@@ -27,7 +25,6 @@ private slots:
 
 private:
     Ui::signin *ui;
-    int selectedLanguage; // Store selected language (1 for Persian, 2 for English)
     QFrame* safeFrames[4]; // Array of pointers to safe frames
     int safeCode[4]; // Array to store generated safe code
 

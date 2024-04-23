@@ -33,13 +33,13 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt_signin_p.png);</string>
+     <string notr="true"/>
     </property>
     <widget class="QLineEdit" name="lineEdit_signin_name">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>30</y>
+       <x>350</x>
+       <y>10</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -57,8 +57,8 @@
     <widget class="QLineEdit" name="lineEdit_signin_password">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>120</y>
+       <x>350</x>
+       <y>100</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -70,8 +70,8 @@
     <widget class="QLineEdit" name="lineEdit_signin_REpassword">
      <property name="geometry">
       <rect>
-       <x>310</x>
-       <y>200</y>
+       <x>350</x>
+       <y>190</y>
        <width>191</width>
        <height>28</height>
       </rect>
@@ -83,7 +83,7 @@
     <widget class="QLineEdit" name="lineEdit_safe_signin">
      <property name="geometry">
       <rect>
-       <x>310</x>
+       <x>350</x>
        <y>280</y>
        <width>191</width>
        <height>28</height>
@@ -97,7 +97,7 @@
    <widget class="QFrame" name="frame_Poetry">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>210</x>
       <y>420</y>
       <width>881</width>
       <height>301</height>
@@ -217,7 +217,7 @@ background-color: rgb(0, 96, 202);
    <widget class="QGroupBox" name="groupBox_safe_signin">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>320</x>
       <y>340</y>
       <width>661</width>
       <height>81</height>
@@ -243,10 +243,10 @@ background-color: rgb(0, 96, 202);
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QFrame" name="frame_safe_3_signin">
@@ -263,10 +263,10 @@ background-color: rgb(0, 96, 202);
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QFrame" name="frame_safe_4_signin">
@@ -283,10 +283,10 @@ background-color: rgb(0, 96, 202);
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_show_safe_signin">
@@ -323,10 +323,10 @@ background-color: rgb(0, 96, 202);
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_show_safe_signin_2">
