@@ -1,29 +1,32 @@
-#ifndef SIGNIN_H
-#define SIGNIN_H
+#ifndef signin_H
+#define signin_H
 
 #include <QMainWindow>
 #include <QFrame>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class singIn; }
+namespace Ui { class signin; }
 QT_END_NAMESPACE
 
-class singIn : public QMainWindow
+class signin : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    singIn(QWidget *parent = nullptr);
-    ~singIn();
+    signin(QWidget *parent = nullptr);
+    ~signin();
 
     void setLanguage(int language);
 
 private slots:
-    void on_pushButton_show_safe_clicked();
-    void on_pushButton_ok_sing_clicked();
+    void on_pushButton_ok_signin_clicked();
+
+    void on_pushButton_show_safe_signin_clicked();
+
+    void on_pushButton_show_safe_signin_2_clicked();
 
 private:
-    Ui::singIn *ui;
+    Ui::signin *ui;
     int selectedLanguage; // Store selected language (1 for Persian, 2 for English)
     QFrame* safeFrames[4]; // Array of pointers to safe frames
     int safeCode[4]; // Array to store generated safe code
@@ -32,4 +35,4 @@ private:
     void generateSafeCode(); // Declaration of generateSafeCode() function
 };
 
-#endif // SIGNIN_H
+#endif // signin_H

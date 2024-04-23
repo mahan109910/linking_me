@@ -52,9 +52,9 @@ void welcome::on_pushButton_English_clicked()
 
 void welcome::on_pushButton_P_Register_clicked()
 {
-    singIn *singInPage = new singIn;
-    singInPage->setLanguage(selectedLanguage);
-    singInPage->show();
+    signin *signinPage = new signin;
+    signinPage->setLanguage(selectedLanguage);
+    signinPage->show();
 }
 
 void welcome::on_pushButton_P_LogIn_clicked()
@@ -66,9 +66,9 @@ void welcome::on_pushButton_P_LogIn_clicked()
 
 void welcome::on_pushButton_E_Register_clicked()
 {
-    singIn *singInPage = new singIn;
-    singInPage->setLanguage(selectedLanguage);
-    singInPage->show();
+    signin *signinPage = new signin;
+    signinPage->setLanguage(selectedLanguage);
+    signinPage->show();
 }
 
 void welcome::on_pushButton_E_LonIn_clicked()

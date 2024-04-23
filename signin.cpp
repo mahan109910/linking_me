@@ -15,9 +15,9 @@
 #include "QSqlQueryModel"
 
 //extern int selectedLanguage ;
-singIn::singIn(QWidget *parent)
+signin::signin(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::singIn)
+    , ui(new Ui::signin)
 {
     ui->setupUi(this);
     QSqlDatabase database;
@@ -25,62 +25,71 @@ singIn::singIn(QWidget *parent)
     database.setDatabaseName("d:\\database_linking.db");
     database.open();
 
-    ui->lineEdit_safe_sing->setValidator(new QIntValidator);
+    ui->lineEdit_safe_signin->setValidator(new QIntValidator);
 
     QRegularExpressionValidator *nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
-    ui->lineEdit_sing_name->setValidator(nameValidator);
+    ui->lineEdit_signin_name->setValidator(nameValidator);
 
     QRegularExpressionValidator *passwordValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
-    ui->lineEdit_sing_password->setValidator(passwordValidator);
+    ui->lineEdit_signin_password->setValidator(passwordValidator);
     qDebug() << selectedLanguage;
     // Initialize selectedLanguage to 0 (default)
    // selectedLanguage = 0;
 }
 
-singIn::~singIn()
+signin::~signin()
 {
     delete ui;
 }
 
-void singIn::setSafeImage(QFrame* frame, int value) {
+void signin::setSafeImage(QFrame* frame, int value) {
     QString imagePath = QString(":/new/prefix1/image/%1.png").arg(value);
     frame->setStyleSheet("image: url(" + imagePath + ");");
 }
 
-void singIn::generateSafeCode() {
+void signin::generateSafeCode() {
     for (int i = 0; i < 4; ++i) {
         safeCode[i] = QRandomGenerator::global()->bounded(10);
         setSafeImage(safeFrames[i], safeCode[i]);
     }
 }
 
-void singIn::setLanguage(int language) {
+void signin::setLanguage(int language) {
     selectedLanguage = language;
     // Set image based on selected language
     if (selectedLanguage == 1) {
         qDebug() << "Setting Persian Image";
-        ui->widget_p_sing->setStyleSheet(":image: url(:/new/prefix1/image/qt_sing_p.png);");
+        ui->widget_p_signin->setStyleSheet(":image: url(:/new/prefix1/image/qt_signin_p.png);");
     } else if (selectedLanguage == 2) {
         qDebug() << "Setting English Image";
-        ui->widget_p_sing->setStyleSheet("image: url(:/new/prefix1/image/qt_sing_e.png);");
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
     } else {
         qDebug() << "Invalid Language Code: " << selectedLanguage;
     }
 }
 
-void singIn::on_pushButton_show_safe_clicked()
+void signin::on_pushButton_show_safe_signin_clicked()
 {
     // Initialize the safeFrames array with pointers to the frame widgets
-    safeFrames[0] = ui->frame_safe_1_sign;
-    safeFrames[1] = ui->frame_safe_2_sign;
-    safeFrames[2] = ui->frame_safe_3_sign;
-    safeFrames[3] = ui->frame_safe_4_sign;
+    safeFrames[0] = ui->frame_safe_1_signin;
+    safeFrames[1] = ui->frame_safe_2_signin;
+    safeFrames[2] = ui->frame_safe_3_signin;
+    safeFrames[3] = ui->frame_safe_4_signin;
     generateSafeCode();
 }
 
-void singIn::on_pushButton_ok_sing_clicked()
+void signin::on_pushButton_show_safe_signin_2_clicked()
 {
-    int key = ui->lineEdit_safe_sing->text().toInt();
+    // Initialize the safeFrames array with pointers to the frame widgets
+    safeFrames[0] = ui->frame_safe_1_signin;
+    safeFrames[1] = ui->frame_safe_2_signin;
+    safeFrames[2] = ui->frame_safe_3_signin;
+    safeFrames[3] = ui->frame_safe_4_signin;
+    generateSafeCode();
+}
+void signin::on_pushButton_ok_signin_clicked()
+{
+    int key = ui->lineEdit_safe_signin->text().toInt();
 
     int enteredCode[4];
     enteredCode[0] = key / 1000;
@@ -96,9 +105,9 @@ void singIn::on_pushButton_ok_sing_clicked()
         }
     }
 
-    QString name = ui->lineEdit_sing_name->text();
-    QString Password = ui->lineEdit_sing_password->text();
-    QString REpassword = ui->lineEdit_sing_REpassword->text();
+    QString name = ui->lineEdit_signin_name->text();
+    QString Password = ui->lineEdit_signin_password->text();
+    QString REpassword = ui->lineEdit_signin_REpassword->text();
 
     if (isValid) {
         // Check if any of the fields are empty

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>singIn</class>
- <widget class="QMainWindow" name="singIn">
+ <class>signin</class>
+ <widget class="QMainWindow" name="signin">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
    <string notr="true">background-color: rgb(145, 206, 255);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="widget_p_sing" native="true">
+   <widget class="QWidget" name="widget_p_signin" native="true">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -33,9 +33,9 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt_sing_p.png);</string>
+     <string notr="true">image: url(:/new/prefix1/image/qt_signin_p.png);</string>
     </property>
-    <widget class="QLineEdit" name="lineEdit_sing_name">
+    <widget class="QLineEdit" name="lineEdit_signin_name">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -54,7 +54,7 @@
       <string/>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_sing_password">
+    <widget class="QLineEdit" name="lineEdit_signin_password">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -67,7 +67,7 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_sing_REpassword">
+    <widget class="QLineEdit" name="lineEdit_signin_REpassword">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -80,7 +80,7 @@
       <string notr="true">background-color: rgb(255, 255, 255);</string>
      </property>
     </widget>
-    <widget class="QLineEdit" name="lineEdit_safe_sing">
+    <widget class="QLineEdit" name="lineEdit_safe_signin">
      <property name="geometry">
       <rect>
        <x>310</x>
@@ -112,7 +112,7 @@
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="pushButton_ok_sing">
+    <widget class="QPushButton" name="pushButton_ok_signin">
      <property name="geometry">
       <rect>
        <x>360</x>
@@ -123,6 +123,7 @@
      </property>
      <property name="styleSheet">
       <string notr="true">color: rgb(9, 0, 137);
+image: url(:/new/prefix1/image/rang2.png);
 font: 700 11pt &quot;Segoe UI&quot;;
 background-color: rgb(0, 96, 202);
 
@@ -133,7 +134,7 @@ background-color: rgb(0, 96, 202);
      </property>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_menu_sign_p">
+   <widget class="QPushButton" name="pushButton_menu_signin_p">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -153,7 +154,7 @@ background-color: rgb(0, 96, 202);
      <string>صفحه اول</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_English_sign">
+   <widget class="QPushButton" name="pushButton_English_signin">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -173,7 +174,7 @@ background-color: rgb(0, 96, 202);
      <string>English</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_Persian_sign">
+   <widget class="QPushButton" name="pushButton_Persian_signin">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -193,7 +194,7 @@ background-color: rgb(0, 96, 202);
      <string>فارسی</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_menu_sign_e">
+   <widget class="QPushButton" name="pushButton_menu_signin_e">
     <property name="geometry">
      <rect>
       <x>30</x>
@@ -213,7 +214,7 @@ background-color: rgb(0, 96, 202);
      <string>menu</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox_safe_sing">
+   <widget class="QGroupBox" name="groupBox_safe_signin">
     <property name="geometry">
      <rect>
       <x>300</x>
@@ -228,7 +229,7 @@ background-color: rgb(0, 96, 202);
     <property name="title">
      <string/>
     </property>
-    <widget class="QFrame" name="frame_safe_2_sign">
+    <widget class="QFrame" name="frame_safe_2_signin">
      <property name="geometry">
       <rect>
        <x>120</x>
@@ -248,7 +249,7 @@ background-color: rgb(0, 96, 202);
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_3_sign">
+    <widget class="QFrame" name="frame_safe_3_signin">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -268,7 +269,7 @@ background-color: rgb(0, 96, 202);
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_4_sign">
+    <widget class="QFrame" name="frame_safe_4_signin">
      <property name="geometry">
       <rect>
        <x>300</x>
@@ -288,10 +289,10 @@ background-color: rgb(0, 96, 202);
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_show_safe_sign">
+    <widget class="QPushButton" name="pushButton_show_safe_signin">
      <property name="geometry">
       <rect>
-       <x>452</x>
+       <x>450</x>
        <y>30</y>
        <width>121</width>
        <height>29</height>
@@ -308,7 +309,7 @@ background-color: rgb(0, 96, 202);
       <string>نمایش عدد</string>
      </property>
     </widget>
-    <widget class="QFrame" name="frame_safe_1_sign">
+    <widget class="QFrame" name="frame_safe_1_signin">
      <property name="geometry">
       <rect>
        <x>30</x>
@@ -328,14 +329,34 @@ background-color: rgb(0, 96, 202);
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
+    <widget class="QPushButton" name="pushButton_show_safe_signin_2">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>30</y>
+       <width>121</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(9, 0, 137);
+font: 700 11pt &quot;Segoe UI&quot;;
+background-color: rgb(0, 96, 202);
+
+</string>
+     </property>
+     <property name="text">
+      <string>show number</string>
+     </property>
+    </widget>
    </widget>
    <zorder>frame_Poetry</zorder>
-   <zorder>widget_p_sing</zorder>
-   <zorder>pushButton_menu_sign_p</zorder>
-   <zorder>pushButton_English_sign</zorder>
-   <zorder>pushButton_Persian_sign</zorder>
-   <zorder>pushButton_menu_sign_e</zorder>
-   <zorder>groupBox_safe_sing</zorder>
+   <zorder>widget_p_signin</zorder>
+   <zorder>pushButton_menu_signin_p</zorder>
+   <zorder>pushButton_English_signin</zorder>
+   <zorder>pushButton_Persian_signin</zorder>
+   <zorder>pushButton_menu_signin_e</zorder>
+   <zorder>groupBox_safe_signin</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
