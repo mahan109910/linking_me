@@ -20,10 +20,8 @@ public:
 private slots:
     void on_pushButton_Persian_clicked();
     void on_pushButton_English_clicked();
-    void on_pushButton_P_Register_clicked();
-    void on_pushButton_P_LogIn_clicked();
-    void on_pushButton_E_Register_clicked();
-    void on_pushButton_E_LonIn_clicked();
+    void on_pushButton_Register_clicked();
+    void on_pushButton_LogIn_clicked();
 
 private:
     Ui::welcome *ui;

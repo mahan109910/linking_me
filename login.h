@@ -16,8 +16,6 @@ public:
     explicit LogIn(QWidget *parent = nullptr);
     ~LogIn();
 
-    void setLanguage(int language);
-
 private slots:
     void on_pushButton_show_safe_l_clicked();
     void on_pushButton_ok_log_clicked();

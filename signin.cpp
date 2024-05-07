@@ -8,30 +8,36 @@
 #include <QRandomGenerator>
 #include <QDebug>
 #include "QSqlError"
-//inchude database
-#include "QSqlDatabase"
+#include "QSqlDatabase"//از این جا کتابخانه های دیتابیس
 #include "QSqlDriver"
 #include "QSqlQuery"
 #include "QSqlQueryModel"
+
+static int selectedLanguage = 0;
 
 signin::signin(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::signin)
 {
     ui->setupUi(this);
-    QSqlDatabase database;
+    QSqlDatabase database;//شروع کد های باز کردن دیتابیس
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("d:\\database_linking.db");
-    database.open();
+    database.open();//پایان کد های باز کردن دیتابیس
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
+    static int selectedLanguage = welcomeInstance.selectedLanguage;
 
-    if(welcomeInstance.selectedLanguage == 1){
+    if(selectedLanguage == 1){
         ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
-    }else if(welcomeInstance.selectedLanguage == 2){
+        ui->pushButton_menu_signin->setText("صفحه اصلی");
+        ui->pushButton_show_safe_signin->setText("نمایش عدد");
+        ui->pushButton_ok_signin->setText("تایید");
+    }else if(selectedLanguage == 2){
         ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
-    }else {
-        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
+        ui->pushButton_menu_signin->setText("menu");
+        ui->pushButton_show_safe_signin->setText("show number");
+        ui->pushButton_ok_signin->setText("ok");
     }
 
     ui->lineEdit_safe_signin->setValidator(new QIntValidator);
@@ -47,7 +53,7 @@ signin::~signin()
 {
     delete ui;
 }
-
+//تنظیم تصاویر کد امنیتی با توجه به عدد تصادفی
 void signin::setSafeImage(QFrame* frame, int value) {
     QString imagePath = QString(":/new/prefix1/image/%1.png").arg(value);
     frame->setStyleSheet("image: url(" + imagePath + ");");
@@ -79,10 +85,10 @@ void signin::on_pushButton_show_safe_signin_2_clicked()
     safeFrames[3] = ui->frame_safe_4_signin;
     generateSafeCode();
 }
+//بررسی درستی عدد با عددی که کاربر وارد میکند
 void signin::on_pushButton_ok_signin_clicked()
 {
     int key = ui->lineEdit_safe_signin->text().toInt();
-
     int enteredCode[4];
     enteredCode[0] = key / 1000;
     enteredCode[1] = (key / 100) % 10;
@@ -102,9 +108,13 @@ void signin::on_pushButton_ok_signin_clicked()
     QString REpassword = ui->lineEdit_signin_REpassword->text();
 
     if (isValid) {
-        // Check if any of the fields are empty
+        // شرط بررسی خالی نبودن تمام اطلاعات
         if (name.isEmpty() || Password.isEmpty() || REpassword.isEmpty()) {
-            QMessageBox::warning(this, "خطا", "لطفا تمام فیلدها را پر کنید.");
+            if(selectedLanguage == 1){
+                QMessageBox::warning(this, "خطا", "لطفا تمام فیلدها را پر کنید.");
+            }else if(selectedLanguage == 2){
+                QMessageBox::warning(this, ".......", ". ..............");
+            }
         } else {
             // Continue with the rest of your code
             QSqlQuery q;
@@ -114,7 +124,11 @@ void signin::on_pushButton_ok_signin_clicked()
 
             if(q.first()){
                 // User already exists
-                QMessageBox::warning(this, "خطا", "نام کاربری قبلا استفاده شده است.");
+                if(selectedLanguage == 1){
+                    QMessageBox::warning(this, "خطا", "نام کاربری قبلا استفاده شده است.");
+                }else if(selectedLanguage == 2){
+                    QMessageBox::warning(this, ".......", ". ..............");
+                }
             } else {
                 // Both are unique, continue with registration
                 if (Password == REpassword) {
@@ -123,7 +137,11 @@ void signin::on_pushButton_ok_signin_clicked()
                     q.bindValue(":password", Password);
                     if (q.exec()) {
                         qDebug() << "Record inserted successfully!";
-                        QMessageBox::information(this, "موفقیت", "ثبت نام با موفقیت انجام شد.");
+                        if(selectedLanguage == 1){
+                            QMessageBox::information(this, "موفقیت", "ثبت نام با موفقیت انجام شد.");
+                        }else if(selectedLanguage == 2){
+                            QMessageBox::warning(this, ".......", ". ..............");
+                        }
                         // Redirect to phone_number page
                         /*email_number *email_number_Page = new email_number();
                         email_number_Page->show();
@@ -132,11 +150,44 @@ void signin::on_pushButton_ok_signin_clicked()
                         qDebug() << "Failed to insert record:" << q.lastError().text();
                     }
                 } else {
-                    QMessageBox::warning(this, "خطا", "رمز عبور و تکرار آن همخوانی ندارند.");
+                    if(selectedLanguage == 1){
+                        QMessageBox::warning(this, "خطا", "رمز عبور و تکرار آن همخوانی ندارند.");
+                    }else if(selectedLanguage == 2){
+                        QMessageBox::warning(this, ".......", ". ..............");
+
+
+                    }
                 }
             }
         }
     } else {
-        QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
+        if(selectedLanguage == 1){
+            QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
+        }else if(selectedLanguage == 2){
+            QMessageBox::warning(this, ".......", ". ..............");
+        }
     }
+}
+//انتخاب زبان فارسی
+void signin::on_pushButton_Persian_signin_clicked()
+{
+    ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
+    ui->pushButton_menu_signin->setText("صفحه اصلی");
+    ui->pushButton_show_safe_signin->setText("نمایش عدد");
+    ui->pushButton_ok_signin->setText("تایید");
+}
+//انتخاب زبان انگلیسی
+void signin::on_pushButton_English_signin_clicked()
+{
+    ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
+    ui->pushButton_menu_signin->setText("menu");
+    ui->pushButton_show_safe_signin->setText("show number");
+    ui->pushButton_ok_signin->setText("ok");
+}
+//رفتن به صفحه ی اصلی
+void signin::on_pushButton_menu_signin_clicked()
+{
+    welcome *welcomePage = new welcome;
+    welcomePage->show();
+    this->hide();
 }

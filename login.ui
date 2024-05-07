@@ -33,7 +33,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt_log_e.png);</string>
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::NoFrame</enum>
@@ -44,7 +44,7 @@
     <widget class="QLineEdit" name="lineEdit_log_name">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>360</x>
        <y>70</y>
        <width>191</width>
        <height>28</height>
@@ -57,7 +57,7 @@
     <widget class="QLineEdit" name="lineEdit_log_Password">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>360</x>
        <y>160</y>
        <width>191</width>
        <height>28</height>
@@ -70,7 +70,7 @@
     <widget class="QLineEdit" name="lineEdit_log_safe">
      <property name="geometry">
       <rect>
-       <x>340</x>
+       <x>360</x>
        <y>240</y>
        <width>191</width>
        <height>28</height>
@@ -84,7 +84,7 @@
    <widget class="QFrame" name="frame_Poetry_log">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>210</x>
       <y>470</y>
       <width>871</width>
       <height>291</height>
@@ -102,7 +102,7 @@
     <widget class="QPushButton" name="pushButton_ok_log">
      <property name="geometry">
       <rect>
-       <x>390</x>
+       <x>380</x>
        <y>40</y>
        <width>101</width>
        <height>31</height>
@@ -121,7 +121,7 @@ background-color: rgb(0, 96, 202);</string>
    <widget class="QGroupBox" name="groupBox_safe_sing">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>310</x>
       <y>390</y>
       <width>661</width>
       <height>81</height>
@@ -147,10 +147,10 @@ background-color: rgb(0, 96, 202);</string>
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QFrame" name="frame_safe_3l">
@@ -167,10 +167,10 @@ background-color: rgb(0, 96, 202);</string>
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QFrame" name="frame_safe_4l">
@@ -187,10 +187,10 @@ background-color: rgb(0, 96, 202);</string>
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
     <widget class="QPushButton" name="pushButton_show_safe_l">
@@ -224,10 +224,10 @@ background-color: rgb(0, 96, 202);</string>
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
+      <enum>QFrame::WinPanel</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Sunken</enum>
      </property>
     </widget>
    </widget>

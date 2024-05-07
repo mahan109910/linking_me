@@ -98,13 +98,13 @@ background-color: rgb(9, 0, 137);</string>
      <string>English</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_P_Register">
+   <widget class="QPushButton" name="pushButton_Register">
     <property name="geometry">
      <rect>
-      <x>490</x>
-      <y>500</y>
+      <x>820</x>
+      <y>29</y>
       <width>230</width>
-      <height>40</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -116,13 +116,13 @@ background-color: rgb(9, 0, 137);</string>
      <string>همین حالا ثبت نام کنید</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_P_LogIn">
+   <widget class="QPushButton" name="pushButton_LogIn">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>500</y>
+      <x>530</x>
+      <y>29</y>
       <width>280</width>
-      <height>40</height>
+      <height>30</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -132,46 +132,6 @@ background-color: rgb(9, 0, 137);</string>
     </property>
     <property name="text">
      <string>قبلا ثبت نام کردید وارد شوید</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_E_Register">
-    <property name="geometry">
-     <rect>
-      <x>480</x>
-      <y>500</y>
-      <width>151</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(252, 220, 116);
-background-color: rgb(9, 0, 137);
-</string>
-    </property>
-    <property name="text">
-     <string>register now</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_E_LonIn">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>500</y>
-      <width>391</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 900 11pt &quot;Segoe UI Black&quot;;
-color: rgb(252, 220, 116);
-background-color: rgb(9, 0, 137);</string>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhNone</set>
-    </property>
-    <property name="text">
-     <string>You have already registered, enter</string>
     </property>
    </widget>
   </widget>

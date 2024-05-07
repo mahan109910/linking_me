@@ -23,6 +23,12 @@ private slots:
 
     void on_pushButton_show_safe_signin_2_clicked();
 
+    void on_pushButton_Persian_signin_clicked();
+
+    void on_pushButton_English_signin_clicked();
+
+    void on_pushButton_menu_signin_clicked();
+
 private:
     Ui::signin *ui;
     QFrame* safeFrames[4]; // Array of pointers to safe frames

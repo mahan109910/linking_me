@@ -26,6 +26,15 @@ LogIn::LogIn(QWidget *parent)
     database.setDatabaseName("d:\\database_linking.db");
     database.open();
 
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome
+    if(welcomeInstance.selectedLanguage == 1){
+        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
+    }else if(welcomeInstance.selectedLanguage == 2){
+        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
+    }else {
+        //ui->widget_p_signin->setStyleSheet(");");
+        //اضافه کردن کد خطا
+    }
 
 }
 
@@ -55,20 +64,6 @@ void LogIn::generateSafeCode() {
     for (int i = 0; i < 4; ++i) {
         safeCode_l[i] = QRandomGenerator::global()->bounded(10);
         setSafeImage(safeFrames_l[i], safeCode_l[i]);
-    }
-}
-
-void LogIn::setLanguage(int language) {
-    selectedLanguage = language;
-    // Set image based on selected language
-    if (selectedLanguage == 1) {
-        qDebug() << "Setting Persian Image";
-        ui->frame_Log->setStyleSheet(":image: url(:/new/prefix1/image/qt_log_p.png);");
-    } else if (selectedLanguage == 2) {
-        qDebug() << "Setting English Image";
-        ui->frame_Log->setStyleSheet(":image: url(:/new/prefix1/image/qt_log_e.png);");
-    } else {
-        qDebug() << "Invalid Language Code: " << selectedLanguage;
     }
 }
 
