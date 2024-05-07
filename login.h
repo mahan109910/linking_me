@@ -17,12 +17,14 @@ public:
     ~LogIn();
 
 private slots:
-    void on_pushButton_show_safe_l_clicked();
+    void on_pushButton_show_safe_clicked();
     void on_pushButton_ok_log_clicked();
+    void on_pushButton_Persian_log_clicked();
+    void on_pushButton_English_log_clicked();
+    void on_pushButton_menu_log_clicked();
 
 private:
     Ui::LogIn *ui;
-    int selectedLanguage; // Store selected language (1 for Persian, 2 for English)
     QFrame* safeFrames_l[4]; // Array of pointers to safe frames
     int safeCode_l[4]; // Array to store generated safe code
 

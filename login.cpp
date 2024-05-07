@@ -8,34 +8,39 @@
 #include <QMessageBox>
 #include <QRandomGenerator>
 #include <QDebug>
-//inchude database
-#include "QSqlDatabase"
+#include <QTableView> // Include QTableView header
+#include <QVBoxLayout>  // Include QVBoxLayout header
+#include "QSqlDatabase"//کتابخانه های دیتابیس
 #include "QSqlDriver"
 #include "QSqlQuery"
 #include "QSqlQueryModel"
-#include <QTableView> // Include QTableView header
-#include <QVBoxLayout>  // Include QVBoxLayout header
+
+static int selectedLanguage =0;
 
 LogIn::LogIn(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LogIn)
 {
     ui->setupUi(this);
-    QSqlDatabase database;
+    QSqlDatabase database;//شروع کد های باز کردن دیتابیس
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("d:\\database_linking.db");
-    database.open();
+    database.open();//پایان کد های باز کردن دیتابیس
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome
-    if(welcomeInstance.selectedLanguage == 1){
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
+    static int selectedLanguage = welcomeInstance.selectedLanguage;
+
+    if(selectedLanguage == 1){
         ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
-    }else if(welcomeInstance.selectedLanguage == 2){
+        ui->pushButton_menu_log->setText("صفحه اصلی");
+        ui->pushButton_show_safe->setText("نمایش عدد");
+        ui->pushButton_ok_log->setText("تایید");
+    }else if(selectedLanguage == 2){
         ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
-    }else {
-        //ui->widget_p_signin->setStyleSheet(");");
-        //اضافه کردن کد خطا
+        ui->pushButton_menu_log->setText("menu");
+        ui->pushButton_show_safe->setText("show number");
+        ui->pushButton_ok_log->setText("ok");
     }
-
 }
 
 LogIn::~LogIn()
@@ -44,7 +49,7 @@ LogIn::~LogIn()
 }
 
 //Display the security code
-void LogIn::on_pushButton_show_safe_l_clicked()
+void LogIn::on_pushButton_show_safe_clicked()
 {
     ui->lineEdit_log_Password->setValidator(new QIntValidator());
     // Initialize the safeFrames array with pointers to the frame widgets
@@ -121,4 +126,27 @@ void LogIn::on_pushButton_ok_log_clicked()
     } else {
         QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
     }
+}
+//انتخاب زبان فارسی
+void LogIn::on_pushButton_Persian_log_clicked()
+{
+    ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
+    ui->pushButton_menu_log->setText("صفحه اصلی");
+    ui->pushButton_show_safe->setText("نمایش عدد");
+    ui->pushButton_ok_log->setText("تایید");
+}
+//انتخاب زبان انگلیسی
+void LogIn::on_pushButton_English_log_clicked()
+{
+    ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
+    ui->pushButton_menu_log->setText("menu");
+    ui->pushButton_show_safe->setText("show number");
+    ui->pushButton_ok_log->setText("ok");
+}
+//رفتن به صفحه ی اصلی
+void LogIn::on_pushButton_menu_log_clicked()
+{
+    welcome *welcomePage = new welcome;
+    welcomePage->show();
+    this->hide();
 }

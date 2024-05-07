@@ -75,16 +75,6 @@ void signin::on_pushButton_show_safe_signin_clicked()
     safeFrames[3] = ui->frame_safe_4_signin;
     generateSafeCode();
 }
-
-void signin::on_pushButton_show_safe_signin_2_clicked()
-{
-    // Initialize the safeFrames array with pointers to the frame widgets
-    safeFrames[0] = ui->frame_safe_1_signin;
-    safeFrames[1] = ui->frame_safe_2_signin;
-    safeFrames[2] = ui->frame_safe_3_signin;
-    safeFrames[3] = ui->frame_safe_4_signin;
-    generateSafeCode();
-}
 //بررسی درستی عدد با عددی که کاربر وارد میکند
 void signin::on_pushButton_ok_signin_clicked()
 {
