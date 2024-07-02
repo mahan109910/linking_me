@@ -2,6 +2,7 @@
 #define signin_H
 
 #include <QMainWindow>
+#include <QPushButton> // این خط اضافه شده است
 #include <QFrame>
 
 QT_BEGIN_NAMESPACE
@@ -25,11 +26,15 @@ private slots:
 
 private:
     Ui::signin *ui;
-    QFrame* safeFrames[4]; // Array of pointers to safe frames
-    int safeCode[4]; // Array to store generated safe code
+    QFrame* safeFrames[4];
+    int safeCode[4];
 
+    void generateSafeCode();
+    void updateLanguageSettings();
+    void updateTextColor(const QString &text);
+    void setButtonStyle(QPushButton* button);
     void setSafeImage(QFrame* frame, int value);
-    void generateSafeCode(); // Declaration of generateSafeCode() function
+
 };
 
 #endif // signin_H

@@ -3,44 +3,55 @@
 #include "welcome.h"
 #include "signin.h"
 #include "managers.h"
-#include "Completion_information.h"
+#include "home.h"
 #include <QIntValidator>
 #include <QMessageBox>
 #include <QRandomGenerator>
 #include <QDebug>
-#include <QTableView> // Include QTableView header
-#include <QVBoxLayout>  // Include QVBoxLayout header
-#include "QSqlDatabase"//کتابخانه های دیتابیس
-#include "QSqlDriver"
-#include "QSqlQuery"
-#include "QSqlQueryModel"
+#include <QTableView>
+#include <QVBoxLayout>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlQuery>
+#include <QSqlQueryModel>
 
-static int selectedLanguage =0;
+static int selectedLanguage = 0;
 
 LogIn::LogIn(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LogIn)
 {
     ui->setupUi(this);
-    QSqlDatabase database;//شروع کد های باز کردن دیتابیس
+    QSqlDatabase database;
     database = QSqlDatabase::addDatabase("QSQLITE");
     database.setDatabaseName("d:\\database_linking.db");
-    database.open();//پایان کد های باز کردن دیتابیس
+    database.open();
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    static int selectedLanguage = welcomeInstance.selectedLanguage;
+    welcome welcomeInstance;
+    selectedLanguage = welcomeInstance.selectedLanguage;
 
-    if(selectedLanguage == 1){
+    if (selectedLanguage == 1) {
         ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
         ui->pushButton_menu_log->setText("صفحه اصلی");
         ui->pushButton_show_safe->setText("نمایش عدد");
         ui->pushButton_ok_log->setText("تایید");
-    }else if(selectedLanguage == 2){
+    } else if (selectedLanguage == 2) {
         ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
         ui->pushButton_menu_log->setText("menu");
         ui->pushButton_show_safe->setText("show number");
         ui->pushButton_ok_log->setText("ok");
     }
+
+    QString lineEditStyle = "QLineEdit { background-color: white; color: black; }";
+    ui->lineEdit_log_safe->setStyleSheet(lineEditStyle);
+    ui->lineEdit_log_name->setStyleSheet(lineEditStyle);
+    ui->lineEdit_log_Password->setStyleSheet(lineEditStyle);
+    ui->lineEdit_log_safe->setStyleSheet(lineEditStyle);
+
+    ui->lineEdit_log_safe->setValidator(new QIntValidator);
+
+    QRegularExpressionValidator *nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
+    ui->lineEdit_log_name->setValidator(nameValidator);
 }
 
 LogIn::~LogIn()
@@ -48,11 +59,9 @@ LogIn::~LogIn()
     delete ui;
 }
 
-//Display the security code
 void LogIn::on_pushButton_show_safe_clicked()
 {
     ui->lineEdit_log_Password->setValidator(new QIntValidator());
-    // Initialize the safeFrames array with pointers to the frame widgets
     safeFrames_l[0] = ui->frame_safe_1l;
     safeFrames_l[1] = ui->frame_safe_2l;
     safeFrames_l[2] = ui->frame_safe_3l;
@@ -91,43 +100,37 @@ void LogIn::on_pushButton_ok_log_clicked()
     }
 
     QString name = ui->lineEdit_log_name->text();
-    QString Password = ui->lineEdit_log_Password->text();
+    QString password = ui->lineEdit_log_Password->text();
 
     if (isValid) {
-        // Check if any of the fields are empty
-        if (name.isEmpty() || Password.isEmpty()) {
+        if (name.isEmpty() || password.isEmpty()) {
             QMessageBox::warning(this, "خطا", "لطفا تمام فیلدها را پر کنید.");
+        } else {
+            QSqlQuery query;
+            query.prepare("SELECT * FROM Account WHERE Account_ID = :name AND password = :password");
+            query.bindValue(":name", name);
+            query.bindValue(":password", password.toInt());
+            query.exec();
 
-        }else {
-            // Continue with the rest of your code
+            if (query.next()) {
+                QString accountId = query.value("Account_ID").toString();
+                QString phoneNumber = query.value("Phone_number").toString();
+                QString email = query.value("Email").toString();
 
-            QSqlQuery q;
-            q.prepare("SELECT id FROM database_linking WHERE user_name = :name");
-            q.bindValue(":name", name);
-            q.exec();
+                /*Person currentUser(accountId.toStdString(), phoneNumber.toStdString(), email.toStdString(), "", "");
 
-            if(q.first()){
-                // User not found
-                QMessageBox::warning(this,"ورود نا معتبر" , "ابتدا ثبت نام کنید");
+                home *homePage = new home(currentUser);
+                homePage->show();
+                this->hide();*/
             } else {
-                if (Password=="1234" && name=="HA"){
-                    // Open the managers page
-                    managers *managersPage = new managers();
-                    managersPage->show();
-                    this->hide();
-                }else{
-                    // Open the completion_information page
-                    /*Completion_information *Completion_information_Page = new Completion_information();
-                    Completion_information_Page->show();
-                    this->hide();*///این جا اضافه شدن صفحه ی بعد
-                }
+                QMessageBox::warning(this, "ورود نا معتبر", "نام کاربری یا رمز عبور اشتباه است.");
             }
         }
     } else {
         QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
     }
 }
-//انتخاب زبان فارسی
+
 void LogIn::on_pushButton_Persian_log_clicked()
 {
     ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
@@ -135,7 +138,7 @@ void LogIn::on_pushButton_Persian_log_clicked()
     ui->pushButton_show_safe->setText("نمایش عدد");
     ui->pushButton_ok_log->setText("تایید");
 }
-//انتخاب زبان انگلیسی
+
 void LogIn::on_pushButton_English_log_clicked()
 {
     ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
@@ -143,7 +146,7 @@ void LogIn::on_pushButton_English_log_clicked()
     ui->pushButton_show_safe->setText("show number");
     ui->pushButton_ok_log->setText("ok");
 }
-//رفتن به صفحه ی اصلی
+
 void LogIn::on_pushButton_menu_log_clicked()
 {
     welcome *welcomePage = new welcome;

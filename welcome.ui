@@ -31,37 +31,6 @@
 </string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QFrame" name="backgroundFrame">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>70</y>
-      <width>861</width>
-      <height>421</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>600</width>
-      <height>375</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>1400</width>
-      <height>900</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">image: url(:/new/prefix1/image/qt8.png);</string>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_Persian">
     <property name="geometry">
      <rect>
@@ -132,6 +101,19 @@ background-color: rgb(9, 0, 137);</string>
     </property>
     <property name="text">
      <string>قبلا ثبت نام کردید وارد شوید</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="backgroundFrame" native="true">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>80</y>
+      <width>851</width>
+      <height>401</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">image: url(:/new/prefix1/image/qt8.png);</string>
     </property>
    </widget>
   </widget>

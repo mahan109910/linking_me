@@ -15,9 +15,10 @@ welcome::welcome(QWidget *parent)
     , ui(new Ui::welcome)
 {
     ui->setupUi(this);
+    ui->backgroundFrame->show();
     ui->pushButton_LogIn->hide();
     ui->pushButton_Register->hide();
-}
+    ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt8.png);");}
 
 welcome::~welcome()
 {
@@ -29,7 +30,6 @@ void welcome::on_pushButton_Persian_clicked()
     selectedLanguage = 1;
     ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt2.png);");
     setStyleSheet("background-color: rgb(252, 220, 116);");
-    ui->backgroundFrame->show();
     ui->pushButton_LogIn->show();
     ui->pushButton_Register->show();
     ui->pushButton_LogIn->setText("قبلا ثبت نام کردید وارد شوید");
@@ -42,7 +42,6 @@ void welcome::on_pushButton_English_clicked()
     selectedLanguage = 2;
     ui->backgroundFrame->setStyleSheet("image: url(:/new/prefix1/image/qt1.png);");
     setStyleSheet("background-color: rgb(252, 220, 116);");
-    ui->backgroundFrame->show();
     ui->pushButton_LogIn->show();
     ui->pushButton_Register->show();
     ui->pushButton_LogIn->setText("You have already registered, enter");

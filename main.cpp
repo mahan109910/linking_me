@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+//#include <curl/curl.h>
+#include <map>
 
 using namespace std;
 
@@ -10,201 +12,264 @@ using namespace std;
 int selectedLanguage = 0;
 
 // تابع main برای اجرای برنامه Qt
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     QApplication a(argc, argv); // ایجاد شیء QApplication
     welcome w; // ایجاد شیء welcome (باید در پروژه شما تعریف شده باشد)
     w.show(); // نمایش شیء welcome
     return a.exec(); // اجرای برنامه Qt
 }
 
+//////////////////شروع کلاس های پست
+
+// تعریف کلاس Time
+class Time {
+public:
+    std::string day;
+    std::string month;
+    std::string year;
+    std::string hour;
+    std::string minute;
+    std::string second;
+
+    Time(const std::string &d, const std::string &m, const std::string &y,
+         const std::string &h, const std::string &min, const std::string &s)
+        : day(d), month(m), year(y), hour(h), minute(min), second(s) {}
+};
+
+// تعریف کلاس Like
+class Like {
+public:
+    std::string how_like_id;
+    std::string like_id;
+    Time time;
+
+    Like(const std::string &hl_id, const std::string &l_id, const Time &t)
+        : how_like_id(hl_id), like_id(l_id), time(t) {}
+};
+
+// تعریف کلاس Content
+class Content {
+public:
+    std::string sender_ID;
+    Time time_sent;
+    std::string Content_Text;
+    std::vector<std::string> Content_picture;
+    std::vector<std::string> Content_video;
+
+    Content(const std::string &sender, const Time &time, const std::string &text,
+            const std::vector<std::string> &picture, const std::vector<std::string> &video)
+        : sender_ID(sender), time_sent(time), Content_Text(text),
+        Content_picture(picture), Content_video(video) {}
+};
+
+// تعریف کلاس Direct_Message که از Content ارث‌بری می‌کند
+class Direct_Message : public Content {
+public:
+    std::string Message_ID;
+    std::string To_who;
+
+    Direct_Message(const std::string &sender, const Time &time, const std::string &text,
+                   const std::vector<std::string> &picture, const std::vector<std::string> &video,
+                   const std::string &message_id, const std::string &to_who)
+        : Content(sender, time, text, picture, video), Message_ID(message_id), To_who(to_who) {}
+
+    ~Direct_Message() {
+        std::cout << "Direct_Message destroyed" << std::endl;
+    }
+};
+
+// تعریف کلاس Comment که از Content ارث‌بری می‌کند
+class Comment : public Content {
+public:
+    std::string post_ID;
+    std::string comment_ID;
+
+    Comment(const std::string &sender, const Time &time, const std::string &text,
+            const std::vector<std::string> &picture, const std::vector<std::string> &video,
+            const std::string &post_id, const std::string &comment_id)
+        : Content(sender, time, text, picture, video), post_ID(post_id), comment_ID(comment_id) {}
+};
+
+// تعریف کلاس Post که از Content ارث‌بری می‌کند
+class Post : public Content {
+public:
+    std::string Post_ID;
+    int Repost_counter;
+    std::vector<Like> Likes;
+    std::vector<Comment> Comments;
+
+    Post(const std::string &sender, const Time &time, const std::string &text,
+         const std::vector<std::string> &picture, const std::vector<std::string> &video,
+         const std::string &post_id)
+        : Content(sender, time, text, picture, video), Post_ID(post_id), Repost_counter(0) {}
+
+    ~Post() {
+        std::cout << "Post destroyed" << std::endl;
+    }
+};
+
+//////////////////شروع کلاس های ثبت نام و اطلاعات کاربر
+
+// تعریف کلاس Job
+class Job {
+public:
+    double salary;
+    std::string job_name;
+    std::string company_name;
+    std::vector<std::string> skills_required;
+    std::string workPlace_type;
+    std::string location;
+    std::string type;
+
+    Job(double sal, const std::string &job, const std::string &company,
+        const std::vector<std::string> &skills, const std::string &workplace,
+        const std::string &loc, const std::string &t)
+        : salary(sal), job_name(job), company_name(company), skills_required(skills),
+        workPlace_type(workplace), location(loc), type(t) {
+        std::cout << "Job created" << std::endl;
+    }
+
+    ~Job() {
+        std::cout << "Job destroyed" << std::endl;
+    }
+};
+
 // تعریف کلاس Account
 class Account {
 public:
-    std::string Account_ID; // شناسه حساب کاربری
-    std::string Phone_number; // شماره تلفن
-    std::string Email; // ایمیل
-    std::vector<std::string> Connection; // لیست ارتباطات (شناسه‌ها)
-    std::vector<std::string> following; // لیست دنبال‌کنندگان (شناسه‌ها)
+    std::string Account_ID;
+    std::string Phone_number;
+    std::string Email;
+    std::vector<std::string> Connection;
+    std::vector<std::string> following;
+    std::vector<Direct_Message> DM; // آرایه دینامیک از پیام‌ها
+    std::vector<Post> Posts; // آرایه دینامیک از پست‌ها
 
-    // سازنده کلاس Account
     Account(const std::string &id, const std::string &phone, const std::string &email)
         : Account_ID(id), Phone_number(phone), Email(email) {
         std::cout << "Account created" << std::endl;
     }
 
-    // مخرب کلاس Account
     virtual ~Account() {
         std::cout << "Account destroyed" << std::endl;
     }
 
-    // تابع افزودن ارتباط
     void addConnection(const std::string &id) {
         Connection.push_back(id);
     }
 
-    // تابع افزودن دنبال‌کننده
     void addFollowing(const std::string &id) {
         following.push_back(id);
     }
-};
 
-// پیش‌تعریف کلاس Job
-class Job;
+    void addDM(const Direct_Message &message) {
+        DM.push_back(message);
+    }
+
+    void addPost(const Post &post) {
+        Posts.push_back(post);
+    }
+};
 
 // تعریف کلاس Person که از Account ارث‌بری می‌کند
 class Person : public Account {
 public:
-    std::string Last_name; // نام خانوادگی
-    std::string First_name; // نام
-    std::vector<std::string> Skills; // لیست مهارت‌ها
+    std::string Last_name;
+    std::string First_name;
+    std::vector<std::string> Skills;
 
-    // سازنده کلاس Person
-    Person(const std::string &id, const std::string &phone, const std::string &email, const std::string &lastName, const std::string &firstName)
+    Person(const std::string &id, const std::string &phone, const std::string &email,
+           const std::string &lastName, const std::string &firstName)
         : Account(id, phone, email), Last_name(lastName), First_name(firstName) {
         std::cout << "Person created" << std::endl;
     }
 
-    // مخرب کلاس Person
     ~Person() {
         std::cout << "Person destroyed" << std::endl;
     }
 
-    // تابع گرفتن شغل
+    void addSkill(const std::string &skill) {
+        Skills.push_back(skill);
+    }
+
     void Take_Job(Job &job);
 };
 
 // تعریف کلاس Company که از Account ارث‌بری می‌کند
 class Company : public Account {
 public:
-    std::vector<Job> company_jobs; // آرایه پویا از شغل‌ها
-    std::string company_name; // نام شرکت
-    std::vector<Person> employee; // آرایه پویا از کارمندان
-    std::vector<std::string> followers; // لیست دنبال‌کنندگان
+    std::vector<Job> company_jobs;
+    std::string company_name;
+    std::vector<Person> employees;
+    std::vector<std::string> followers;
 
-    // سازنده کلاس Company
-    Company(const std::string &id, const std::string &phone, const std::string &email, const std::string &name)
+    Company(const std::string &id, const std::string &phone, const std::string &email,
+            const std::string &name)
         : Account(id, phone, email), company_name(name) {
         std::cout << "Company created" << std::endl;
     }
 
-    // مخرب کلاس Company
     ~Company() {
         std::cout << "Company destroyed" << std::endl;
     }
 
-    // تابع ایجاد شغل
-    Job create_job();
-};
-
-// تعریف کلاس Job
-class Job {
-public:
-    double salary; // حقوق
-    std::string job_name; // نام شغل
-    std::vector<std::string> skills_required; // مهارت‌های مورد نیاز
-    std::string workPlace_type; // نوع محل کار
-    std::string location; // مکان
-    std::string type; // نوع شغل
-
-    // سازنده کلاس Job
-    Job(double sal, const std::string &job, const std::vector<std::string> &skills, const std::string &workPlace, const std::string &loc, const std::string &typ)
-        : salary(sal), job_name(job), skills_required(skills), workPlace_type(workPlace), location(loc), type(typ) {
-        std::cout << "Job created" << std::endl;
+    Job create_job(double salary, const std::string &job_name, const std::string &company_name,
+                   const std::vector<std::string> &skills_required, const std::string &workPlace_type,
+                   const std::string &location, const std::string &type) {
+        Job new_job(salary, job_name, company_name, skills_required, workPlace_type, location, type);
+        company_jobs.push_back(new_job);
+        return new_job;
     }
 
-    // مخرب کلاس Job
-    ~Job() {
-        std::cout << "Job destroyed" << std::endl;
+    void addEmployee(const Person &employee) {
+        employees.push_back(employee);
+    }
+
+    void addFollower(const std::string &follower_id) {
+        followers.push_back(follower_id);
     }
 };
-
-// پیاده‌سازی تابع create_job در کلاس Company
-Job Company::create_job() {
-    double salary = 50000;
-    std::string job_name = "Software Engineer";
-    std::vector<std::string> skills_required = {"C++", "Qt"};
-    std::string workPlace_type = "Office";
-    std::string location = "Tehran";
-    std::string type = "Full-time";
-
-    Job new_job(salary, job_name, skills_required, workPlace_type, location, type);
-    company_jobs.push_back(new_job);
-    return new_job;
-}
 
 // پیاده‌سازی تابع Take_Job در کلاس Person
 void Person::Take_Job(Job &job) {
     std::cout << First_name << " " << Last_name << " took the job: " << job.job_name << std::endl;
 }
 
-// تعریف کلاس‌های مربوط به محتوا
-class Time {
-public:
-    std::string day; // روز
-    std::string month; // ماه
-    std::string year; // سال
-    std::string hour; // ساعت
-    std::string minute; // دقیقه
-    std::string second; // ثانیه
+// تابع ارسال ایمیل
+/*bool sendEmail(const std::string &recipient, const std::string &subject, const std::string &body) {
+    CURL *curl;
+    CURLcode res = CURLE_OK;
+    struct curl_slist *recipients = NULL;
 
-    // سازنده کلاس Time
-    Time(const std::string &d, const std::string &m, const std::string &y,
-         const std::string &h, const std::string &min, const std::string &s)
-        : day(d), month(m), year(y), hour(h), minute(min), second(s) {}
-};
+    curl = curl_easy_init();
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_USERNAME, "mahan.test.h@gmail.com");
+        curl_easy_setopt(curl, CURLOPT_PASSWORD, "vxbe qlgu evid fdux");
+        curl_easy_setopt(curl, CURLOPT_URL, "smtp://smtp.gmail.com:587");
+        curl_easy_setopt(curl, CURLOPT_USE_SSL, CURLUSESSL_ALL);
+        curl_easy_setopt(curl, CURLOPT_MAIL_FROM, "<mahan.test.h@gmail.com>");
 
-class Content {
-public:
-    std::string sender_ID; // شناسه فرستنده
-    Time time_sent; // زمان ارسال محتوا
-    std::string Content_Text; // متن محتوا
-    std::vector<std::string> attachments; // ضمیمه‌ها (نوشتاری، عکسی و یا فیلم)
+        recipients = curl_slist_append(recipients, recipient.c_str());
+        curl_easy_setopt(curl, CURLOPT_MAIL_RCPT, recipients);
 
-    // سازنده کلاس Content
-    Content(const std::string &sender, const Time &time, const std::string &text, const std::vector<std::string> &attach)
-        : sender_ID(sender), time_sent(time), Content_Text(text), attachments(attach) {}
-};
+        std::string data = "To: " + recipient + "\r\n" +
+                           "From: <mahan.test.h@gmail.com>\r\n" +
+                           "Subject: " + subject + "\r\n" +
+                           "\r\n" + body + "\r\n";
 
-class Post : public Content {
-public:
-    std::string Post_ID; // شناسه پست
-    int Repost_counter; // شمارنده تعداد بازنشر
-    std::vector<std::string> Likes; // آرایه پویا از لایک‌ها
-    std::vector<std::string> Comments; // آرایه پویا از کامنت‌ها
+        curl_easy_setopt(curl, CURLOPT_READFUNCTION, NULL);
+        curl_easy_setopt(curl, CURLOPT_READDATA, &data);
+        curl_easy_setopt(curl, CURLOPT_UPLOAD, 1L);
 
-    // سازنده کلاس Post
-    Post(const std::string &sender, const Time &time, const std::string &text, const std::vector<std::string> &attach, const std::string &post_id)
-        : Content(sender, time, text, attach), Post_ID(post_id), Repost_counter(0) {}
-};
+        res = curl_easy_perform(curl);
 
-class Comment : public Content {
-public:
-    std::string comment_ID; // شناسه کامنت
-    std::string post_ID; // شناسه پست مربوط به کامنت
+        if(res != CURLE_OK) {
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        }
 
-    // سازنده کلاس Comment
-    Comment(const std::string &sender, const Time &time, const std::string &text, const std::vector<std::string> &attach, const std::string &comment_id, const std::string &post_id)
-        : Content(sender, time, text, attach), comment_ID(comment_id), post_ID(post_id) {}
-};
+        curl_slist_free_all(recipients);
+        curl_easy_cleanup(curl);
+    }
 
-class Direct_Message : public Content {
-public:
-    std::string Message_ID; // شناسه پیام
-    std::string To_who; // گیرنده پیام
-
-    // سازنده کلاس Direct_Message
-    Direct_Message(const std::string &sender, const Time &time, const std::string &text, const std::vector<std::string> &attach, const std::string &message_id, const std::string &to_who)
-        : Content(sender, time, text, attach), Message_ID(message_id), To_who(to_who) {}
-};
-
-class Like {
-public:
-    std::string who_liked_ID; // شناسه کسی که لایک کرده
-    std::string Like_ID; // شناسه لایک
-    Time time; // زمان لایک کردن
-
-    // سازنده کلاس Like
-    Like(const std::string &who_liked, const std::string &like_id, const Time &time)
-        : who_liked_ID(who_liked), Like_ID(like_id), time(time) {}
-};
+    return (res == CURLE_OK);
+}*/
