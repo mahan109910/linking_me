@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/new/prefix1">
+    <qresource lang="a" prefix="/new/prefix1">
         <file>image/0.png</file>
         <file>image/1.png</file>
         <file>image/2.png</file>
@@ -13,6 +13,7 @@
         <file>image/qt_log_e.png</file>
         <file>image/qt_log_p.png</file>
         <file>image/qt_Poetry.png</file>
+        <file>image/qt_Poetry2.png</file>
         <file>image/qt_signin_e.png</file>
         <file>image/qt_signin_p.png</file>
         <file>image/qt1.png</file>
@@ -22,7 +23,20 @@
         <file>image/rang2.png</file>
         <file>image/rang3.png</file>
         <file>image/rang4.png</file>
-        <file>image/qt_Poetry2.png</file>
+        <file>image/HA-dark.png</file>
+        <file>image/HA-sun.png</file>
+        <file>image/home-dark.png</file>
+        <file>image/home-me.png</file>
+        <file>image/home-sun.png</file>
+        <file>image/job-dark.png</file>
+        <file>image/job-me.png</file>
+        <file>image/job-sun.png</file>
+        <file>image/message-dark.png</file>
+        <file>image/message-me.png</file>
+        <file>image/message-sun.png</file>
+        <file>image/network-dark.png</file>
+        <file>image/network-me.png</file>
+        <file>image/network-sun.png</file>
     </qresource>
-    <qresource prefix="/new/prefix2"/>
+    <qresource prefix="/new/prefix1"/>
 </RCC>

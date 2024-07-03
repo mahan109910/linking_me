@@ -6,28 +6,37 @@ CONFIG += c++17
 
 
 SOURCES += \
+    home.cpp \
     information.cpp \
+    job.cpp \
     main.cpp \
     managers.cpp \
-    my_network.cpp \
+    message.cpp \
+    network.cpp \
     ok.cpp \
     signin.cpp \
     welcome.cpp \
     login.cpp
 
 HEADERS += \
+    home.h \
     information.h \
+    job.h \
     managers.h \
-    my_network.h \
+    message.h \
+    network.h \
     ok.h \
     signin.h \
     welcome.h \
     login.h
 
 FORMS += \
+    home.ui \
     information.ui \
+    job.ui \
     managers.ui \
-    my_network.ui \
+    message.ui \
+    network.ui \
     ok.ui \
     signin.ui \
     welcome.ui \

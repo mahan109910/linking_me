@@ -22,10 +22,16 @@ LogIn::LogIn(QWidget *parent)
     , ui(new Ui::LogIn)
 {
     ui->setupUi(this);
+    // تنظیمات مربوط به دیتابیس
     QSqlDatabase database;
     database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("d:\\database_linking.db");
-    database.open();
+    database.setDatabaseName("D:\\sobooty\\Qt\\start-me\\sqlite\\me-test-1.db");
+
+    if (!database.open()) {
+        qDebug() << "Error: Unable to connect to database!";
+    } else {
+        qDebug() << "Database connected successfully!";
+    }
 
     welcome welcomeInstance;
     selectedLanguage = welcomeInstance.selectedLanguage;
@@ -113,15 +119,9 @@ void LogIn::on_pushButton_ok_log_clicked()
             query.exec();
 
             if (query.next()) {
-                QString accountId = query.value("Account_ID").toString();
-                QString phoneNumber = query.value("Phone_number").toString();
-                QString email = query.value("Email").toString();
-
-                /*Person currentUser(accountId.toStdString(), phoneNumber.toStdString(), email.toStdString(), "", "");
-
-                home *homePage = new home(currentUser);
+                home *homePage = new home;
                 homePage->show();
-                this->hide();*/
+                this->hide();
             } else {
                 QMessageBox::warning(this, "ورود نا معتبر", "نام کاربری یا رمز عبور اشتباه است.");
             }
