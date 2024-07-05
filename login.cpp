@@ -14,6 +14,8 @@
 #include <QSqlDriver>
 #include <QSqlQuery>
 #include <QSqlQueryModel>
+#include <QFile>
+#include <QTextStream>
 
 static int selectedLanguage = 0;
 
@@ -48,6 +50,7 @@ LogIn::LogIn(QWidget *parent)
         ui->pushButton_ok_log->setText("ok");
     }
 
+    // تنظیم استایل ورودی‌ها
     QString lineEditStyle = "QLineEdit { background-color: white; color: black; }";
     ui->lineEdit_log_safe->setStyleSheet(lineEditStyle);
     ui->lineEdit_log_name->setStyleSheet(lineEditStyle);
@@ -65,6 +68,38 @@ LogIn::~LogIn()
     delete ui;
 }
 
+// تابع برای ذخیره نام کاربری در فایل
+void LogIn::saveUsernameToFile(const QString &username)
+{
+    QString fileName = "saved_username.txt";  // نام فایل برای ذخیره نام کاربری
+
+    // باز کردن یک فایل برای نوشتن
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << username;  // نوشتن نام کاربری در فایل
+        file.close();
+        qDebug() << "Username saved to file.";
+    } else {
+        qDebug() << "Error: Unable to open file for writing.";
+    }
+}
+
+// تابع برای تولید تصویر کد ایمنی
+void LogIn::setSafeImage(QFrame* frame, int value) {
+    QString imagePath = QString(":/new/prefix1/image/%1.png").arg(value);
+    frame->setStyleSheet("image: url(" + imagePath + ");");
+}
+
+// تابع برای تولید کد ایمنی
+void LogIn::generateSafeCode() {
+    for (int i = 0; i < 4; ++i) {
+        safeCode_l[i] = QRandomGenerator::global()->bounded(10);
+        setSafeImage(safeFrames_l[i], safeCode_l[i]);
+    }
+}
+
+// دکمه نمایش کد ایمنی
 void LogIn::on_pushButton_show_safe_clicked()
 {
     ui->lineEdit_log_Password->setValidator(new QIntValidator());
@@ -75,20 +110,8 @@ void LogIn::on_pushButton_show_safe_clicked()
     generateSafeCode();
 }
 
-void LogIn::setSafeImage(QFrame* frame, int value) {
-    QString imagePath = QString(":/new/prefix1/image/%1.png").arg(value);
-    frame->setStyleSheet("image: url(" + imagePath + ");");
-}
-
-void LogIn::generateSafeCode() {
-    for (int i = 0; i < 4; ++i) {
-        safeCode_l[i] = QRandomGenerator::global()->bounded(10);
-        setSafeImage(safeFrames_l[i], safeCode_l[i]);
-    }
-}
-
-void LogIn::on_pushButton_ok_log_clicked()
-{
+// دکمه تایید ورود
+void LogIn::on_pushButton_ok_log_clicked() {
     int key_l = ui->lineEdit_log_safe->text().toInt();
 
     int enteredCode_l[4];
@@ -119,6 +142,9 @@ void LogIn::on_pushButton_ok_log_clicked()
             query.exec();
 
             if (query.next()) {
+                // ذخیره نام کاربری در فایل
+                saveUsernameToFile(name);
+
                 home *homePage = new home;
                 homePage->show();
                 this->hide();
@@ -131,6 +157,7 @@ void LogIn::on_pushButton_ok_log_clicked()
     }
 }
 
+// دکمه تغییر به زبان فارسی
 void LogIn::on_pushButton_Persian_log_clicked()
 {
     ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
@@ -139,6 +166,7 @@ void LogIn::on_pushButton_Persian_log_clicked()
     ui->pushButton_ok_log->setText("تایید");
 }
 
+// دکمه تغییر به زبان انگلیسی
 void LogIn::on_pushButton_English_log_clicked()
 {
     ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
@@ -147,6 +175,7 @@ void LogIn::on_pushButton_English_log_clicked()
     ui->pushButton_ok_log->setText("ok");
 }
 
+// دکمه بازگشت به صفحه خوشامدگویی
 void LogIn::on_pushButton_menu_log_clicked()
 {
     welcome *welcomePage = new welcome;

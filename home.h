@@ -2,17 +2,18 @@
 #define HOME_H
 
 #include <QWidget>
+#include <QString>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class home; }
-QT_END_NAMESPACE
+namespace Ui {
+class home;
+}
 
 class home : public QWidget
 {
     Q_OBJECT
 
 public:
-    home(QWidget *parent = nullptr);
+    explicit home(QWidget *parent = nullptr);
     ~home();
 
 private slots:
@@ -23,11 +24,14 @@ private slots:
     void on_pushButton_network_home_clicked();
     void on_pushButton_message_home_clicked();
     void on_pushButton_dark_sun_clicked();
+    void on_comboBox_me_activated(int index);
 
 private:
     Ui::home *ui;
-    bool isDarkMode;  // متغیر وضعیت برای حالت تاریک
-    void setDarkMode(bool dark);  // تابع برای تنظیم حالت تاریک یا روشن
+    bool isDarkMode;
+    void setDarkMode(bool dark);
+    QString getUserName(const QString &userID);  // اعلام تابع getUserName
+    QString readUsernameFromFile();  // اعلام تابع readUsernameFromFile
 };
 
 #endif // HOME_H

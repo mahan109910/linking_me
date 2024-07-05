@@ -37,6 +37,10 @@
         <file>image/network-dark.png</file>
         <file>image/network-me.png</file>
         <file>image/network-sun.png</file>
+        <file>image/moon-dark.png</file>
+        <file>image/moon-sun.png</file>
+        <file>image/sun-dark.png</file>
+        <file>image/sun-sun.png</file>
     </qresource>
     <qresource prefix="/new/prefix1"/>
 </RCC>

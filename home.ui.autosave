@@ -45,8 +45,8 @@
    <property name="rightMargin">
     <number>10</number>
    </property>
-   <property name="horizontalSpacing">
-    <number>2</number>
+   <property name="spacing">
+    <number>10</number>
    </property>
    <item row="5" column="1">
     <widget class="QFrame" name="frame">

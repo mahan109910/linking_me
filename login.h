@@ -22,6 +22,7 @@ private slots:
     void on_pushButton_Persian_log_clicked();
     void on_pushButton_English_log_clicked();
     void on_pushButton_menu_log_clicked();
+    void saveUsernameToFile(const QString &username);
 
 private:
     Ui::LogIn *ui;

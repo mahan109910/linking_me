@@ -5,6 +5,10 @@
 #include <string>
 //#include <curl/curl.h>
 #include <map>
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+
 
 using namespace std;
 
@@ -273,3 +277,27 @@ void Person::Take_Job(Job &job) {
 
     return (res == CURLE_OK);
 }*/
+
+
+
+// تابع برای ذخیره اطلاعات در فایل
+void saveDataToFile(const QString& data, const QString& filePath) {
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream out(&file);
+        out << data;
+        file.close();
+    }
+}
+
+// تابع برای خواندن اطلاعات از فایل
+QString loadDataFromFile(const QString& filePath) {
+    QFile file(filePath);
+    QString data;
+    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QTextStream in(&file);
+        data = in.readAll();
+        file.close();
+    }
+    return data;
+}
