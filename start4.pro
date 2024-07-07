@@ -6,34 +6,54 @@ CONFIG += c++17
 
 
 SOURCES += \
+    account.cpp \
+    comment.cpp \
+    company.cpp \
+    content.cpp \
+    direct_message.cpp \
     home.cpp \
     information.cpp \
-    job.cpp \
+    job1.cpp \
+    jobui.cpp \
     main.cpp \
     managers.cpp \
     message.cpp \
     network.cpp \
     ok.cpp \
+    person.cpp \
+    post.cpp \
     signin.cpp \
+    time1.cpp \
     welcome.cpp \
-    login.cpp
+    login.cpp \
+    like.cpp
 
 HEADERS += \
+    account.h \
+    comment.h \
+    company.h \
+    content.h \
+    direct_message.h \
     home.h \
     information.h \
-    job.h \
+    job1.h \
+    jobui.h \
     managers.h \
     message.h \
     network.h \
     ok.h \
+    person.h \
+    post.h \
     signin.h \
+    time1.h \
     welcome.h \
-    login.h
+    login.h \
+    like.cpp
 
 FORMS += \
     home.ui \
     information.ui \
-    job.ui \
+    jobui.ui \
     managers.ui \
     message.ui \
     network.ui \

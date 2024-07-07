@@ -45,8 +45,8 @@
    <property name="rightMargin">
     <number>10</number>
    </property>
-   <property name="horizontalSpacing">
-    <number>2</number>
+   <property name="spacing">
+    <number>10</number>
    </property>
    <item row="5" column="1">
     <widget class="QFrame" name="frame">
@@ -140,9 +140,6 @@ selection-background-color: rgb(0, 96, 202);</string>
       </item>
      </layout>
     </widget>
-   </item>
-   <item row="1" column="2" rowspan="5">
-    <layout class="QHBoxLayout" name="horizontalLayout"/>
    </item>
    <item row="3" column="0" rowspan="2">
     <widget class="QWidget" name="verticalWidget_3" native="true">
@@ -554,6 +551,28 @@ selection-background-color: rgb(0, 96, 202);</string>
       </item>
       <item row="1" column="0" colspan="2">
        <widget class="QComboBox" name="comboBox_me"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="1" column="2" rowspan="5">
+    <widget class="QGroupBox" name="">
+     <property name="maximumSize">
+      <size>
+       <width>150</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QListWidget" name="listWidget">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
+          <height>100</height>
+         </size>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

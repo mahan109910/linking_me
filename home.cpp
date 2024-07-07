@@ -1,5 +1,5 @@
 #include "home.h"
-#include "job.h"
+#include "jobui.h"
 #include "network.h"
 #include "message.h"
 #include "welcome.h"
@@ -53,9 +53,9 @@ void home::on_pushButton_home_home_clicked()
 
 void home::on_pushButton_job_home_clicked()
 {
-    job *jobPage = new job;
-    jobPage->show();
-    this->hide();
+    /*jobui *jobuiPage = new jobui;
+    jobuiPage->show();
+    this->hide();*/
 }
 
 void home::on_pushButton_network_home_clicked()

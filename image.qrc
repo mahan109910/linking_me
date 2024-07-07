@@ -23,7 +23,6 @@
         <file>image/rang2.png</file>
         <file>image/rang3.png</file>
         <file>image/rang4.png</file>
-        <file>image/HA-dark.png</file>
         <file>image/HA-sun.png</file>
         <file>image/home-dark.png</file>
         <file>image/home-me.png</file>
@@ -37,10 +36,8 @@
         <file>image/network-dark.png</file>
         <file>image/network-me.png</file>
         <file>image/network-sun.png</file>
-        <file>image/moon-dark.png</file>
         <file>image/moon-sun.png</file>
         <file>image/sun-dark.png</file>
-        <file>image/sun-sun.png</file>
+        <file>image/HA-dark.png</file>
     </qresource>
-    <qresource prefix="/new/prefix1"/>
 </RCC>
