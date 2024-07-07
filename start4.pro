@@ -14,11 +14,13 @@ SOURCES += \
     home.cpp \
     information.cpp \
     job1.cpp \
-    jobui.cpp \
+    job_company.cpp \
+    job_person.cpp \
     main.cpp \
     managers.cpp \
     message.cpp \
-    network.cpp \
+    network_company.cpp \
+    network_person.cpp \
     ok.cpp \
     person.cpp \
     post.cpp \
@@ -26,7 +28,7 @@ SOURCES += \
     time1.cpp \
     welcome.cpp \
     login.cpp \
-    like.cpp
+    like.cpp \
 
 HEADERS += \
     account.h \
@@ -37,10 +39,12 @@ HEADERS += \
     home.h \
     information.h \
     job1.h \
-    jobui.h \
+    job_company.h \
+    job_person.h \
     managers.h \
     message.h \
-    network.h \
+    network_company.h \
+    network_person.h \
     ok.h \
     person.h \
     post.h \
@@ -48,19 +52,21 @@ HEADERS += \
     time1.h \
     welcome.h \
     login.h \
-    like.cpp
+    like.h \
 
 FORMS += \
     home.ui \
     information.ui \
-    jobui.ui \
+    job_company.ui \
+    job_person.ui \
     managers.ui \
     message.ui \
-    network.ui \
+    network_company.ui \
+    network_person.ui \
     ok.ui \
     signin.ui \
     welcome.ui \
-    login.ui
+    login.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

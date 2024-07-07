@@ -26,11 +26,11 @@ int main(int argc, char *argv[]) {
     }
 
     // Example usage of your classes
-    /*welcome w;
+    welcome w;
     w.show();
 
     // Example of using Account class
-    Account user("user_id", "user_phone", "user_email" , "password");
+    /*Account user("user_id", "user_phone", "user_email" , "password");
     if (user.saveToDatabase(db)) {
         qDebug() << "Account saved to database.";
     } else {

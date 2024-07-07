@@ -1,9 +1,11 @@
 #include "post.h"
+#include "comment.h"
 #include "like.h"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
+#include <iostream>
 
 Post::Post(const std::string &postId, const std::string &userId, const std::string &content)
     : Post_ID(postId), User_ID(userId), Content(content) {
@@ -73,7 +75,7 @@ bool Post::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
         return false;
     }
     while (commentQuery.next()) {
-        Comment comment("", "", "", "");
+        Comment comment;
         if (comment.loadFromDatabase(commentQuery.value(0).toString().toStdString(), db)) {
             Comments.push_back(comment);
         } else {
@@ -90,7 +92,7 @@ bool Post::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
         return false;
     }
     while (likeQuery.next()) {
-        Like like("", "", "");
+        Like like;
         if (like.loadFromDatabase(likeQuery.value(0).toString().toStdString(), db)) {
             Likes.push_back(like);
         } else {

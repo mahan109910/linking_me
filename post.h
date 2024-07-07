@@ -3,9 +3,8 @@
 
 #include "comment.h"
 #include "like.h"
-#include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 #include <QSqlDatabase>
 
 class Post {
@@ -16,6 +15,7 @@ public:
     std::vector<Comment> Comments;
     std::vector<Like> Likes;
 
+    Post() = default; // سازنده پیش‌فرض
     Post(const std::string &postId, const std::string &userId, const std::string &content);
     ~Post();
 

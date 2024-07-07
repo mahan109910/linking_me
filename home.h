@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include <QSqlDatabase>
 
 namespace Ui {
 class home;
@@ -13,7 +14,7 @@ class home : public QWidget
     Q_OBJECT
 
 public:
-    explicit home(QWidget *parent = nullptr);
+    explicit home(const QString &username, QWidget *parent = nullptr);
     ~home();
 
 private slots:
@@ -25,13 +26,23 @@ private slots:
     void on_pushButton_message_home_clicked();
     void on_pushButton_dark_sun_clicked();
     void on_comboBox_me_activated(int index);
+    void loadPosts();
+    void on_pushButton_more_clicked();
+    void on_pushButton_ago_clicked();
 
 private:
     Ui::home *ui;
     bool isDarkMode;
+    QString username;
+    bool isCompany;
+    QSqlDatabase db;
+    int postOffset;
+
     void setDarkMode(bool dark);
-    QString getUserName(const QString &userID);  // اعلام تابع getUserName
-    QString readUsernameFromFile();  // اعلام تابع readUsernameFromFile
+    void translateUi();
+    void loadUsername();
+    void determineUserType();
+    void displayPosts(const QList<QString> &posts);
 };
 
 #endif // HOME_H

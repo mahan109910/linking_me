@@ -57,7 +57,7 @@ void welcome::on_pushButton_Register_clicked()
 //کلید ورود به صفحه ورود
 void welcome::on_pushButton_LogIn_clicked()
 {
-    LogIn *LogInPage = new LogIn;
-    LogInPage->show();
+    login *loginPage = new login;
+    loginPage->show();
     this->hide();
 }

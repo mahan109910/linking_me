@@ -1,7 +1,6 @@
 #include "account.h"
+#include "post.h"
 #include "direct_message.h"
-#include "iostream"
-#include "sstream"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
@@ -34,10 +33,11 @@ void Account::addPost(const Post &post) {
 
 bool Account::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO accounts (Account_ID, Phone_number, Email) VALUES (?, ?, ?)");
+    query.prepare("INSERT INTO accounts (Account_ID, Phone_number, Email, password) VALUES (?, ?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(Phone_number));
     query.addBindValue(QString::fromStdString(Email));
+    query.addBindValue(password);
     if (!query.exec()) {
         qDebug() << "Error inserting into accounts table:" << query.lastError();
         return false;
@@ -131,14 +131,14 @@ bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
         qDebug() << "Error loading from direct_messages table:" << dmQuery.lastError();
         return false;
     }
-    /*while (dmQuery.next()) {
-        Direct_Message dm("", {}, "", {}, "", dmQuery.value(0).toString().toStdString(), "");
+    while (dmQuery.next()) {
+        Direct_Message dm;
         if (dm.loadFromDatabase(dmQuery.value(0).toString().toStdString(), db)) {
             DM.push_back(dm);
         } else {
             qDebug() << "Error loading DM with ID:" << dmQuery.value(0).toString();
         }
-    }*///==1
+    }
 
     // Load posts
     QSqlQuery postQuery(db);
@@ -149,7 +149,7 @@ bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
         return false;
     }
     while (postQuery.next()) {
-        Post post("", "", "");
+        Post post;
         if (post.loadFromDatabase(postQuery.value(0).toString().toStdString(), db)) {
             Posts.push_back(post);
         } else {

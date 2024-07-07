@@ -1,9 +1,10 @@
-#ifndef signin_H
-#define signin_H
+#ifndef SIGNIN_H
+#define SIGNIN_H
 
 #include <QMainWindow>
-#include <QPushButton> // این خط اضافه شده است
+#include <QPushButton>
 #include <QFrame>
+#include <QSqlDatabase>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class signin; }
@@ -28,13 +29,13 @@ private:
     Ui::signin *ui;
     QFrame* safeFrames[4];
     int safeCode[4];
+    QSqlDatabase db;  // اضافه کردن دیتابیس به عنوان عضو کلاس
 
     void generateSafeCode();
     void updateLanguageSettings();
     void updateTextColor(const QString &text);
     void setButtonStyle(QPushButton* button);
     void setSafeImage(QFrame* frame, int value);
-
 };
 
-#endif // signin_H
+#endif // SIGNIN_H

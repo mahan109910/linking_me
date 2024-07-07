@@ -7,10 +7,7 @@
 #include <QRandomGenerator>
 #include <QDebug>
 #include <QSqlError>
-#include <QSqlDatabase>
-#include <QSqlDriver>
 #include <QSqlQuery>
-#include <QSqlQueryModel>
 
 static int selectedLanguage = 0;
 
@@ -21,11 +18,10 @@ signin::signin(QWidget *parent)
     ui->setupUi(this);
 
     // تنظیمات مربوط به دیتابیس
-    QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("D:\\sobooty\\Qt\\start-me\\sqlite\\me-test-1.db");
+    db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("D:\\sobooty\\Qt\\start-me\\sqlite\\me-test-1.db");
 
-    if (!database.open()) {
+    if (!db.open()) {
         qDebug() << "Error: Unable to connect to database!";
     } else {
         qDebug() << "Database connected successfully!";
@@ -79,7 +75,6 @@ void signin::generateSafeCode() {
 
 void signin::on_pushButton_show_safe_signin_clicked()
 {
-    // Initialize the safeFrames array with pointers to the frame widgets
     safeFrames[0] = ui->frame_safe_1_signin;
     safeFrames[1] = ui->frame_safe_2_signin;
     safeFrames[2] = ui->frame_safe_3_signin;
@@ -117,7 +112,7 @@ void signin::on_pushButton_ok_signin_clicked()
                 QMessageBox::warning(this, "Error", "Please fill in all fields.");
             }
         } else {
-            QSqlQuery query;
+            QSqlQuery query(db);
             query.prepare("SELECT Account_ID FROM Account WHERE Account_ID = :name");
             query.bindValue(":name", name);
             query.exec();
@@ -186,10 +181,10 @@ void signin::on_pushButton_English_signin_clicked()
     ui->pushButton_ok_signin->setText("ok");
 }
 
-// رفتن به صفحه اصلی
+// بازگشت به صفحه اصلی
 void signin::on_pushButton_menu_signin_clicked()
 {
-    welcome *welcomePage = new welcome;
-    welcomePage->show();
-    this->hide();
+    welcome *w = new welcome();
+    w->show();
+    this->close();
 }

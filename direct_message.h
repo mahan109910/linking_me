@@ -2,28 +2,23 @@
 #define DIRECT_MESSAGE_H
 
 #include <string>
-#include <vector>
-#include "time1.h" // Assuming Time class is declared here
-
-class QSqlDatabase;
-class QSqlQuery;
+#include <QSqlDatabase>
 
 class Direct_Message {
 public:
-    Direct_Message(const std::string &message_id, const std::string &sender_id, const std::string &to_who,
-                   const Time1 &time_sent, const std::string &content_text);
+    std::string message_id;
+    std::string sender_id;
+    std::string receiver_id;
+    std::string content;
+    std::string timestamp;
 
-    bool saveToDatabase(QSqlDatabase &db) const;
-    bool loadFromDatabase(const std::string &message_id, QSqlDatabase &db);
+    Direct_Message() = default;
+    Direct_Message(const std::string &msg_id, const std::string &sender, const std::string &receiver,
+                   const std::string &content, const std::string &timestamp)
+        : message_id(msg_id), sender_id(sender), receiver_id(receiver), content(content), timestamp(timestamp) {}
 
-private:
-    std::string Message_ID;
-    std::string Sender_ID;
-    std::string To_who;
-    Time1 time_sent; // Assuming Time class is defined and has necessary methods
-    std::string Content_Text;
-    std::vector<std::string> Content_picture;
-    std::vector<std::string> Content_video;
+    bool saveToDatabase(QSqlDatabase& db) const;
+    bool loadFromDatabase(const std::string &msg_id, QSqlDatabase& db);
 };
 
 #endif // DIRECT_MESSAGE_H

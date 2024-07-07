@@ -2,19 +2,21 @@
 #define LOGIN_H
 
 #include <QMainWindow>
+#include <QPushButton>
 #include <QFrame>
+#include <QSqlDatabase>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class LogIn; }
+namespace Ui { class login; }
 QT_END_NAMESPACE
 
-class LogIn : public QMainWindow
+class login : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit LogIn(QWidget *parent = nullptr);
-    ~LogIn();
+    login(QWidget *parent = nullptr);
+    ~login();
 
 private slots:
     void on_pushButton_show_safe_clicked();
@@ -22,15 +24,20 @@ private slots:
     void on_pushButton_Persian_log_clicked();
     void on_pushButton_English_log_clicked();
     void on_pushButton_menu_log_clicked();
-    void saveUsernameToFile(const QString &username);
+
+
 
 private:
-    Ui::LogIn *ui;
-    QFrame* safeFrames_l[4]; // Array of pointers to safe frames
-    int safeCode_l[4]; // Array to store generated safe code
+    Ui::login *ui;
+    QFrame* safeFrames[4];
+    int safeCode[4];
+    QSqlDatabase db;  // اضافه کردن دیتابیس به عنوان عضو کلاس
 
+    void generateSafeCode();
+    void updateLanguageSettings();
+    void updateTextColor(const QString &text);
+    void setButtonStyle(QPushButton* button);
     void setSafeImage(QFrame* frame, int value);
-    void generateSafeCode(); // Declaration of generateSafeCode() function
 };
 
 #endif // LOGIN_H
