@@ -11,6 +11,7 @@ SOURCES += \
     company.cpp \
     content.cpp \
     direct_message.cpp \
+    full_information.cpp \
     home.cpp \
     information.cpp \
     job1.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     company.h \
     content.h \
     direct_message.h \
+    full_information.h \
     home.h \
     information.h \
     job1.h \
@@ -55,6 +57,7 @@ HEADERS += \
     like.h \
 
 FORMS += \
+    full_information.ui \
     home.ui \
     information.ui \
     job_company.ui \

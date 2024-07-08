@@ -16,6 +16,7 @@ class home : public QWidget
 public:
     explicit home(const QString &username, QWidget *parent = nullptr);
     ~home();
+    static bool isDarkMode;  // فقط اعلام متغیر استاتیک
 
 private slots:
     void on_pushButton_English_home_clicked();
@@ -32,7 +33,6 @@ private slots:
 
 private:
     Ui::home *ui;
-    bool isDarkMode;
     QString username;
     bool isCompany;
     QSqlDatabase db;

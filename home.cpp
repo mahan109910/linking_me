@@ -8,6 +8,7 @@
 #include "company.h"
 #include "message.h"
 #include "welcome.h"
+#include "full_information.h"
 #include "ui_home.h"
 #include <QSqlQuery>
 #include <QSqlError>
@@ -17,11 +18,11 @@
 #include <QStringListModel>  // برای نمایش لیست پست‌ها
 
 static int selectedLanguage = 0;
+bool home::isDarkMode = false;  // مقداردهی متغیر استاتیک در اینجا
 
 home::home(const QString &username, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::home)
-    , isDarkMode(false)
     , username(username)
     , postOffset(0)
 {
@@ -136,6 +137,7 @@ void home::on_pushButton_message_home_clicked()
 
 void home::setDarkMode(bool dark)
 {
+    isDarkMode = dark;
     if (dark) {
         this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
         ui->pushButton_dark_sun->setStyleSheet("background-image: url(:/new/prefix1/image/sun-daek.png);");
@@ -169,9 +171,10 @@ void home::setDarkMode(bool dark)
 
 void home::on_pushButton_dark_sun_clicked()
 {
+    setDarkMode(!isDarkMode);
     isDarkMode = !isDarkMode;
-    setDarkMode(isDarkMode);
 }
+
 
 void home::on_comboBox_me_activated(int index)
 {
@@ -179,16 +182,21 @@ void home::on_comboBox_me_activated(int index)
     case 0:
         // رفتن به صفحه نمایش اطلاعات
         break;
-    case 1:
-        // رفتن به صفحه ویرایش اطلاعات
+    case 1: {
+        full_information *full_informationPage = new full_information(username);
+        full_informationPage->show();
+        this->hide();
         break;
-    case 2:
+    }
+    case 2: {
         welcome *welcomePage = new welcome;
         welcomePage->show();
         this->hide();
         break;
     }
+    }
 }
+
 
 void home::loadPosts() {
     QSqlQuery query(db);
