@@ -159,3 +159,11 @@ bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
 
     return true;
 }
+
+std::string Account::getProfilePicture() const {
+    return Profile_Picture;
+}
+
+void Account::setProfilePicture(const std::string &picture) {
+    Profile_Picture = picture;
+}

@@ -1,4 +1,5 @@
 #include "direct_message.h"
+#include "sstream"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>

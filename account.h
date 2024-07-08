@@ -18,6 +18,7 @@ public:
     std::vector<std::string> following;
     std::vector<Direct_Message> DM;
     std::vector<Post> Posts;
+    std::string Profile_Picture;
 
     Account(const std::string &id, const std::string &phone, const std::string &email, int password);
     ~Account();
@@ -29,6 +30,8 @@ public:
 
     bool saveToDatabase(QSqlDatabase& db) const;
     bool loadFromDatabase(const std::string &id, QSqlDatabase& db);
+    std::string getProfilePicture() const;
+    void setProfilePicture(const std::string &picture);
 };
 
 #endif // ACCOUNT_H

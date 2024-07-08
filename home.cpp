@@ -15,10 +15,10 @@
 #include <QDebug>
 #include <QFile>
 #include <QTextStream>
-#include <QStringListModel>  // برای نمایش لیست پست‌ها
+#include <QStringListModel>  // for displaying list of posts
 
 static int selectedLanguage = 0;
-bool home::isDarkMode = false;  // مقداردهی متغیر استاتیک در اینجا
+bool home::isDarkMode = false;  // static variable initialization
 
 home::home(const QString &username, QWidget *parent)
     : QWidget(parent)
@@ -29,7 +29,7 @@ home::home(const QString &username, QWidget *parent)
     ui->setupUi(this);
     setDarkMode(isDarkMode);
 
-    // تنظیم دیتابیس و بارگذاری نام کاربری
+    // Database setup and loading username
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("D:\\sobooty\\Qt\\start-me\\sqlite\\me-test-1.db");
 
@@ -41,12 +41,12 @@ home::home(const QString &username, QWidget *parent)
         determineUserType();
     }
 
-    // تنظیم آیتم‌های ComboBox
-    ui->comboBox_me->addItem(tr("اطلاعات"));
-    ui->comboBox_me->addItem(tr("ویرایش اطلاعات"));
-    ui->comboBox_me->addItem(tr("خروج"));
+    // Setup ComboBox items
+    ui->comboBox_me->addItem(tr("Info"));
+    ui->comboBox_me->addItem(tr("Edit Info"));
+    ui->comboBox_me->addItem(tr("Logout"));
 
-    // بارگذاری پست‌ها
+    // Load initial posts
     loadPosts();
 }
 
@@ -55,11 +55,13 @@ home::~home()
     delete ui;
 }
 
-void home::loadUsername() {
+void home::loadUsername()
+{
     ui->pushButton_me->setText(username);
 }
 
-void home::determineUserType() {
+void home::determineUserType()
+{
     QSqlQuery query(db);
     query.prepare("SELECT is_company FROM Users WHERE username = :username");
     query.bindValue(":username", username);
@@ -69,6 +71,30 @@ void home::determineUserType() {
     } else {
         qDebug() << "Failed to determine user type:" << query.lastError();
     }
+}
+
+void home::loadPosts()
+{
+    QSqlQuery query(db);
+    query.prepare("SELECT content FROM Posts ORDER BY priority LIMIT 10 OFFSET :offset");
+    query.bindValue(":offset", postOffset);
+
+    if (query.exec()) {
+        QList<QString> posts;
+        while (query.next()) {
+            posts.append(query.value(0).toString());
+        }
+        displayPosts(posts);
+    } else {
+        qDebug() << "Failed to load posts:" << query.lastError();
+    }
+}
+
+void home::displayPosts(const QList<QString> &posts)
+{
+    QStringListModel *model = new QStringListModel(this);
+    model->setStringList(posts);
+    ui->listView->setModel(model);
 }
 
 void home::on_pushButton_English_home_clicked()
@@ -83,7 +109,8 @@ void home::on_pushButton_Persian_home_clicked()
     translateUi();
 }
 
-void home::translateUi() {
+void home::translateUi()
+{
     if (selectedLanguage == 1) {
         ui->pushButton_serch_home->setText("جست و جو");
         ui->comboBox_me->setItemText(0, "اطلاعات");
@@ -175,12 +202,11 @@ void home::on_pushButton_dark_sun_clicked()
     isDarkMode = !isDarkMode;
 }
 
-
 void home::on_comboBox_me_activated(int index)
 {
     switch (index) {
     case 0:
-        // رفتن به صفحه نمایش اطلاعات
+        // Go to information display page
         break;
     case 1: {
         full_information *full_informationPage = new full_information(username);
@@ -197,35 +223,14 @@ void home::on_comboBox_me_activated(int index)
     }
 }
 
-
-void home::loadPosts() {
-    QSqlQuery query(db);
-    query.prepare("SELECT content FROM Posts ORDER BY priority LIMIT 10 OFFSET :offset");
-    query.bindValue(":offset", postOffset);
-
-    if (query.exec()) {
-        QList<QString> posts;
-        while (query.next()) {
-            posts.append(query.value(0).toString());
-        }
-        displayPosts(posts);
-    } else {
-        qDebug() << "Failed to load posts:" << query.lastError();
-    }
-}
-
-void home::displayPosts(const QList<QString> &posts) {
-    QStringListModel *model = new QStringListModel(this);
-    model->setStringList(posts);
-    ui->listView->setModel(model);
-}
-
-void home::on_pushButton_more_clicked() {
+void home::on_pushButton_more_clicked()
+{
     postOffset += 10;
     loadPosts();
 }
 
-void home::on_pushButton_ago_clicked() {
+void home::on_pushButton_ago_clicked()
+{
     if (postOffset >= 10) {
         postOffset -= 10;
         loadPosts();

@@ -42,3 +42,11 @@ bool Person::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     Age = query.value(2).toInt();
     return true;
 }
+
+std::vector<std::string> Person::getSkills() const {
+    return Skills;
+}
+
+void Person::setSkills(const std::vector<std::string> &skills) {
+    Skills = skills;
+}

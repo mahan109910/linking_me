@@ -27,7 +27,7 @@ private slots:
     void on_pushButton_message_home_clicked();
     void on_pushButton_dark_sun_clicked();
     void on_comboBox_me_activated(int index);
-    void loadPosts();
+    void loadPosts();  // اضافه کردن تعریف تابع loadPosts
     void on_pushButton_more_clicked();
     void on_pushButton_ago_clicked();
 
