@@ -30,6 +30,11 @@ private slots:
     void loadPosts();
     void on_pushButton_more_clicked();
     void on_pushButton_ago_clicked();
+    void setDarkMode(bool dark);
+    void translateUi();
+    void loadUsername();
+    void displayPosts(const QList<QString> &posts);
+    void determineUserType();
 
 private:
     Ui::home *ui;
@@ -38,11 +43,6 @@ private:
     QSqlDatabase db;
     int postOffset;
 
-    void setDarkMode(bool dark);
-    void translateUi();
-    void loadUsername();
-    void determineUserType();
-    void displayPosts(const QList<QString> &posts);
 };
 
 #endif // HOME_H

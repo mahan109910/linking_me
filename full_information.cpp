@@ -1,6 +1,7 @@
 #include "full_information.h"
 #include "ui_full_information.h"
 #include "home.h"
+#include "welcome.h"
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QFileDialog>
@@ -10,17 +11,21 @@
 #include <QMessageBox>
 #include <QDebug>
 
+static int selectedLanguage = 0;
+static bool isDarkMode = false;
+
 full_information::full_information(const QString &username, QWidget *parent)
     : QWidget(parent), ui(new Ui::full_information), username(username)
 {
     ui->setupUi(this);
 
-    // Set initial items in listWidget_skills
-    // No need to add items manually as they are already defined in .ui file
-
     setDarkMode(home::isDarkMode);
     db = QSqlDatabase::database();
     loadUserData();
+
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
+    selectedLanguage = welcomeInstance.selectedLanguage;
+
 }
 
 full_information::~full_information()
@@ -30,18 +35,26 @@ full_information::~full_information()
 
 void full_information::on_pushButton_persian_clicked()
 {
-    // Change language of buttons
-    ui->pushButton_home->setText("خانه");
-    ui->pushButton_dark_sun->setText("");
-    ui->pushButton_sing_company->setText("اگر شرکت هستید از این جا ثبت نام کنید");
+    selectedLanguage = 1;
+    translateUi();
 }
 
 void full_information::on_pushButton_english_clicked()
 {
-    // Change language of buttons
-    ui->pushButton_home->setText("Home");
-    ui->pushButton_dark_sun->setText("");
-    ui->pushButton_sing_company->setText("If you are a company, register here");
+    selectedLanguage = 2;
+    translateUi();
+}
+
+void full_information::translateUi() {
+    if (selectedLanguage == 1) {
+        ui->pushButton_home->setText("خانه");
+        ui->pushButton_dark_sun->setText("");
+        ui->pushButton_sing_company->setText("اگر شرکت هستید از این جا ثبت نام کنید");
+    } else if (selectedLanguage == 2) {
+        ui->pushButton_home->setText("Home");
+        ui->pushButton_dark_sun->setText("");
+        ui->pushButton_sing_company->setText("If you are a company, register here");
+    }
 }
 
 void full_information::on_pushButton_home_clicked()
@@ -53,7 +66,8 @@ void full_information::on_pushButton_home_clicked()
 
 void full_information::on_pushButton_dark_sun_clicked()
 {
-    setDarkMode(!home::isDarkMode);
+    isDarkMode = !isDarkMode;
+    setDarkMode(isDarkMode);
 }
 
 void full_information::on_pushButton_select_photo_clicked()
@@ -206,10 +220,18 @@ void full_information::setDarkMode(bool dark)
     home::isDarkMode = dark;
     if (dark) {
         this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
-        ui->pushButton_dark_sun->setStyleSheet("background-image: url(:/new/prefix1/image/sun-daek.png);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/sun-dark.png);");
+        ui->label_photo->setStyleSheet("background-color: rgb(9, 0, 137)");
+        ui->horizontalFrame_4->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->horizontalWidget_3->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->groupBox_2->setStyleSheet("background-color: rgb(255, 196, 54);");
     } else {
         this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
-        ui->pushButton_dark_sun->setStyleSheet("background-image: url(:/new/prefix1/image/moon-sun.png);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/moon-sun.png);");
+        ui->label_photo->setStyleSheet("background-color: rgb(145, 206, 255);");
+        ui->horizontalFrame_4->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->horizontalWidget_3->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->groupBox_2->setStyleSheet("background-color: rgb(252, 220, 116);");
     }
 }
 

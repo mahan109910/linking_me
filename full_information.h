@@ -28,6 +28,7 @@ private slots:
     void on_pushButton_sing_company_clicked();
     void on_pushButton_ok_clicked();
     void on_pushButton_skill_clicked();
+    void translateUi();
 
 private:
     Ui::full_information *ui;

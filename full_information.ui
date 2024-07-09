@@ -34,6 +34,12 @@
    </property>
    <item row="0" column="0" colspan="2">
     <widget class="QFrame" name="horizontalFrame_4">
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>150</height>
+      </size>
+     </property>
      <property name="styleSheet">
       <string notr="true">background-color: rgb(255, 196, 54);</string>
      </property>
@@ -44,8 +50,14 @@
       <property name="leftMargin">
        <number>50</number>
       </property>
+      <property name="topMargin">
+       <number>5</number>
+      </property>
       <property name="rightMargin">
        <number>50</number>
+      </property>
+      <property name="bottomMargin">
+       <number>5</number>
       </property>
       <item>
        <widget class="QPushButton" name="pushButton_persian">
@@ -56,7 +68,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>فارسی</string>
@@ -72,8 +84,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>انگلیسی</string>
@@ -89,8 +100,7 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>خانه</string>
@@ -119,7 +129,8 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
    <item row="1" column="1" rowspan="3">
     <widget class="QWidget" name="horizontalWidget_3" native="true">
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(255, 196, 54);</string>
+      <string notr="true">background-color: rgb(255, 196, 54);
+</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <property name="leftMargin">
@@ -133,11 +144,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>16777215</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
        </widget>
       </item>
@@ -146,12 +157,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>9999999</width>
-          <height>16777215</height>
+          <height>40</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>مهارت خود را انتخاب کنید </string>
@@ -167,8 +177,7 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <item>
          <property name="text">
@@ -202,12 +211,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>200</width>
-          <height>16777215</height>
+          <height>40</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>نام خود را وارد کنید </string>
@@ -219,11 +227,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>16777215</height>
+          <height>40</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
        </widget>
       </item>
@@ -232,12 +240,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>200</width>
-          <height>16777215</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>شماره ی همراه خود را وارد کنید </string>
@@ -249,12 +256,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>200</width>
-          <height>16777215</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>ایمیل خود را وارد کنید</string>
@@ -266,12 +272,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>200</width>
-          <height>16777215</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>نام خانودادگی خود را وارد کنید</string>
@@ -283,24 +288,11 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
         <property name="maximumSize">
          <size>
           <width>99999</width>
-          <height>16777215</height>
+          <height>50</height>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="emailLineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>999999</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
        </widget>
       </item>
@@ -313,11 +305,23 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>تایید </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="emailLineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>999999</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
        </widget>
       </item>
@@ -329,8 +333,7 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
      <item>
       <widget class="QPushButton" name="pushButton_sing_company">
        <property name="styleSheet">
-        <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+        <string notr="true">background-color: rgb(1, 116, 190);</string>
        </property>
        <property name="text">
         <string>اگر شرکت هستید از این جا ثبت نام کنید</string>
@@ -350,36 +353,41 @@ font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
      <layout class="QGridLayout" name="gridLayout_8">
       <item row="0" column="0">
        <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
+        <item alignment="Qt::AlignHCenter">
          <widget class="QLabel" name="label_photo">
           <property name="minimumSize">
            <size>
-            <width>100</width>
-            <height>100</height>
+            <width>150</width>
+            <height>150</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>16777215</width>
-            <height>250</height>
+            <width>150</width>
+            <height>150</height>
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(9, 0, 137);</string>
+           <string notr="true">background-color: rgb(145, 206, 255);</string>
           </property>
           <property name="text">
            <string/>
           </property>
          </widget>
         </item>
-        <item>
+        <item alignment="Qt::AlignHCenter">
          <widget class="QPushButton" name="pushButton_select_photo">
+          <property name="maximumSize">
+           <size>
+            <width>150</width>
+            <height>16777215</height>
+           </size>
+          </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 96, 202);
-font: 9pt &quot;Segoe Fluent Icons&quot;;</string>
+           <string notr="true">background-color: rgb(1, 116, 190);</string>
           </property>
           <property name="text">
-           <string>PushButton</string>
+           <string>انتخاب عکس</string>
           </property>
          </widget>
         </item>

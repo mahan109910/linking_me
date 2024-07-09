@@ -27,7 +27,14 @@ home::home(const QString &Account_ID, QWidget *parent)
     , postOffset(0)
 {
     ui->setupUi(this);
-    setDarkMode(isDarkMode);
+
+    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
+    selectedLanguage = welcomeInstance.selectedLanguage;
+
+    // تنظیم آیتم‌های ComboBox
+    ui->comboBox_me->addItem(tr("..."));
+    ui->comboBox_me->addItem(tr("ویرایش اطلاعات"));
+    ui->comboBox_me->addItem(tr("خروج"));
 
     // تنظیم دیتابیس و بارگذاری نام کاربری
     db = QSqlDatabase::addDatabase("QSQLITE");
@@ -41,10 +48,8 @@ home::home(const QString &Account_ID, QWidget *parent)
         determineUserType();
     }
 
-    // تنظیم آیتم‌های ComboBox
-    ui->comboBox_me->addItem(tr("..."));
-    ui->comboBox_me->addItem(tr("ویرایش اطلاعات"));
-    ui->comboBox_me->addItem(tr("خروج"));
+    translateUi();
+    setDarkMode(isDarkMode);
 
     // بارگذاری پست‌ها
     loadPosts();
@@ -55,19 +60,55 @@ home::~home()
     delete ui;
 }
 
-void home::loadUsername() {
-    ui->pushButton_me->setText(Account_ID);
+void home::setDarkMode(bool dark)
+{
+    isDarkMode = dark;
+    if (dark) {
+        this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/sun-dark.png);");
+        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-dark.png);");
+        ui->pushButton_job_home->setStyleSheet("border-image: url(:/new/prefix1/image/job-dark.png); color: rgb(255, 255, 255);");
+        ui->pushButton_network_home->setStyleSheet("border-image: url(:/new/prefix1/image/network-dark.png); color: rgb(255, 255, 255);");
+        ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-dark.png); color: rgb(255, 255, 255);");
+        ui->frame->setStyleSheet("background-color: rgb(9, 0, 137");
+        ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
+        ui->widget->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget1->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget2->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->verticalWidget_3->setStyleSheet("background-color: rgb(255, 196, 54);");
+    } else {
+        this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/moon-sun.png);");
+        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-sun.png);");
+        ui->pushButton_job_home->setStyleSheet("border-image: url(:/new/prefix1/image/job-sun.png);");
+        ui->pushButton_network_home->setStyleSheet("border-image: url(:/new/prefix1/image/network-sun.png);");
+        ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-sun.png);");
+        ui->frame->setStyleSheet("background-color: rgb(145, 206, 255);");
+        ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);");
+        ui->widget->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget1->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget2->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->verticalWidget_3->setStyleSheet("background-color: rgb(252, 220, 116);");
+    }
 }
 
-void home::determineUserType() {
-    QSqlQuery query(db);
-    query.prepare("SELECT is_company FROM Users WHERE Account_ID = :Account_ID");
-    query.bindValue(":Account_ID", Account_ID);
+void home::on_pushButton_dark_sun_clicked()
+{
+    isDarkMode = !isDarkMode;
+    setDarkMode(isDarkMode);
+}
 
-    if (query.exec() && query.first()) {
-        isCompany = query.value(0).toBool();
-    } else {
-        qDebug() << "Failed to determine user type:" << query.lastError();
+void home::translateUi() {
+    if (selectedLanguage == 1) {
+        ui->pushButton_serch_home->setText("جست و جو");
+        ui->comboBox_me->setItemText(1, "ویرایش اطلاعات");
+        ui->comboBox_me->setItemText(2, "خروج");
+    } else if (selectedLanguage == 2) {
+        ui->pushButton_serch_home->setText("serch");
+        ui->comboBox_me->setItemText(1, "Edit Info");
+        ui->comboBox_me->setItemText(2, "Logout");
     }
 }
 
@@ -83,15 +124,19 @@ void home::on_pushButton_Persian_home_clicked()
     translateUi();
 }
 
-void home::translateUi() {
-    if (selectedLanguage == 1) {
-        ui->pushButton_serch_home->setText("جست و جو");
-        ui->comboBox_me->setItemText(1, "ویرایش اطلاعات");
-        ui->comboBox_me->setItemText(2, "خروج");
-    } else if (selectedLanguage == 2) {
-        ui->pushButton_serch_home->setText("serch");
-        ui->comboBox_me->setItemText(1, "Edit Info");
-        ui->comboBox_me->setItemText(2, "Logout");
+void home::loadUsername() {
+    ui->pushButton_me->setText(Account_ID);
+}
+
+void home::determineUserType() {
+    QSqlQuery query(db);
+    query.prepare("SELECT is_company FROM Users WHERE Account_ID = :Account_ID");
+    query.bindValue(":Account_ID", Account_ID);
+
+    if (query.exec() && query.first()) {
+        isCompany = query.value(0).toBool();
+    } else {
+        qDebug() << "Failed to determine user type:" << query.lastError();
     }
 }
 
@@ -133,52 +178,10 @@ void home::on_pushButton_message_home_clicked()
     this->hide();
 }
 
-void home::setDarkMode(bool dark)
-{
-    isDarkMode = dark;
-    if (dark) {
-        this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
-        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/sun-dark.png);");
-        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-dark.png);");
-        ui->pushButton_job_home->setStyleSheet("border-image: url(:/new/prefix1/image/job-dark.png); color: rgb(255, 255, 255);");
-        ui->pushButton_network_home->setStyleSheet("border-image: url(:/new/prefix1/image/network-dark.png); color: rgb(255, 255, 255);");
-        ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-dark.png); color: rgb(255, 255, 255);");
-        ui->frame->setStyleSheet("background-color: rgb(9, 0, 137");
-        ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
-        ui->widget->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget1->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget2->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->verticalWidget_3->setStyleSheet("background-color: rgb(255, 196, 54);");
-    } else {
-        this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
-        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/moon-sun.png);");
-        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-sun.png);");
-        ui->pushButton_job_home->setStyleSheet("border-image: url(:/new/prefix1/image/job-sun.png);");
-        ui->pushButton_network_home->setStyleSheet("border-image: url(:/new/prefix1/image/network-sun.png);");
-        ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-sun.png);");
-        ui->frame->setStyleSheet("background-color: rgb(145, 206, 255);");
-        ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);");
-        ui->widget->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget1->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget2->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->verticalWidget_3->setStyleSheet("background-color: rgb(252, 220, 116);");
-    }
-}
-
-void home::on_pushButton_dark_sun_clicked()
-{
-    setDarkMode(!isDarkMode);
-    isDarkMode = !isDarkMode;
-}
-
-
 void home::on_comboBox_me_activated(int index)
 {
     switch (index) {
     case 0:
-
         break;
     case 1: {
         full_information *full_informationPage = new full_information(Account_ID);
@@ -195,7 +198,7 @@ void home::on_comboBox_me_activated(int index)
     }
 }
 
-
+/*
 void home::loadPosts() {
     QSqlQuery query(db);
     query.prepare("SELECT content FROM Posts ORDER BY priority LIMIT 10 OFFSET :offset");
@@ -229,3 +232,4 @@ void home::on_pushButton_ago_clicked() {
         loadPosts();
     }
 }
+*/
