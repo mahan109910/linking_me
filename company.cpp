@@ -1,9 +1,11 @@
 #include "company.h"
 #include "iostream"
+#include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
+#include "sstream"
 
 Company::Company(const std::string &companyId, const std::string &name, const std::string &industry)
     : Company_ID(companyId), Name(name), Industry(industry) {
@@ -18,7 +20,7 @@ bool Company::acceptApplicant(const std::string &jobId, const std::string &perso
     for (auto &job : Jobs) {
         if (job.Job_ID == jobId) {
             for (auto &applicant : job.applicants) {
-                if (applicant.Person_ID == personId) {
+                if (applicant.Account_ID == personId) {
                     Employees.push_back(applicant);
 
                     QSqlQuery query(db);
@@ -59,7 +61,7 @@ bool Company::saveToDatabase(QSqlDatabase& db) const {
         QSqlQuery empQuery(db);
         empQuery.prepare("INSERT INTO company_employees (Company_ID, Person_ID) VALUES (?, ?)");
         empQuery.addBindValue(QString::fromStdString(Company_ID));
-        empQuery.addBindValue(QString::fromStdString(employee.Person_ID));
+        empQuery.addBindValue(QString::fromStdString(employee.Account_ID));
         if (!empQuery.exec()) {
             qDebug() << "Error inserting into company_employees table:" << empQuery.lastError();
             return false;

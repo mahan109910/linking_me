@@ -3,6 +3,8 @@
 
 #include <string>
 #include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSqlError>
 
 class Like {
 public:

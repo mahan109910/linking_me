@@ -1,13 +1,15 @@
 #include "account.h"
 #include "post.h"
 #include "direct_message.h"
+#include <sstream>
+#include <iostream>
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
 
-Account::Account(const std::string &id, const std::string &phone, const std::string &email, int password)
-    : Account_ID(id), Phone_number(phone), Email(email), password(password) {
+Account::Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password)
+    : Account_ID(id), Phone_number(phone), Email(email), Password(password) {
     std::cout << "Account created" << std::endl;
 }
 
@@ -33,13 +35,14 @@ void Account::addPost(const Post &post) {
 
 bool Account::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO accounts (Account_ID, Phone_number, Email, password) VALUES (?, ?, ?, ?)");
+    query.prepare("INSERT OR REPLACE INTO Account (Account_ID, Phone_number, Email, Password, Profile_Picture) VALUES (?, ?, ?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(Phone_number));
     query.addBindValue(QString::fromStdString(Email));
-    query.addBindValue(password);
+    query.addBindValue(QString::fromStdString(Password));
+    query.addBindValue(QByteArray::fromStdString(Profile_Picture));
     if (!query.exec()) {
-        qDebug() << "Error inserting into accounts table:" << query.lastError();
+        qDebug() << "Error inserting into Account table:" << query.lastError();
         return false;
     }
 
@@ -88,75 +91,17 @@ bool Account::saveToDatabase(QSqlDatabase& db) const {
 
 bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Account_ID, Phone_number, Email, password FROM accounts WHERE Account_ID = ?");
+    query.prepare("SELECT Account_ID, Phone_number, Email, Password, Profile_Picture FROM Account WHERE Account_ID = ?");
     query.addBindValue(QString::fromStdString(id));
     if (!query.exec() || !query.next()) {
-        qDebug() << "Error loading from accounts table:" << query.lastError();
+        qDebug() << "Error loading from Account table:" << query.lastError();
         return false;
     }
     Account_ID = query.value(0).toString().toStdString();
     Phone_number = query.value(1).toString().toStdString();
     Email = query.value(2).toString().toStdString();
-    password = query.value(3).toInt();
-
-    // Load connections
-    QSqlQuery connQuery(db);
-    connQuery.prepare("SELECT Connection_ID FROM connections WHERE Account_ID = ?");
-    connQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!connQuery.exec()) {
-        qDebug() << "Error loading from connections table:" << connQuery.lastError();
-        return false;
-    }
-    while (connQuery.next()) {
-        Connection.push_back(connQuery.value(0).toString().toStdString());
-    }
-
-    // Load followings
-    QSqlQuery followQuery(db);
-    followQuery.prepare("SELECT Following_ID FROM followings WHERE Account_ID = ?");
-    followQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!followQuery.exec()) {
-        qDebug() << "Error loading from followings table:" << followQuery.lastError();
-        return false;
-    }
-    while (followQuery.next()) {
-        following.push_back(followQuery.value(0).toString().toStdString());
-    }
-
-    // Load DMs
-    QSqlQuery dmQuery(db);
-    dmQuery.prepare("SELECT Message_ID FROM direct_messages WHERE Sender_ID = ?");
-    dmQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!dmQuery.exec()) {
-        qDebug() << "Error loading from direct_messages table:" << dmQuery.lastError();
-        return false;
-    }
-    while (dmQuery.next()) {
-        Direct_Message dm;
-        if (dm.loadFromDatabase(dmQuery.value(0).toString().toStdString(), db)) {
-            DM.push_back(dm);
-        } else {
-            qDebug() << "Error loading DM with ID:" << dmQuery.value(0).toString();
-        }
-    }
-
-    // Load posts
-    QSqlQuery postQuery(db);
-    postQuery.prepare("SELECT Post_ID FROM posts WHERE Sender_ID = ?");
-    postQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!postQuery.exec()) {
-        qDebug() << "Error loading from posts table:" << postQuery.lastError();
-        return false;
-    }
-    while (postQuery.next()) {
-        Post post;
-        if (post.loadFromDatabase(postQuery.value(0).toString().toStdString(), db)) {
-            Posts.push_back(post);
-        } else {
-            qDebug() << "Error loading post with ID:" << postQuery.value(0).toString();
-        }
-    }
-
+    Password = query.value(3).toString().toStdString(); // تبدیل به std::string
+    Profile_Picture = query.value(4).toByteArray().toStdString();
     return true;
 }
 

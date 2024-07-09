@@ -14,7 +14,7 @@ class home : public QWidget
     Q_OBJECT
 
 public:
-    explicit home(const QString &username, QWidget *parent = nullptr);
+    explicit home(const QString &Account_ID, QWidget *parent = nullptr);
     ~home();
     static bool isDarkMode;  // فقط اعلام متغیر استاتیک
 
@@ -27,13 +27,13 @@ private slots:
     void on_pushButton_message_home_clicked();
     void on_pushButton_dark_sun_clicked();
     void on_comboBox_me_activated(int index);
-    void loadPosts();  // اضافه کردن تعریف تابع loadPosts
+    void loadPosts();
     void on_pushButton_more_clicked();
     void on_pushButton_ago_clicked();
 
 private:
     Ui::home *ui;
-    QString username;
+    QString Account_ID;
     bool isCompany;
     QSqlDatabase db;
     int postOffset;

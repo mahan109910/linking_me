@@ -7,13 +7,13 @@
 
 class Person {
 public:
-    std::string Person_ID;
-    std::string Name;
-    int Age;
+    std::string Account_ID;
+    std::string First_name;
+    std::string Last_name;
     std::vector<std::string> Skills;
 
     Person() = default;
-    Person(const std::string &personId, const std::string &name, int age);
+    Person(const std::string &AccountID, const std::string &First_name, const std::string &Last_name);
 
     bool applyForJob(Job1 &job);
     bool saveToDatabase(QSqlDatabase& db) const;

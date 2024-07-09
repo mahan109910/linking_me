@@ -31,7 +31,7 @@ bool Job1::saveToDatabase(QSqlDatabase& db) const {
         QSqlQuery appQuery(db);
         appQuery.prepare("INSERT INTO job_applicants (Job_ID, Person_ID) VALUES (?, ?)");
         appQuery.addBindValue(QString::fromStdString(Job_ID));
-        appQuery.addBindValue(QString::fromStdString(applicant.Person_ID));
+        appQuery.addBindValue(QString::fromStdString(applicant.Account_ID));
         if (!appQuery.exec()) {
             qDebug() << "Error inserting into job_applicants table:" << appQuery.lastError();
             return false;

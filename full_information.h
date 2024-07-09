@@ -4,9 +4,8 @@
 #include <QWidget>
 #include <QString>
 #include <QSqlDatabase>
+#include <QStringList>
 #include <QByteArray>
-#include "account.h"
-#include "person.h"
 
 namespace Ui {
 class full_information;
@@ -33,11 +32,9 @@ private slots:
 private:
     Ui::full_information *ui;
     QString username;
-    Account *account;  // تعریف فیلد account
-    Person *person;    // تعریف فیلد person
     QSqlDatabase db;
-    QByteArray profilePicture;
     QStringList skillsList;
+    QByteArray profilePicture;
 
     void loadUserData();
     bool saveUserData();

@@ -64,20 +64,6 @@
        <number>20</number>
       </property>
       <item>
-       <widget class="QPushButton" name="pushButton_ago">
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_more">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QProgressBar" name="progressBar_information">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(9, 0, 137);
@@ -296,7 +282,32 @@ selection-background-color: rgb(0, 96, 202);</string>
     </widget>
    </item>
    <item row="5" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout_7"/>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <property name="leftMargin">
+        <number>10</number>
+       </property>
+       <property name="rightMargin">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QPushButton" name="pushButton_ago">
+         <property name="text">
+          <string>PushButton</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_more">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
    </item>
    <item row="0" column="0">
     <widget class="QFrame" name="frame_HA_home">

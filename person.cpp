@@ -6,8 +6,8 @@
 #include <QVariant>
 #include <QDebug>
 
-Person::Person(const std::string &personId, const std::string &name, int age)
-    : Person_ID(personId), Name(name), Age(age) {
+Person::Person(const std::string &AccountID, const std::string &First_name, const std::string &Last_name)
+    : Account_ID(AccountID), First_name(First_name), Last_name(Last_name) {
     std::cout << "Person created" << std::endl;
 }
 
@@ -18,10 +18,10 @@ bool Person::applyForJob(Job1 &job) {
 
 bool Person::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO persons (Person_ID, Name, Age) VALUES (?, ?, ?)");
-    query.addBindValue(QString::fromStdString(Person_ID));
-    query.addBindValue(QString::fromStdString(Name));
-    query.addBindValue(Age);
+    query.prepare("INSERT INTO persons (Account_ID, First_name, Last_name) VALUES (?, ?, ?)");
+    query.addBindValue(QString::fromStdString(Account_ID));
+    query.addBindValue(QString::fromStdString(First_name));
+    query.addBindValue(QString::fromStdString(Last_name));
     if (!query.exec()) {
         qDebug() << "Error inserting into persons table:" << query.lastError();
         return false;
@@ -31,15 +31,15 @@ bool Person::saveToDatabase(QSqlDatabase& db) const {
 
 bool Person::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Person_ID, Name, Age FROM persons WHERE Person_ID = ?");
+    query.prepare("SELECT Account_ID, First_name, Last_name FROM persons WHERE Account_ID = ?");
     query.addBindValue(QString::fromStdString(id));
     if (!query.exec() || !query.next()) {
         qDebug() << "Error loading from persons table:" << query.lastError();
         return false;
     }
-    Person_ID = query.value(0).toString().toStdString();
-    Name = query.value(1).toString().toStdString();
-    Age = query.value(2).toInt();
+    Account_ID = query.value(0).toString().toStdString();
+    First_name = query.value(1).toString().toStdString();
+    Last_name = query.value(2).toString().toStdString();
     return true;
 }
 
