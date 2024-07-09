@@ -329,7 +329,7 @@ selection-background-color: rgb(0, 96, 202);</string>
     </layout>
    </item>
    <item row="0" column="1">
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget1" native="true">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(145, 206, 255);</string>
      </property>
@@ -484,7 +484,7 @@ selection-background-color: rgb(0, 96, 202);</string>
     </widget>
    </item>
    <item row="2" column="0">
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget2" native="true">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(252, 220, 116);</string>
      </property>
@@ -528,7 +528,7 @@ selection-background-color: rgb(0, 96, 202);</string>
     </widget>
    </item>
    <item row="0" column="2">
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="widget3" native="true">
      <property name="styleSheet">
       <string notr="true">background-color: rgb(145, 206, 255);</string>
      </property>

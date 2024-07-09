@@ -39,5 +39,8 @@
         <file>image/moon-sun.png</file>
         <file>image/sun-dark.png</file>
         <file>image/HA-dark.png</file>
+        <file>image/full_company_dark.png</file>
+        <file>image/full_company_sun.png</file>
+        <file>image/rang5.png</file>
     </qresource>
 </RCC>

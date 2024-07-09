@@ -5,10 +5,9 @@
 #include <QSqlError>
 #include <QVariant>
 #include <QDebug>
-#include "sstream"
 
-Company::Company(const std::string &companyId, const std::string &name, const std::string &industry)
-    : Company_ID(companyId), Name(name), Industry(industry) {
+Company::Company(const std::string &accountId, const std::string &name, int companyCode)
+    : Account_ID(accountId), Name(name), Company_Code(companyCode) {
     std::cout << "Company created" << std::endl;
 }
 
@@ -24,8 +23,8 @@ bool Company::acceptApplicant(const std::string &jobId, const std::string &perso
                     Employees.push_back(applicant);
 
                     QSqlQuery query(db);
-                    query.prepare("INSERT INTO company_employees (Company_ID, Person_ID) VALUES (?, ?)");
-                    query.addBindValue(QString::fromStdString(Company_ID));
+                    query.prepare("INSERT INTO company_employees (Account_ID, Person_ID) VALUES (?, ?)");
+                    query.addBindValue(QString::fromStdString(Account_ID));
                     query.addBindValue(QString::fromStdString(personId));
                     if (!query.exec()) {
                         qDebug() << "Error inserting into company_employees table:" << query.lastError();
@@ -42,12 +41,12 @@ bool Company::acceptApplicant(const std::string &jobId, const std::string &perso
 
 bool Company::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO companies (Company_ID, Name, Industry) VALUES (?, ?, ?)");
-    query.addBindValue(QString::fromStdString(Company_ID));
+    query.prepare("INSERT INTO Company (Account_ID, company_name, company_code) VALUES (?, ?, ?)");
+    query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(Name));
-    query.addBindValue(QString::fromStdString(Industry));
+    query.addBindValue(Company_Code);
     if (!query.exec()) {
-        qDebug() << "Error inserting into companies table:" << query.lastError();
+        qDebug() << "Error inserting into Company table:" << query.lastError();
         return false;
     }
 
@@ -59,8 +58,8 @@ bool Company::saveToDatabase(QSqlDatabase& db) const {
 
     for (const auto& employee : Employees) {
         QSqlQuery empQuery(db);
-        empQuery.prepare("INSERT INTO company_employees (Company_ID, Person_ID) VALUES (?, ?)");
-        empQuery.addBindValue(QString::fromStdString(Company_ID));
+        empQuery.prepare("INSERT INTO company_employees (Account_ID, Person_ID) VALUES (?, ?)");
+        empQuery.addBindValue(QString::fromStdString(Account_ID));
         empQuery.addBindValue(QString::fromStdString(employee.Account_ID));
         if (!empQuery.exec()) {
             qDebug() << "Error inserting into company_employees table:" << empQuery.lastError();
@@ -71,21 +70,21 @@ bool Company::saveToDatabase(QSqlDatabase& db) const {
     return true;
 }
 
-bool Company::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
+bool Company::loadFromDatabase(const std::string &accountId, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Company_ID, Name, Industry FROM companies WHERE Company_ID = ?");
-    query.addBindValue(QString::fromStdString(id));
+    query.prepare("SELECT Account_ID, company_name, company_code FROM Company WHERE Account_ID = ?");
+    query.addBindValue(QString::fromStdString(accountId));
     if (!query.exec() || !query.next()) {
-        qDebug() << "Error loading from companies table:" << query.lastError();
+        qDebug() << "Error loading from Company table:" << query.lastError();
         return false;
     }
-    Company_ID = query.value(0).toString().toStdString();
+    Account_ID = query.value(0).toString().toStdString();
     Name = query.value(1).toString().toStdString();
-    Industry = query.value(2).toString().toStdString();
+    Company_Code = query.value(2).toInt();
 
     QSqlQuery jobQuery(db);
-    jobQuery.prepare("SELECT Job_ID FROM jobs WHERE Company_ID = ?");
-    jobQuery.addBindValue(QString::fromStdString(Company_ID));
+    jobQuery.prepare("SELECT Job_ID FROM jobs WHERE Account_ID = ?");
+    jobQuery.addBindValue(QString::fromStdString(Account_ID));
     if (!jobQuery.exec()) {
         qDebug() << "Error loading from jobs table:" << jobQuery.lastError();
         return false;
@@ -100,8 +99,8 @@ bool Company::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     }
 
     QSqlQuery empQuery(db);
-    empQuery.prepare("SELECT Person_ID FROM company_employees WHERE Company_ID = ?");
-    empQuery.addBindValue(QString::fromStdString(Company_ID));
+    empQuery.prepare("SELECT Person_ID FROM company_employees WHERE Account_ID = ?");
+    empQuery.addBindValue(QString::fromStdString(Account_ID));
     if (!empQuery.exec()) {
         qDebug() << "Error loading from company_employees table:" << empQuery.lastError();
         return false;

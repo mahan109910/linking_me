@@ -10,6 +10,7 @@
 #include <QBuffer>
 #include <QMessageBox>
 #include <QDebug>
+#include "full_company.h"
 
 static int selectedLanguage = 0;
 static bool isDarkMode = false;
@@ -88,7 +89,9 @@ void full_information::on_pushButton_select_photo_clicked()
 
 void full_information::on_pushButton_sing_company_clicked()
 {
-    // Redirect to company registration page
+    Full_company *Full_companyPage = new Full_company(username);
+    Full_companyPage->show();
+    this->hide();
 }
 
 void full_information::on_pushButton_ok_clicked()
@@ -234,4 +237,3 @@ void full_information::setDarkMode(bool dark)
         ui->groupBox_2->setStyleSheet("background-color: rgb(252, 220, 116);");
     }
 }
-

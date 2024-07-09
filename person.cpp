@@ -6,9 +6,19 @@
 #include <QVariant>
 #include <QDebug>
 
+Person::Person() {
+    // پیاده‌سازی سازنده پیش‌فرض
+    std::cout << "Default Person created" << std::endl;
+}
+
 Person::Person(const std::string &AccountID, const std::string &First_name, const std::string &Last_name)
     : Account_ID(AccountID), First_name(First_name), Last_name(Last_name) {
     std::cout << "Person created" << std::endl;
+}
+
+Person::Person(const Person &other)
+    : Account_ID(other.Account_ID), First_name(other.First_name), Last_name(other.Last_name), Skills(other.Skills) {
+    std::cout << "Person copied" << std::endl;
 }
 
 bool Person::applyForJob(Job1 &job) {

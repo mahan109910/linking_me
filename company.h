@@ -9,19 +9,19 @@
 
 class Company {
 public:
-    std::string Company_ID;
+    std::string Account_ID;
     std::string Name;
-    std::string Industry;
+    int Company_Code;
     std::vector<Job1> Jobs;
     std::vector<Person> Employees;
 
     Company() = default;
-    Company(const std::string &companyId, const std::string &name, const std::string &industry);
+    Company(const std::string &accountId, const std::string &name, int companyCode);
 
     void createJob(const Job1 &job);
     bool acceptApplicant(const std::string &jobId, const std::string &personId, QSqlDatabase& db);
     bool saveToDatabase(QSqlDatabase& db) const;
-    bool loadFromDatabase(const std::string &id, QSqlDatabase& db);
+    bool loadFromDatabase(const std::string &accountId, QSqlDatabase& db);
 };
 
 #endif // COMPANY_H

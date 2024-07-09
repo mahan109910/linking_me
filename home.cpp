@@ -72,7 +72,7 @@ void home::setDarkMode(bool dark)
         ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-dark.png); color: rgb(255, 255, 255);");
         ui->frame->setStyleSheet("background-color: rgb(9, 0, 137");
         ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
-        ui->widget->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
         ui->widget1->setStyleSheet("background-color: rgb(255, 196, 54);");
         ui->widget2->setStyleSheet("background-color: rgb(255, 196, 54);");
         ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
@@ -86,7 +86,7 @@ void home::setDarkMode(bool dark)
         ui->pushButton_message_home->setStyleSheet("border-image: url(:/new/prefix1/image/message-sun.png);");
         ui->frame->setStyleSheet("background-color: rgb(145, 206, 255);");
         ui->lineEdit_serch_home->setStyleSheet("background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);");
-        ui->widget->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
         ui->widget1->setStyleSheet("background-color: rgb(252, 220, 116);");
         ui->widget2->setStyleSheet("background-color: rgb(252, 220, 116);");
         ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
@@ -198,7 +198,7 @@ void home::on_comboBox_me_activated(int index)
     }
 }
 
-/*
+
 void home::loadPosts() {
     QSqlQuery query(db);
     query.prepare("SELECT content FROM Posts ORDER BY priority LIMIT 10 OFFSET :offset");
@@ -232,4 +232,3 @@ void home::on_pushButton_ago_clicked() {
         loadPosts();
     }
 }
-*/
