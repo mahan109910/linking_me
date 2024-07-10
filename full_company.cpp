@@ -7,8 +7,9 @@
 #include <QMessageBox>
 #include <QDebug>
 
-static int selectedLanguage = 0;
 static bool isDarkMode;
+static int selectedLanguage = 0;
+
 
 Full_company::Full_company(const QString &username, QWidget *parent)
     : QWidget(parent), ui(new Ui::Full_company), m_username(username)
@@ -26,6 +27,35 @@ Full_company::Full_company(const QString &username, QWidget *parent)
 Full_company::~Full_company()
 {
     delete ui;
+}
+
+void Full_company::on_pushButton_ok_company_clicked() {
+    QString companyCode = ui->lineEdit_code_company->text();
+    QString companyName = ui->lineEdit_name_company->text();
+
+    if (companyCode.isEmpty() || companyName.isEmpty()) {
+        QMessageBox::warning(this, "Input Error", "Please enter both company code and name.");
+        return;
+    }
+
+    // تبدیل QString به std::string
+    std::string companyCodeStr = companyCode.toStdString();
+    std::string companyNameStr = companyName.toStdString();
+
+    Company company(m_username.toStdString(), companyNameStr, std::stoi(companyCodeStr));
+
+    QSqlDatabase db = QSqlDatabase::database();
+    if (company.saveToDatabase(db)) {
+        QMessageBox::information(this, "Success", "Company data saved successfully!");
+    } else {
+        QMessageBox::critical(this, "Error", "Failed to save company data.");
+    }
+}
+
+void Full_company::on_pushButton_bake_company_clicked() {
+    home *homePage = new home(m_username);
+    homePage->show();
+    this->hide();
 }
 
 void Full_company::setDarkMode(bool dark) {
@@ -63,33 +93,4 @@ void Full_company::translateUi() {
         ui->pushButton_bake_company->setText("Back");
         ui->pushButton_ok_company->setText("OK");
     }
-}
-
-void Full_company::on_pushButton_ok_company_clicked() {
-    QString companyCode = ui->lineEdit_code_company->text();
-    QString companyName = ui->lineEdit_name_company->text();
-
-    if (companyCode.isEmpty() || companyName.isEmpty()) {
-        QMessageBox::warning(this, "Input Error", "Please enter both company code and name.");
-        return;
-    }
-
-    // تبدیل QString به std::string
-    std::string companyCodeStr = companyCode.toStdString();
-    std::string companyNameStr = companyName.toStdString();
-
-    Company company(m_username.toStdString(), companyNameStr, std::stoi(companyCodeStr));
-
-    QSqlDatabase db = QSqlDatabase::database();
-    if (company.saveToDatabase(db)) {
-        QMessageBox::information(this, "Success", "Company data saved successfully!");
-    } else {
-        QMessageBox::critical(this, "Error", "Failed to save company data.");
-    }
-}
-
-void Full_company::on_pushButton_bake_company_clicked() {
-    home *homePage = new home(m_username);
-    homePage->show();
-    this->hide();
 }

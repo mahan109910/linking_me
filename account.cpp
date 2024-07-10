@@ -8,8 +8,8 @@
 #include <QVariant>
 #include <QDebug>
 
-Account::Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password)
-    : Account_ID(id), Phone_number(phone), Email(email), Password(password) {
+Account::Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password/*, const std::string &bio*/)
+    : Account_ID(id), Phone_number(phone), Email(email), Password(password)/*, Bio(bio)*/ {
     std::cout << "Account created" << std::endl;
 }
 
@@ -35,12 +35,14 @@ void Account::addPost(const Post &post) {
 
 bool Account::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT OR REPLACE INTO Account (Account_ID, Phone_number, Email, Password, Profile_Picture) VALUES (?, ?, ?, ?, ?)");
+    query.prepare("INSERT OR REPLACE INTO Account (Account_ID, Phone_number, Email, Password, Profile_Picture) VALUES (?, ?, ?, ?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(Phone_number));
     query.addBindValue(QString::fromStdString(Email));
     query.addBindValue(QString::fromStdString(Password));
+    //query.addBindValue(QString::fromStdString(Bio));  // اضافه کردن بیوگرافی
     query.addBindValue(QByteArray::fromStdString(Profile_Picture));
+
     if (!query.exec()) {
         qDebug() << "Error inserting into Account table:" << query.lastError();
         return false;
@@ -100,8 +102,10 @@ bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     Account_ID = query.value(0).toString().toStdString();
     Phone_number = query.value(1).toString().toStdString();
     Email = query.value(2).toString().toStdString();
-    Password = query.value(3).toString().toStdString(); // تبدیل به std::string
+    Password = query.value(3).toString().toStdString();
     Profile_Picture = query.value(4).toByteArray().toStdString();
+    //Bio = query.value(5).toString().toStdString();  // بارگذاری بیوگرافی
+
     return true;
 }
 

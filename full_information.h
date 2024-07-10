@@ -1,15 +1,22 @@
 #ifndef FULL_INFORMATION_H
 #define FULL_INFORMATION_H
 
+#include <QSqlDatabase>
 #include <QWidget>
 #include <QString>
-#include <QSqlDatabase>
 #include <QStringList>
 #include <QByteArray>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QFrame>
+#include "account.h"
 
-namespace Ui {
-class full_information;
-}
+
+class Account;
+class Person;
+
+namespace Ui {class full_information;}
+QT_END_NAMESPACE
 
 class full_information : public QWidget
 {
@@ -29,6 +36,7 @@ private slots:
     void on_pushButton_ok_clicked();
     void on_pushButton_skill_clicked();
     void translateUi();
+    void loadUserData();
 
 private:
     Ui::full_information *ui;
@@ -37,8 +45,6 @@ private:
     QStringList skillsList;
     QByteArray profilePicture;
 
-    void loadUserData();
-    bool saveUserData();
     void updateSkillsDisplay();
     void setDarkMode(bool dark);
 };

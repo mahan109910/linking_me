@@ -12,8 +12,10 @@ class Post;
 
 class Account {
 public:
-    Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password);
+    Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password/*, const std::string &bio*/);
     ~Account();
+
+private slots:
 
     void addConnection(const std::string &id);
     void addFollowing(const std::string &id);
@@ -29,14 +31,17 @@ public:
     std::string Account_ID;
     std::string Phone_number;
     std::string Email;
-    std::string Password;  // تغییر نام فیلد به Password برای مطابقت با دیتابیس
+    std::string Password;
     std::string Profile_Picture;
+    //std::string Bio;  // اضافه کردن فیلد بیوگرافی
 
-private:
     std::vector<std::string> Connection;
     std::vector<std::string> following;
     std::vector<Direct_Message> DM;
     std::vector<Post> Posts;
+
+
+
 };
 
 #endif // ACCOUNT_H

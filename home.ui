@@ -81,7 +81,7 @@ selection-background-color: rgb(0, 96, 202);</string>
          <string notr="true">background-color: rgb(252, 220, 116);</string>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string>تکمیل اطلاعات</string>
         </property>
        </widget>
       </item>
@@ -294,14 +294,14 @@ selection-background-color: rgb(0, 96, 202);</string>
        <item>
         <widget class="QPushButton" name="pushButton_ago">
          <property name="text">
-          <string>PushButton</string>
+          <string>بعدی</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QPushButton" name="pushButton_more">
          <property name="text">
-          <string/>
+          <string>قبلی</string>
          </property>
         </widget>
        </item>
@@ -551,7 +551,7 @@ selection-background-color: rgb(0, 96, 202);</string>
          </size>
         </property>
         <property name="text">
-         <string>PushButton</string>
+         <string/>
         </property>
        </widget>
       </item>

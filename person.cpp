@@ -28,12 +28,12 @@ bool Person::applyForJob(Job1 &job) {
 
 bool Person::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO persons (Account_ID, First_name, Last_name) VALUES (?, ?, ?)");
+    query.prepare("INSERT INTO Person (Account_ID, First_name, Last_name) VALUES (?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(First_name));
     query.addBindValue(QString::fromStdString(Last_name));
     if (!query.exec()) {
-        qDebug() << "Error inserting into persons table:" << query.lastError();
+        qDebug() << "Error inserting into Person table:" << query.lastError();
         return false;
     }
     return true;
@@ -41,10 +41,10 @@ bool Person::saveToDatabase(QSqlDatabase& db) const {
 
 bool Person::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Account_ID, First_name, Last_name FROM persons WHERE Account_ID = ?");
+    query.prepare("SELECT Account_ID, First_name, Last_name FROM Person WHERE Account_ID = ?");
     query.addBindValue(QString::fromStdString(id));
     if (!query.exec() || !query.next()) {
-        qDebug() << "Error loading from persons table:" << query.lastError();
+        qDebug() << "Error loading from Person table:" << query.lastError();
         return false;
     }
     Account_ID = query.value(0).toString().toStdString();
