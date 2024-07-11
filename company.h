@@ -21,7 +21,8 @@ public:
     void createJob(const Job1 &job);
     bool acceptApplicant(const std::string &jobId, const std::string &personId, QSqlDatabase& db);
     bool saveToDatabase(QSqlDatabase& db) const;
-    bool loadFromDatabase(const std::string &accountId, QSqlDatabase& db);
+    bool loadFromDatabase(const std::string& accountId, QSqlDatabase& db);
+    bool updateInDatabase(QSqlDatabase& db) const;
 };
 
 #endif // COMPANY_H

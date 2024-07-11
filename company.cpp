@@ -23,11 +23,11 @@ bool Company::acceptApplicant(const std::string &jobId, const std::string &perso
                     Employees.push_back(applicant);
 
                     QSqlQuery query(db);
-                    query.prepare("INSERT INTO company_employees (Account_ID, Person_ID) VALUES (?, ?)");
+                    query.prepare("INSERT INTO Company (Account_ID, Person_ID) VALUES (?, ?)");
                     query.addBindValue(QString::fromStdString(Account_ID));
                     query.addBindValue(QString::fromStdString(personId));
                     if (!query.exec()) {
-                        qDebug() << "Error inserting into company_employees table:" << query.lastError();
+                        qDebug() << "Error inserting into Company table:" << query.lastError();
                         return false;
                     }
 
@@ -58,11 +58,11 @@ bool Company::saveToDatabase(QSqlDatabase& db) const {
 
     for (const auto& employee : Employees) {
         QSqlQuery empQuery(db);
-        empQuery.prepare("INSERT INTO company_employees (Account_ID, Person_ID) VALUES (?, ?)");
+        empQuery.prepare("INSERT INTO Company (Account_ID, Person_ID) VALUES (?, ?)");
         empQuery.addBindValue(QString::fromStdString(Account_ID));
         empQuery.addBindValue(QString::fromStdString(employee.Account_ID));
         if (!empQuery.exec()) {
-            qDebug() << "Error inserting into company_employees table:" << empQuery.lastError();
+            qDebug() << "Error inserting into Company table:" << empQuery.lastError();
             return false;
         }
     }
@@ -70,49 +70,35 @@ bool Company::saveToDatabase(QSqlDatabase& db) const {
     return true;
 }
 
-bool Company::loadFromDatabase(const std::string &accountId, QSqlDatabase& db) {
+bool Company::loadFromDatabase(const std::string& accountId, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Account_ID, company_name, company_code FROM Company WHERE Account_ID = ?");
+    query.prepare("SELECT company_name, company_code FROM Company WHERE Account_ID = ?");
     query.addBindValue(QString::fromStdString(accountId));
     if (!query.exec() || !query.next()) {
-        qDebug() << "Error loading from Company table:" << query.lastError();
+        qDebug() << "Error loading company data:" << query.lastError();
         return false;
     }
-    Account_ID = query.value(0).toString().toStdString();
-    Name = query.value(1).toString().toStdString();
-    Company_Code = query.value(2).toInt();
+    Name = query.value(0).toString().toStdString();
+    Company_Code = query.value(1).toInt();
+    return true;
+}
 
-    QSqlQuery jobQuery(db);
-    jobQuery.prepare("SELECT Job_ID FROM jobs WHERE Account_ID = ?");
-    jobQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!jobQuery.exec()) {
-        qDebug() << "Error loading from jobs table:" << jobQuery.lastError();
+bool Company::updateInDatabase(QSqlDatabase& db) const {
+    QSqlQuery query(db);
+    query.prepare("DELETE FROM Company WHERE Account_ID = ?");
+    query.addBindValue(QString::fromStdString(Account_ID));
+    if (!query.exec()) {
+        qDebug() << "Error deleting from Company table:" << query.lastError();
         return false;
     }
-    while (jobQuery.next()) {
-        Job1 job(jobQuery.value(0).toString().toStdString(), "", "", "");
-        if (job.loadFromDatabase(jobQuery.value(0).toString().toStdString(), db)) {
-            Jobs.push_back(job);
-        } else {
-            qDebug() << "Error loading job with ID:" << jobQuery.value(0).toString();
-        }
-    }
 
-    QSqlQuery empQuery(db);
-    empQuery.prepare("SELECT Person_ID FROM company_employees WHERE Account_ID = ?");
-    empQuery.addBindValue(QString::fromStdString(Account_ID));
-    if (!empQuery.exec()) {
-        qDebug() << "Error loading from company_employees table:" << empQuery.lastError();
+    query.prepare("INSERT INTO Company (Account_ID, company_name, company_code) VALUES (?, ?, ?)");
+    query.addBindValue(QString::fromStdString(Account_ID));
+    query.addBindValue(QString::fromStdString(Name));
+    query.addBindValue(Company_Code);
+    if (!query.exec()) {
+        qDebug() << "Error inserting into Company table:" << query.lastError();
         return false;
     }
-    while (empQuery.next()) {
-        Person person;
-        if (person.loadFromDatabase(empQuery.value(0).toString().toStdString(), db)) {
-            Employees.push_back(person);
-        } else {
-            qDebug() << "Error loading employee with ID:" << empQuery.value(0).toString();
-        }
-    }
-
     return true;
 }

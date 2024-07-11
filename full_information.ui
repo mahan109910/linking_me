@@ -178,7 +178,11 @@
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QLineEdit" name="lineEdit_password"/>
+       <widget class="QLineEdit" name="lineEdit_password">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
       </item>
       <item row="3" column="1">
        <widget class="QLineEdit" name="emailLineEdit">
@@ -288,6 +292,9 @@
       </item>
       <item row="4" column="0">
        <widget class="QPushButton" name="pushButton_password">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
         <property name="text">
          <string>PushButton</string>
         </property>
@@ -295,13 +302,20 @@
       </item>
       <item row="5" column="0">
        <widget class="QPushButton" name="pushButton_id">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
         <property name="text">
          <string>PushButton</string>
         </property>
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEdit_id"/>
+       <widget class="QLineEdit" name="lineEdit_id">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
       </item>
       <item row="0" column="1">
        <widget class="QLineEdit" name="lineEdit_name">

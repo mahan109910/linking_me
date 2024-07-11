@@ -6,22 +6,25 @@
 #include "company.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
 static bool isDarkMode;
 static int selectedLanguage = 0;
-
 
 Full_company::Full_company(const QString &username, QWidget *parent)
     : QWidget(parent), ui(new Ui::Full_company), m_username(username)
 {
     ui->setupUi(this);
 
-    setDarkMode(home::isDarkMode);
+    setDarkMode(isDarkMode);
 
     welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
     selectedLanguage = welcomeInstance.selectedLanguage;
 
     translateUi();
+
+    loadCompanyData(m_username);
 }
 
 Full_company::~Full_company()
@@ -29,28 +32,74 @@ Full_company::~Full_company()
     delete ui;
 }
 
+void Full_company::loadCompanyData(const QString &accountId) {
+    QSqlDatabase db = QSqlDatabase::database();
+    Company company;
+    if (company.loadFromDatabase(accountId.toStdString(), db)) {
+        ui->lineEdit_name_company->setText(QString::fromStdString(company.Name));
+        ui->lineEdit_code_company->setText(QString::number(company.Company_Code));
+    } else {
+        qDebug() << "Failed to load company data.";
+    }
+}
+
 void Full_company::on_pushButton_ok_company_clicked() {
     QString companyCode = ui->lineEdit_code_company->text();
     QString companyName = ui->lineEdit_name_company->text();
 
     if (companyCode.isEmpty() || companyName.isEmpty()) {
-        QMessageBox::warning(this, "Input Error", "Please enter both company code and name.");
+        QMessageBox::warning(this, "Input Error", selectedLanguage == 1 ? "لطفاً هم کد شرکت و هم نام شرکت را وارد کنید." : "Please enter both company code and name.");
         return;
     }
 
-    // تبدیل QString به std::string
+    QSqlDatabase db = QSqlDatabase::database();
+
+    // Check for unique company name and code
+    QSqlQuery uniqueCheckQuery(db);
+    uniqueCheckQuery.prepare("SELECT COUNT(*) FROM Company WHERE (company_name = ? OR company_code = ?) AND Account_ID != ?");
+    uniqueCheckQuery.addBindValue(companyName);
+    uniqueCheckQuery.addBindValue(companyCode);
+    uniqueCheckQuery.addBindValue(m_username);
+    if (!uniqueCheckQuery.exec() || !uniqueCheckQuery.next()) {
+        qDebug() << "Error checking for unique company name and code:" << uniqueCheckQuery.lastError();
+        return;
+    }
+
+    int uniqueCount = uniqueCheckQuery.value(0).toInt();
+    if (uniqueCount > 0) {
+        QMessageBox::warning(this, "Input Error", selectedLanguage == 1 ? "نام یا کد شرکت تکراری است. لطفاً نام و کد دیگری انتخاب کنید." : "Company name or code is not unique. Please choose a different name and code.");
+        return;
+    }
+
     std::string companyCodeStr = companyCode.toStdString();
     std::string companyNameStr = companyName.toStdString();
 
     Company company(m_username.toStdString(), companyNameStr, std::stoi(companyCodeStr));
 
-    QSqlDatabase db = QSqlDatabase::database();
-    if (company.saveToDatabase(db)) {
-        QMessageBox::information(this, "Success", "Company data saved successfully!");
+    QSqlQuery checkQuery(db);
+    checkQuery.prepare("SELECT COUNT(*) FROM Company WHERE Account_ID = ?");
+    checkQuery.addBindValue(m_username);
+    if (!checkQuery.exec() || !checkQuery.next()) {
+        qDebug() << "Error checking for existing company:" << checkQuery.lastError();
+        return;
+    }
+
+    int count = checkQuery.value(0).toInt();
+    if (count > 0) {
+        if (company.updateInDatabase(db)) {
+            QMessageBox::information(this, "Success", selectedLanguage == 1 ? "اطلاعات شرکت با موفقیت به‌روزرسانی شد!" : "Company data updated successfully!");
+        } else {
+            QMessageBox::critical(this, "Error", selectedLanguage == 1 ? "خطا در به‌روزرسانی اطلاعات شرکت." : "Failed to update company data.");
+        }
     } else {
-        QMessageBox::critical(this, "Error", "Failed to save company data.");
+        if (company.saveToDatabase(db)) {
+            QMessageBox::information(this, "Success", selectedLanguage == 1 ? "اطلاعات شرکت با موفقیت ذخیره شد!" : "Company data saved successfully!");
+        } else {
+            QMessageBox::critical(this, "Error", selectedLanguage == 1 ? "خطا در ذخیره اطلاعات شرکت." : "Failed to save company data.");
+        }
     }
 }
+
 
 void Full_company::on_pushButton_bake_company_clicked() {
     home *homePage = new home(m_username);

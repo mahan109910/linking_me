@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QString>
+#include "company.h"
 
 namespace Ui {
 class Full_company;
@@ -21,6 +22,7 @@ private:
     QString m_username;
     void translateUi();
     void setDarkMode(bool dark);
+    void loadCompanyData(const QString &accountId); // اضافه کردن این خط
 
 private slots:
     void on_pushButton_ok_company_clicked();
