@@ -9,7 +9,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-static int selectedLanguage = 0;
+static bool selectedLanguage ;
 
 login::login(QWidget *parent)
     : QMainWindow(parent)
@@ -27,21 +27,6 @@ login::login(QWidget *parent)
         qDebug() << "Database connected successfully!";
     }
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    selectedLanguage = welcomeInstance.selectedLanguage;
-
-    if (selectedLanguage == 1) {
-        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
-        ui->pushButton_menu_log->setText("صفحه اصلی");
-        ui->pushButton_show_safe->setText("نمایش عدد");
-        ui->pushButton_ok_log->setText("تایید");
-    } else if (selectedLanguage == 2) {
-        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
-        ui->pushButton_menu_log->setText("menu");
-        ui->pushButton_show_safe->setText("show number");
-        ui->pushButton_ok_log->setText("ok");
-    }
-
     // تنظیم رنگ متن و پس‌زمینه برای lineEdit ها
     QString lineEditStyle = "QLineEdit { background-color: white; color: black; }";
     ui->lineEdit_log_safe->setStyleSheet(lineEditStyle);
@@ -52,11 +37,27 @@ login::login(QWidget *parent)
 
     QRegularExpressionValidator *nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
     ui->lineEdit_log_name->setValidator(nameValidator);
+
+    translateUi(welcome::selectedLanguage);
 }
 
 login::~login()
 {
     delete ui;
+}
+
+void login::translateUi(bool selectedLanguage) {
+    if (selectedLanguage == true) {
+        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
+        ui->pushButton_menu_log->setText("صفحه اصلی");
+        ui->pushButton_show_safe->setText("نمایش عدد");
+        ui->pushButton_ok_log->setText("تایید");
+    } else if (selectedLanguage == false) {
+        ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
+        ui->pushButton_menu_log->setText("menu");
+        ui->pushButton_show_safe->setText("show number");
+        ui->pushButton_ok_log->setText("ok");
+    }
 }
 
 // تنظیم تصاویر کد امنیتی با توجه به عدد تصادفی
@@ -104,9 +105,9 @@ void login::on_pushButton_ok_log_clicked()
 
     if (isValid) {
         if (username.isEmpty() || Password.isEmpty()) {
-            if (selectedLanguage == 1) {
+            if (selectedLanguage == true) {
                 QMessageBox::warning(this, "خطا", "لطفا تمام فیلدها را پر کنید.");
-            } else if (selectedLanguage == 2) {
+            } else if (selectedLanguage == false) {
                 QMessageBox::warning(this, "Error", "Please fill in all fields.");
             }
         } else {
@@ -118,9 +119,9 @@ void login::on_pushButton_ok_log_clicked()
             if (query.first()) {
                 int storedPassword = query.value(0).toInt();
                 if (Password.toInt() == storedPassword) {
-                    if (selectedLanguage == 1) {
+                    if (selectedLanguage == true) {
                         QMessageBox::information(this, "موفقیت", "ورود با موفقیت انجام شد.");
-                    } else if (selectedLanguage == 2) {
+                    } else if (selectedLanguage == false) {
                         QMessageBox::information(this, "Success", "Login successful.");
                     }
                     home *homePage = new home(username);
@@ -128,24 +129,24 @@ void login::on_pushButton_ok_log_clicked()
                     this->hide();
 
                 } else {
-                    if (selectedLanguage == 1) {
+                    if (selectedLanguage == true) {
                         QMessageBox::warning(this, "خطا", "رمز عبور نادرست است.");
-                    } else if (selectedLanguage == 2) {
+                    } else if (selectedLanguage == false) {
                         QMessageBox::warning(this, "Error", "Incorrect password.");
                     }
                 }
             } else {
-                if (selectedLanguage == 1) {
+                if (selectedLanguage == true) {
                     QMessageBox::warning(this, "خطا", "نام کاربری وجود ندارد.");
-                } else if (selectedLanguage == 2) {
+                } else if (selectedLanguage == false) {
                     QMessageBox::warning(this, "Error", "Username does not exist.");
                 }
             }
         }
     } else {
-        if (selectedLanguage == 1) {
+        if (selectedLanguage == true) {
             QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
-        } else if (selectedLanguage == 2) {
+        } else if (selectedLanguage == false) {
             QMessageBox::warning(this, "Error", "Invalid code.");
         }
     }
@@ -154,21 +155,15 @@ void login::on_pushButton_ok_log_clicked()
 // انتخاب زبان فارسی
 void login::on_pushButton_Persian_log_clicked()
 {
-    selectedLanguage = 1;
-    ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_p.png);");
-    ui->pushButton_menu_log->setText("صفحه اصلی");
-    ui->pushButton_show_safe->setText("نمایش عدد");
-    ui->pushButton_ok_log->setText("تایید");
+    selectedLanguage = true;
+    translateUi(selectedLanguage);
 }
 
 // انتخاب زبان انگلیسی
 void login::on_pushButton_English_log_clicked()
 {
-    selectedLanguage = 2;
-    ui->frame_Log->setStyleSheet("image: url(:/new/prefix1/image/qt_log_e.png);");
-    ui->pushButton_menu_log->setText("menu");
-    ui->pushButton_show_safe->setText("show number");
-    ui->pushButton_ok_log->setText("ok");
+    selectedLanguage = false;
+    translateUi(selectedLanguage);
 }
 
 // بازگشت به صفحه اصلی

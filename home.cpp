@@ -8,6 +8,8 @@
 #include "company.h"
 #include "message.h"
 #include "welcome.h"
+#include "viwe_profile.h"
+#include "search.h"
 #include "full_information.h"
 #include "ui_home.h"
 #include <QSqlQuery>
@@ -17,7 +19,7 @@
 #include <QTextStream>
 #include <QStringListModel>  // برای نمایش لیست پست‌ها
 
-static int selectedLanguage = 0;
+static bool selectedLanguage;
 bool home::isDarkMode = false;  // مقداردهی متغیر استاتیک در اینجا
 
 home::home(const QString &Account_ID, QWidget *parent)
@@ -25,6 +27,7 @@ home::home(const QString &Account_ID, QWidget *parent)
     , ui(new Ui::home)
     , Account_ID(Account_ID)
     , postOffset(0)
+
 {
     ui->setupUi(this);
 
@@ -33,26 +36,11 @@ home::home(const QString &Account_ID, QWidget *parent)
     ui->comboBox_me->addItem(tr("ویرایش اطلاعات"));
     ui->comboBox_me->addItem(tr("خروج"));
 
-    // تنظیم دیتابیس و بارگذاری نام کاربری
-    db = QSqlDatabase::addDatabase("QSQLITE");
-    db.setDatabaseName("D:\\sobooty\\Qt\\start-me\\sqlite\\me-test-1.db");
-
-    if (!db.open()) {
-        qDebug() << "Error: Unable to connect to database!";
-    } else {
-        qDebug() << "Database connected successfully!";
-        loadUsername();
-        determineUserType();
-    }
-
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    selectedLanguage = welcomeInstance.selectedLanguage;
-
-    translateUi();
+    translateUi(welcome::selectedLanguage);
     setDarkMode(isDarkMode);
 
     // بارگذاری پست‌ها
-    loadPosts();
+    //loadPosts();
 }
 
 home::~home()
@@ -60,78 +48,38 @@ home::~home()
     delete ui;
 }
 
-void home::setDarkMode(bool dark)
-{
-    isDarkMode = dark;
-    if (dark) {
-        this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
-        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/sun-dark.png);");
-        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-dark.png);");
-        ui->widget->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget1->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget2->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->widget4->setStyleSheet("background-color: rgb(255, 196, 54);");
-        ui->Widget5->setStyleSheet("background-color: rgb(255, 196, 54);");
-    } else {
-        this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
-        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/moon-sun.png);");
-        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-sun.png);");
-        ui->widget4->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget1->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget2->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
-        ui->Widget5->setStyleSheet("background-color: rgb(252, 220, 116);");
-    }
-}
-
-void home::on_pushButton_dark_sun_clicked()
-{
-    isDarkMode = !isDarkMode;
-    setDarkMode(isDarkMode);
-}
-
-void home::translateUi() {
-    if (selectedLanguage == 1) {
-        ui->pushButton_serch_home->setText("جست و جو");
-        ui->comboBox_me->setItemText(1, "ویرایش اطلاعات");
-        ui->comboBox_me->setItemText(2, "خروج");
-    } else if (selectedLanguage == 2) {
-        ui->pushButton_serch_home->setText("serch");
-        ui->comboBox_me->setItemText(1, "Edit Info");
-        ui->comboBox_me->setItemText(2, "Logout");
-    }
-}
-
-void home::on_pushButton_English_home_clicked()
-{
-    selectedLanguage = 2;
-    translateUi();
-}
-
-void home::on_pushButton_Persian_home_clicked()
-{
-    selectedLanguage = 1;
-    translateUi();
-}
-
 void home::loadUsername() {
     ui->pushButton_me->setText(Account_ID);
 }
 
 void home::determineUserType() {
-    QSqlQuery query(db);
-    query.prepare("SELECT is_company FROM Users WHERE Account_ID = :Account_ID");
-    query.bindValue(":Account_ID", Account_ID);
 
-    if (query.exec() && query.first()) {
-        isCompany = query.value(0).toBool();
-    } else {
-        qDebug() << "Failed to determine user type:" << query.lastError();
+}
+
+
+void home::loadPosts() {
+
+}
+
+void home::displayPosts(const QList<QString> &posts) {
+    QStringListModel *model = new QStringListModel(this);
+    model->setStringList(posts);
+    ui->listView->setModel(model);
+}
+
+void home::on_pushButton_more_clicked() {
+    postOffset += 10;
+    loadPosts();
+}
+
+void home::on_pushButton_ago_clicked() {
+    if (postOffset >= 10) {
+        postOffset -= 10;
+        loadPosts();
     }
 }
 
+//رفتن به صفحات دیگر
 void home::on_pushButton_home_home_clicked()
 {
     home *homePage = new home(Account_ID);
@@ -173,8 +121,11 @@ void home::on_pushButton_message_home_clicked()
 void home::on_comboBox_me_activated(int index)
 {
     switch (index) {
-    case 0:
+    case 0:{
+        viwe_profile *viwe_profilePage = new viwe_profile(Account_ID);
+        viwe_profilePage->show();
         break;
+    }
     case 1: {
         full_information *full_informationPage = new full_information(Account_ID);
         full_informationPage->show();
@@ -190,37 +141,69 @@ void home::on_comboBox_me_activated(int index)
     }
 }
 
+//توابع و دکمه های زبان و تیره یا روشن
+void home::on_pushButton_English_home_clicked()
+{
+    selectedLanguage = false;
+    translateUi(selectedLanguage);
+}
 
-void home::loadPosts() {
-    QSqlQuery query(db);
-    query.prepare("SELECT content FROM Posts ORDER BY priority LIMIT 10 OFFSET :offset");
-    query.bindValue(":offset", postOffset);
+void home::on_pushButton_Persian_home_clicked()
+{
+    selectedLanguage = true;
+    translateUi(selectedLanguage);
+}
 
-    if (query.exec()) {
-        QList<QString> posts;
-        while (query.next()) {
-            posts.append(query.value(0).toString());
-        }
-        displayPosts(posts);
+void home::setDarkMode(bool dark)
+{
+    isDarkMode = dark;
+    if (dark) {
+        this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/sun-dark.png);");
+        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-dark.png);");
+        ui->widget->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget1->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget2->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget3->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->widget4->setStyleSheet("background-color: rgb(255, 196, 54);");
+        ui->Widget5->setStyleSheet("background-color: rgb(255, 196, 54);");
     } else {
-        qDebug() << "Failed to load posts:" << query.lastError();
+        this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
+        ui->pushButton_dark_sun->setStyleSheet("border-image: url(:/new/prefix1/image/moon-sun.png);");
+        ui->frame_HA_home->setStyleSheet("border-image: url(:/new/prefix1/image/HA-sun.png);");
+        ui->widget4->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget1->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget2->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->widget3->setStyleSheet("background-color: rgb(252, 220, 116);");
+        ui->Widget5->setStyleSheet("background-color: rgb(252, 220, 116);");
     }
 }
 
-void home::displayPosts(const QList<QString> &posts) {
-    QStringListModel *model = new QStringListModel(this);
-    model->setStringList(posts);
-    ui->listView->setModel(model);
+void home::on_pushButton_dark_sun_clicked()
+{
+    isDarkMode = !isDarkMode;
+    setDarkMode(isDarkMode);
 }
 
-void home::on_pushButton_more_clicked() {
-    postOffset += 10;
-    loadPosts();
-}
+void home::translateUi(bool Language) {
+    welcome::selectedLanguage = Language;
+    if (Language) {
+        ui->pushButton_serch_home->setText("جست و جو");
+        ui->comboBox_me->setItemText(0, "نمایش اطلاعات");
+        ui->comboBox_me->setItemText(1, "ویرایش اطلاعات");
+        ui->comboBox_me->setItemText(2, "خروج");
+        ui->pushButton_ago->setText("قبلی");
+        ui->pushButton_more->setText("بیشتر");
+        ui->pushButton_start_post->setText("پست بزار");
 
-void home::on_pushButton_ago_clicked() {
-    if (postOffset >= 10) {
-        postOffset -= 10;
-        loadPosts();
+    } else {
+        ui->pushButton_serch_home->setText("serch");
+        ui->comboBox_me->setItemText(0, "viwe profile");
+        ui->comboBox_me->setItemText(1, "Edit Info");
+        ui->comboBox_me->setItemText(2, "Logout");
+        ui->pushButton_ago->setText("ago");
+        ui->pushButton_more->setText("more");
+        ui->pushButton_start_post->setText("start post");
     }
 }

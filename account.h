@@ -15,7 +15,7 @@ public:
     Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password/*, const std::string &bio*/);
     ~Account();
 
-private slots:
+private :
 
     void addConnection(const std::string &id);
     void addFollowing(const std::string &id);

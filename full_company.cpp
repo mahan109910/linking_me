@@ -10,20 +10,15 @@
 #include <QSqlQuery>
 
 static bool isDarkMode;
-static int selectedLanguage = 0;
+static bool selectedLanguage;
 
 Full_company::Full_company(const QString &username, QWidget *parent)
     : QWidget(parent), ui(new Ui::Full_company), m_username(username)
 {
     ui->setupUi(this);
 
-    setDarkMode(isDarkMode);
-
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    selectedLanguage = welcomeInstance.selectedLanguage;
-
-    translateUi();
-
+    setDarkMode(home::isDarkMode);
+    translateUi(welcome::selectedLanguage);
     loadCompanyData(m_username);
 }
 
@@ -108,7 +103,7 @@ void Full_company::on_pushButton_bake_company_clicked() {
 }
 
 void Full_company::setDarkMode(bool dark) {
-    home::isDarkMode = dark;
+    isDarkMode = dark;
     if (dark) {
         this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
         ui->gridWidget_full_company->setStyleSheet("border-image: url(:/new/prefix1/image/full_company_dark.png);");
@@ -130,13 +125,14 @@ void Full_company::setDarkMode(bool dark) {
     }
 }
 
-void Full_company::translateUi() {
-    if (selectedLanguage == 1) {
+void Full_company::translateUi(bool selectedLanguage) {
+    welcome::selectedLanguage = selectedLanguage;
+    if (selectedLanguage == true) {
         ui->pushButton_code_company->setText("کد شرکت");
         ui->pushButton_name_company->setText("نام شرکت");
         ui->pushButton_bake_company->setText("بازگشت");
         ui->pushButton_ok_company->setText("تایید");
-    } else if (selectedLanguage == 2) {
+    } else if (selectedLanguage == false) {
         ui->pushButton_code_company->setText("Company Code");
         ui->pushButton_name_company->setText("Company Name");
         ui->pushButton_bake_company->setText("Back");

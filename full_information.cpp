@@ -17,64 +17,24 @@
 #include <sstream>
 #include "iostream"
 
-static int selectedLanguage = 0;
-static bool isDarkMode = false;
+static bool selectedLanguage ;
+static bool isDarkMode;
 
 full_information::full_information(const QString &username, QWidget *parent)
     : QWidget(parent), ui(new Ui::full_information), username(username)
 {
     ui->setupUi(this);
 
-    setDarkMode(home::isDarkMode);
     db = QSqlDatabase::database();
     loadUserData();
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    selectedLanguage = welcomeInstance.selectedLanguage;
-
-    translateUi();
+    setDarkMode(home::isDarkMode);
+    translateUi(welcome::selectedLanguage);
 }
 
 full_information::~full_information()
 {
     delete ui;
-}
-
-void full_information::on_pushButton_persian_clicked()
-{
-    selectedLanguage = 1;
-    translateUi();
-}
-
-void full_information::on_pushButton_english_clicked()
-{
-    selectedLanguage = 2;
-    translateUi();
-}
-
-void full_information::translateUi() {
-    if (selectedLanguage == 1) {
-        ui->pushButton_home->setText("خانه");
-        ui->pushButton_dark_sun->setText("");
-        ui->pushButton_sing_company->setText("اگر شرکت هستید از این جا ثبت نام کنید");
-    } else if (selectedLanguage == 2) {
-        ui->pushButton_home->setText("Home");
-        ui->pushButton_dark_sun->setText("");
-        ui->pushButton_sing_company->setText("If you are a company, register here");
-    }
-}
-
-void full_information::on_pushButton_home_clicked()
-{
-    home *homePage = new home(username);
-    homePage->show();
-    this->hide();
-}
-
-void full_information::on_pushButton_dark_sun_clicked()
-{
-    isDarkMode = !isDarkMode;
-    setDarkMode(isDarkMode);
 }
 
 void full_information::on_pushButton_select_photo_clicked()
@@ -91,13 +51,6 @@ void full_information::on_pushButton_select_photo_clicked()
         buffer.open(QIODevice::WriteOnly);
         pixmap.save(&buffer, "PNG");
     }
-}
-
-void full_information::on_pushButton_sing_company_clicked()
-{
-    Full_company *Full_companyPage = new Full_company(username);
-    Full_companyPage->show();
-    this->hide();
 }
 
 void full_information::on_pushButton_ok_clicked()
@@ -195,6 +148,72 @@ void full_information::loadUserData()
         updateSkillsDisplay();
     } else {
         QMessageBox::critical(this, "Error", "Failed to load person data.");
+    }
+}
+
+//رفتن به صفحات بعد
+void full_information::on_pushButton_sing_company_clicked()
+{
+    Full_company *Full_companyPage = new Full_company(username);
+    Full_companyPage->show();
+    this->hide();
+}
+
+void full_information::on_pushButton_home_clicked()
+{
+    home *homePage = new home(username);
+    homePage->show();
+    this->hide();
+}
+
+//توابع و دکمه های تغییر زبان و تیره یا روشن
+void full_information::on_pushButton_persian_clicked()
+{
+    selectedLanguage = true;
+    translateUi(selectedLanguage);
+}
+
+void full_information::on_pushButton_english_clicked()
+{
+    selectedLanguage = false;
+    translateUi(selectedLanguage);
+}
+
+void full_information::on_pushButton_dark_sun_clicked()
+{
+    isDarkMode = !isDarkMode;
+    setDarkMode(isDarkMode);
+}
+
+void full_information::translateUi(bool Language) {
+    welcome::selectedLanguage = Language;
+    if (Language) {
+        ui->pushButton_home->setText("خانه");
+        ui->pushButton_dark_sun->setText("");
+        ui->pushButton_sing_company->setText("اگر شرکت هستید از این جا ثبت نام کنید");
+        ui->pushButton_emailLineEdit->setText("ایمیل");
+        ui->pushButton_id->setText("نام کاربری");
+        ui->pushButton_last_name->setText("نام خانوادگی");
+        ui->pushButton_name->setText("نام");
+        ui->pushButton_ok->setText("تایید");
+        ui->pushButton_password->setText("رمز");
+        ui->pushButton_phoneLineEdit->setText("شماره همراه");
+        ui->pushButton_skill->setText("مهارت");
+        ui->pushButton_select_photo->setText("انتخاب عکس");
+
+    } else {
+        ui->pushButton_home->setText("Home");
+        ui->pushButton_dark_sun->setText("");
+        ui->pushButton_sing_company->setText("If you are a company, register here");
+        ui->pushButton_emailLineEdit->setText("Emai");
+        ui->pushButton_id->setText("id");
+        ui->pushButton_last_name->setText("last name");
+        ui->pushButton_name->setText("First name");
+        ui->pushButton_ok->setText("ok");
+        ui->pushButton_password->setText("password");
+        ui->pushButton_phoneLineEdit->setText("phone");
+        ui->pushButton_skill->setText("skill");
+        ui->pushButton_select_photo->setText("select photo");
     }
 }
 

@@ -26,8 +26,10 @@ SOURCES += \
     ok.cpp \
     person.cpp \
     post.cpp \
+    serch.cpp \
     signin.cpp \
     time1.cpp \
+    viwe_profile.cpp \
     welcome.cpp \
     login.cpp \
     like.cpp \
@@ -52,8 +54,10 @@ HEADERS += \
     ok.h \
     person.h \
     post.h \
+    serch.h \
     signin.h \
     time1.h \
+    viwe_profile.h \
     welcome.h \
     login.h \
     like.h \
@@ -70,7 +74,9 @@ FORMS += \
     network_company.ui \
     network_person.ui \
     ok.ui \
+    serch.ui \
     signin.ui \
+    viwe_profile.ui \
     welcome.ui \
     login.ui \
 

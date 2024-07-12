@@ -14,14 +14,15 @@ class welcome : public QMainWindow
 
 public:
     welcome(QWidget *parent = nullptr);
-    static int selectedLanguage;
     ~welcome();
+    static bool selectedLanguage;
 
 private slots:
     void on_pushButton_Persian_clicked();
     void on_pushButton_English_clicked();
     void on_pushButton_Register_clicked();
     void on_pushButton_LogIn_clicked();
+    void translateUi(bool selectedLanguage);
 
 private:
     Ui::welcome *ui;

@@ -31,7 +31,7 @@ private slots:
     void on_pushButton_more_clicked();
     void on_pushButton_ago_clicked();
     void setDarkMode(bool dark);
-    void translateUi();
+    void translateUi(bool Language);
     void loadUsername();
     void displayPosts(const QList<QString> &posts);
     void determineUserType();

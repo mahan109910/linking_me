@@ -20,7 +20,7 @@ public:
 private:
     Ui::Full_company *ui;
     QString m_username;
-    void translateUi();
+    void translateUi(bool Language);
     void setDarkMode(bool dark);
     void loadCompanyData(const QString &accountId); // اضافه کردن این خط
 

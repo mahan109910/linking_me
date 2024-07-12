@@ -6,17 +6,10 @@
 #include <QString>
 #include <QStringList>
 #include <QByteArray>
-#include <QMainWindow>
-#include <QPushButton>
-#include <QFrame>
 #include "account.h"
+#include "full_company.h"
 
-
-class Account;
-class Person;
-
-namespace Ui {class full_information;}
-QT_END_NAMESPACE
+namespace Ui { class full_information; }
 
 class full_information : public QWidget
 {
@@ -35,8 +28,9 @@ private slots:
     void on_pushButton_sing_company_clicked();
     void on_pushButton_ok_clicked();
     void on_pushButton_skill_clicked();
-    void translateUi();
+    void translateUi(bool selectedLanguage);
     void loadUserData();
+    void setDarkMode(bool dark);
 
 private:
     Ui::full_information *ui;
@@ -46,7 +40,6 @@ private:
     QByteArray profilePicture;
 
     void updateSkillsDisplay();
-    void setDarkMode(bool dark);
 };
 
 #endif // FULL_INFORMATION_H

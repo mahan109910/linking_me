@@ -9,7 +9,7 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
-static int selectedLanguage = 0;
+static bool selectedLanguage ;
 
 signin::signin(QWidget *parent)
     : QMainWindow(parent)
@@ -27,21 +27,6 @@ signin::signin(QWidget *parent)
         qDebug() << "Database connected successfully!";
     }
 
-    welcome welcomeInstance; // ایجاد نمونه از کلاس welcome برای تنظیم زبان از ابتدا
-    selectedLanguage = welcomeInstance.selectedLanguage;
-
-    if (selectedLanguage == 1) {
-        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
-        ui->pushButton_menu_signin->setText("صفحه اصلی");
-        ui->pushButton_show_safe_signin->setText("نمایش عدد");
-        ui->pushButton_ok_signin->setText("تایید");
-    } else if (selectedLanguage == 2) {
-        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
-        ui->pushButton_menu_signin->setText("menu");
-        ui->pushButton_show_safe_signin->setText("show number");
-        ui->pushButton_ok_signin->setText("ok");
-    }
-
     // تنظیم رنگ متن و پس‌زمینه برای lineEdit ها
     QString lineEditStyle = "QLineEdit { background-color: white; color: black; }";
     ui->lineEdit_safe_signin->setStyleSheet(lineEditStyle);
@@ -53,11 +38,27 @@ signin::signin(QWidget *parent)
 
     QRegularExpressionValidator *nameValidator = new QRegularExpressionValidator(QRegularExpression("^[a-zA-Z0-9_]*$"));
     ui->lineEdit_signin_name->setValidator(nameValidator);
+
+    translateUi(welcome::selectedLanguage);
 }
 
 signin::~signin()
 {
     delete ui;
+}
+
+void signin::translateUi(bool selectedLanguage){
+    if (selectedLanguage == true) {
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
+        ui->pushButton_menu_signin->setText("صفحه اصلی");
+        ui->pushButton_show_safe_signin->setText("نمایش عدد");
+        ui->pushButton_ok_signin->setText("تایید");
+    } else if (selectedLanguage == false) {
+        ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
+        ui->pushButton_menu_signin->setText("menu");
+        ui->pushButton_show_safe_signin->setText("show number");
+        ui->pushButton_ok_signin->setText("ok");
+    }
 }
 
 // تنظیم تصاویر کد امنیتی با توجه به عدد تصادفی
@@ -106,9 +107,9 @@ void signin::on_pushButton_ok_signin_clicked()
 
     if (isValid) {
         if (name.isEmpty() || Password.isEmpty() || REpassword.isEmpty()) {
-            if (selectedLanguage == 1) {
+            if (selectedLanguage == true) {
                 QMessageBox::warning(this, "خطا", "لطفا تمام فیلدها را پر کنید.");
-            } else if (selectedLanguage == 2) {
+            } else if (selectedLanguage == false) {
                 QMessageBox::warning(this, "Error", "Please fill in all fields.");
             }
         } else {
@@ -118,9 +119,9 @@ void signin::on_pushButton_ok_signin_clicked()
             query.exec();
 
             if (query.first()) {
-                if (selectedLanguage == 1) {
+                if (selectedLanguage == true) {
                     QMessageBox::warning(this, "خطا", "نام کاربری قبلا استفاده شده است.");
-                } else if (selectedLanguage == 2) {
+                } else if (selectedLanguage == false) {
                     QMessageBox::warning(this, "Error", "Username already exists.");
                 }
             } else {
@@ -130,9 +131,9 @@ void signin::on_pushButton_ok_signin_clicked()
                     query.bindValue(":password", Password.toInt());
                     if (query.exec()) {
                         qDebug() << "Record inserted successfully!";
-                        if (selectedLanguage == 1) {
+                        if (selectedLanguage == true) {
                             QMessageBox::information(this, "موفقیت", "ثبت نام با موفقیت انجام شد.");
-                        } else if (selectedLanguage == 2) {
+                        } else if (selectedLanguage == false) {
                             QMessageBox::information(this, "Success", "Registration successful.");
                         }
 
@@ -144,18 +145,18 @@ void signin::on_pushButton_ok_signin_clicked()
                         qDebug() << "Failed to insert record:" << query.lastError().text();
                     }
                 } else {
-                    if (selectedLanguage == 1) {
+                    if (selectedLanguage == true) {
                         QMessageBox::warning(this, "خطا", "رمز عبور و تکرار آن همخوانی ندارند.");
-                    } else if (selectedLanguage == 2) {
+                    } else if (selectedLanguage == false) {
                         QMessageBox::warning(this, "Error", "Passwords do not match.");
                     }
                 }
             }
         }
     } else {
-        if (selectedLanguage == 1) {
+        if (selectedLanguage == true) {
             QMessageBox::warning(this, "کد نادرست", "کد وارد شده نادرست است.");
-        } else if (selectedLanguage == 2) {
+        } else if (selectedLanguage == false) {
             QMessageBox::warning(this, "Error", "Invalid code.");
         }
     }
@@ -164,21 +165,15 @@ void signin::on_pushButton_ok_signin_clicked()
 // انتخاب زبان فارسی
 void signin::on_pushButton_Persian_signin_clicked()
 {
-    selectedLanguage = 1;
-    ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_p.png);");
-    ui->pushButton_menu_signin->setText("صفحه اصلی");
-    ui->pushButton_show_safe_signin->setText("نمایش عدد");
-    ui->pushButton_ok_signin->setText("تایید");
+    selectedLanguage = true;
+    translateUi(selectedLanguage);
 }
 
 // انتخاب زبان انگلیسی
 void signin::on_pushButton_English_signin_clicked()
 {
-    selectedLanguage = 2;
-    ui->widget_p_signin->setStyleSheet("image: url(:/new/prefix1/image/qt_signin_e.png);");
-    ui->pushButton_menu_signin->setText("menu");
-    ui->pushButton_show_safe_signin->setText("show number");
-    ui->pushButton_ok_signin->setText("ok");
+    selectedLanguage = false;
+    translateUi(selectedLanguage);
 }
 
 // بازگشت به صفحه اصلی

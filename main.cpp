@@ -25,7 +25,6 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Example usage of your classes
     welcome w;
     w.show();
 

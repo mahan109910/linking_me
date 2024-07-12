@@ -7,7 +7,6 @@
 #include <QDebug>
 
 Person::Person() {
-    // پیاده‌سازی سازنده پیش‌فرض
     std::cout << "Default Person created" << std::endl;
 }
 
