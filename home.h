@@ -27,15 +27,14 @@ private slots:
     void on_pushButton_message_home_clicked();
     void on_pushButton_dark_sun_clicked();
     void on_comboBox_me_activated(int index);
+    void loadPosts();
     void on_pushButton_more_clicked();
     void on_pushButton_ago_clicked();
-    void on_pushButton_serch_home_clicked();
-    void on_pushButton_serch_home_1_clicked();
-    void on_pushButton_serch_home_2_clicked();
-    void on_pushButton_serch_home_3_clicked();
-    void on_pushButton_serch_home_4_clicked();
-    void on_pushButton_serch_home_5_clicked();
+    void setDarkMode(bool dark);
+    void translateUi(bool Language);
     void loadUsername();
+    void displayPosts(const QList<QString> &posts);
+    void determineUserType();
 
 private:
     Ui::home *ui;
@@ -43,14 +42,6 @@ private:
     bool isCompany;
     QSqlDatabase db;
     int postOffset;
-    void loadPosts();
-    void displayPosts(const QList<QString> &posts);
-    void translateUi(bool Language);
-    void setDarkMode(bool dark);
-    void loadSearchHistory();
-    void updateSearchHistory(const QString &newSearch);
-    void displaySearchHistory(const QStringList &history);
-    void determineUserType();
 
 };
 

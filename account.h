@@ -9,17 +9,24 @@
 
 class Account {
 public:
+    // سازنده جدید با 5 پارامتر
     Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password/*, const std::string &bio*/);
+
+    // سازنده بدون پارامتر
     Account();
+
+    // مخرب
     ~Account();
 
+    // متغیرها
     std::string Account_ID;
     std::string Phone_number;
     std::string Email;
     std::string Password;
-    std::string Profile_Picture;
     //std::string Bio;
+    std::string Profile_Picture;
 
+    // متدها
     void addConnection(const std::string &id);
     void addFollowing(const std::string &id);
     void addDM(const Direct_Message &message);

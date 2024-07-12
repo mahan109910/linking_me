@@ -9,7 +9,7 @@
 #include "message.h"
 #include "welcome.h"
 #include "viwe_profile.h"
-#include "serch.h"
+#include "search.h"
 #include "full_information.h"
 #include "ui_home.h"
 #include <QSqlQuery>
@@ -38,9 +38,6 @@ home::home(const QString &Account_ID, QWidget *parent)
 
     translateUi(welcome::selectedLanguage);
     setDarkMode(isDarkMode);
-
-    // بارگذاری تاریخچه جستجو
-    loadSearchHistory();
 
     // بارگذاری پست‌ها
     //loadPosts();
@@ -82,94 +79,7 @@ void home::on_pushButton_ago_clicked() {
     }
 }
 
-void home::loadSearchHistory() {
-    QSqlDatabase db = QSqlDatabase::database();
-    Person person;
-    std::vector<std::string> history;
-    if (person.loadFromDatabase(Account_ID.toStdString(), db)) {
-        QStringList historyList;
-        for (const auto &search : history) {
-            historyList << QString::fromStdString(search);
-        }
-        displaySearchHistory(historyList);
-    } else {
-        qDebug() << "Error loading search history.";
-    }
-}
-
-void home::updateSearchHistory(const QString &newSearch) {
-    QSqlDatabase db = QSqlDatabase::database();
-    Person person;
-    if (person.updateSearchHistory(newSearch.toStdString(), db)) {
-        loadSearchHistory();
-    } else {
-        qDebug() << "Error updating search history.";
-    }
-}
-
-void home::displaySearchHistory(const QStringList &history) {
-    ui->pushButton_serch_home_1->setText(history.value(0));
-    ui->pushButton_serch_home_2->setText(history.value(1));
-    ui->pushButton_serch_home_3->setText(history.value(2));
-    ui->pushButton_serch_home_4->setText(history.value(3));
-    ui->pushButton_serch_home_5->setText(history.value(4));
-}
-
 //رفتن به صفحات دیگر
-void home::on_pushButton_serch_home_clicked() {
-    QString searchText = ui->lineEdit_serch_home->text();
-    if (!searchText.isEmpty()) {
-        updateSearchHistory(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
-void home::on_pushButton_serch_home_1_clicked() {
-    QString searchText = ui->pushButton_serch_home_1->text();
-    if (!searchText.isEmpty()) {
-        ui->lineEdit_serch_home->setText(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
-void home::on_pushButton_serch_home_2_clicked() {
-    QString searchText = ui->pushButton_serch_home_2->text();
-    if (!searchText.isEmpty()) {
-        ui->lineEdit_serch_home->setText(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
-void home::on_pushButton_serch_home_3_clicked() {
-    QString searchText = ui->pushButton_serch_home_3->text();
-    if (!searchText.isEmpty()) {
-        ui->lineEdit_serch_home->setText(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
-void home::on_pushButton_serch_home_4_clicked() {
-    QString searchText = ui->pushButton_serch_home_4->text();
-    if (!searchText.isEmpty()) {
-        ui->lineEdit_serch_home->setText(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
-void home::on_pushButton_serch_home_5_clicked() {
-    QString searchText = ui->pushButton_serch_home_5->text();
-    if (!searchText.isEmpty()) {
-        ui->lineEdit_serch_home->setText(searchText);
-        serch *serchPage = new serch(Account_ID, searchText);
-        serchPage->show();
-    }
-}
-
 void home::on_pushButton_home_home_clicked()
 {
     home *homePage = new home(Account_ID);

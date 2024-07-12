@@ -57,6 +57,7 @@ void full_information::on_pushButton_ok_clicked() {
     QString email = ui->emailLineEdit->text();
     QString phone = ui->phoneLineEdit->text();
     QString password = ui->lineEdit_password->text();
+    QString id = ui->lineEdit_id->text();
     //QString bio = ui->bioTextEdit->toPlainText();
     QByteArray profilePictureData = profilePicture;
 
@@ -66,13 +67,14 @@ void full_information::on_pushButton_ok_clicked() {
     std::string emailStr = email.toStdString();
     std::string phoneStr = phone.toStdString();
     std::string passwordStr = password.toStdString();
+    std::string idStr = id.toStdString();
     //std::string bioStr = bio.toStdString();
     std::string profilePictureStr = profilePictureData.toStdString();
 
     // ذخیره اطلاعات در دیتابیس با استفاده از کلاس‌ها
 
     // ذخیره اطلاعات در جدول Account
-    Account account(username.toStdString(), phoneStr, emailStr, passwordStr/*, bioStr*/);
+    Account account(idStr, phoneStr, emailStr, passwordStr/*, bioStr*/);
     account.setProfilePicture(profilePictureStr);
 
     QSqlDatabase db = QSqlDatabase::database();
@@ -83,7 +85,7 @@ void full_information::on_pushButton_ok_clicked() {
     }
 
     // ذخیره اطلاعات در جدول Person
-    Person person(username.toStdString(), firstNameStr, lastNameStr);
+    Person person(idStr, firstNameStr, lastNameStr);
     std::vector<std::string> skills;
     for (const QString &skill : skillsList) {
         skills.push_back(skill.toStdString());
@@ -121,7 +123,7 @@ void full_information::loadUserData() {
 
     Account account("", "", "", ""/*, ""*/); // مقداردهی اولیه با آرگومان‌های خالی
     if (account.loadFromDatabase(username.toStdString(), db)) {
-        ui->pushButton_id_2->setText(QString::fromStdString(account.Account_ID));
+        ui->lineEdit_id->setText(QString::fromStdString(account.Account_ID));
         ui->emailLineEdit->setText(QString::fromStdString(account.Email));
         ui->phoneLineEdit->setText(QString::fromStdString(account.Phone_number));
         ui->lineEdit_password->setText(QString::fromStdString(account.password));
@@ -149,7 +151,6 @@ void full_information::loadUserData() {
         QMessageBox::critical(this, "Error", "Failed to load person data.");
     }
 }
-
 void full_information::on_pushButton_remove_skill_clicked() {
     QList<QListWidgetItem*> selectedItems = ui->listWidget_skills->selectedItems();
     foreach (QListWidgetItem *item, selectedItems) {
@@ -199,28 +200,31 @@ void full_information::translateUi(bool Language) {
         ui->pushButton_home->setText("خانه");
         ui->pushButton_dark_sun->setText("");
         ui->pushButton_sing_company->setText("اگر شرکت هستید از این جا ثبت نام کنید");
-        ui->emailLineEdit->setPlaceholderText("ایمیل");
-        ui->lineEdit_password->setPlaceholderText("رمز عبور");
-        ui->lineEdit_name->setPlaceholderText("نام");
-        ui->lineEdit_last_name->setPlaceholderText("نام خانوادگی");
-        ui->phoneLineEdit->setPlaceholderText("شماره تماس");
+        ui->pushButton_emailLineEdit->setText("ایمیل");
+        ui->pushButton_id->setText("نام کاربری");
+        ui->pushButton_last_name->setText("نام خانوادگی");
+        ui->pushButton_name->setText("نام");
+        ui->pushButton_ok->setText("تایید");
+        ui->pushButton_password->setText("رمز");
+        ui->pushButton_phoneLineEdit->setText("شماره همراه");
         ui->pushButton_skill->setText("مهارت");
         ui->pushButton_remove_skill->setText("حذف مهارت");
         ui->pushButton_select_photo->setText("انتخاب عکس");
-        ui->pushButton_ok->setText("تأیید");
+
     } else {
         ui->pushButton_home->setText("Home");
         ui->pushButton_dark_sun->setText("");
         ui->pushButton_sing_company->setText("If you are a company, register here");
-        ui->emailLineEdit->setPlaceholderText("Email");
-        ui->lineEdit_password->setPlaceholderText("Password");
-        ui->lineEdit_name->setPlaceholderText("First Name");
-        ui->lineEdit_last_name->setPlaceholderText("Last Name");
-        ui->phoneLineEdit->setPlaceholderText("Phone");
-        ui->pushButton_skill->setText("Skill");
-        ui->pushButton_remove_skill->setText("Remove Skill");
-        ui->pushButton_select_photo->setText("Select Photo");
-        ui->pushButton_ok->setText("OK");
+        ui->pushButton_emailLineEdit->setText("Emai");
+        ui->pushButton_id->setText("id");
+        ui->pushButton_last_name->setText("last name");
+        ui->pushButton_name->setText("First name");
+        ui->pushButton_ok->setText("ok");
+        ui->pushButton_password->setText("password");
+        ui->pushButton_phoneLineEdit->setText("phone");
+        ui->pushButton_skill->setText("skill");
+        ui->pushButton_remove_skill->setText("remove skill");
+        ui->pushButton_select_photo->setText("select photo");
     }
 }
 
