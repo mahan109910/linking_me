@@ -5,10 +5,11 @@
 static bool selectedLanguage;
 static bool isDarkMode;
 
-serch::serch(const QString &serchv,QWidget *parent)
+serch::serch(const QString &Account_ID,const QString &searchText,QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::serch)
-    , serchv(serchv)
+    , Account_ID(Account_ID)
+    , searchText(searchText)
 {
     ui->setupUi(this);
 

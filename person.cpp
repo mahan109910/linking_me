@@ -16,7 +16,7 @@ Person::Person(const std::string &AccountID, const std::string &First_name, cons
 }
 
 Person::Person(const Person &other)
-    : Account_ID(other.Account_ID), First_name(other.First_name), Last_name(other.Last_name), Skills(other.Skills) {
+    : Account_ID(other.Account_ID), First_name(other.First_name), Last_name(other.Last_name), Skills(other.Skills), SearchHistory(other.SearchHistory) {
     std::cout << "Person copied" << std::endl;
 }
 
@@ -86,6 +86,25 @@ bool Person::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
         Skills.push_back(skillQuery.value(0).toString().toStdString());
     }
 
+    // Load search history
+    QSqlQuery searchQuery(db);
+    searchQuery.prepare("SELECT \"1\", \"2\", \"3\", \"4\", \"5\" FROM serch WHERE Account = ?");
+    searchQuery.addBindValue(QString::fromStdString(Account_ID));
+    if (!searchQuery.exec()) {
+        qDebug() << "Error loading from serch table:" << searchQuery.lastError();
+        return false;
+    }
+
+    SearchHistory.clear();
+    if (searchQuery.next()) {
+        for (int i = 0; i < 5; ++i) {
+            QString search = searchQuery.value(i).toString();
+            if (!search.isEmpty()) {
+                SearchHistory.push_back(search.toStdString());
+            }
+        }
+    }
+
     return true;
 }
 
@@ -95,4 +114,37 @@ std::vector<std::string> Person::getSkills() const {
 
 void Person::setSkills(const std::vector<std::string> &skills) {
     Skills = skills;
+}
+
+bool Person::updateSearchHistory(const std::string &newSearch, QSqlDatabase& db) {
+    QSqlQuery query(db);
+
+    // Load current search history
+    if (!loadFromDatabase(Account_ID, db)) {
+        return false;
+    }
+
+    // Update search history
+    SearchHistory.insert(SearchHistory.begin(), newSearch);
+    if (SearchHistory.size() > 5) {
+        SearchHistory.pop_back();
+    }
+
+    // Save updated search history to database
+    query.prepare("INSERT OR REPLACE INTO serch (Account, \"1\", \"2\", \"3\", \"4\", \"5\") VALUES (?, ?, ?, ?, ?, ?)");
+    query.addBindValue(QString::fromStdString(Account_ID));
+    for (int i = 0; i < 5; ++i) {
+        if (i < SearchHistory.size()) {
+            query.addBindValue(QString::fromStdString(SearchHistory[i]));
+        } else {
+            query.addBindValue(QVariant(QVariant::String));
+        }
+    }
+
+    if (!query.exec()) {
+        qDebug() << "Error updating serch table:" << query.lastError();
+        return false;
+    }
+
+    return true;
 }

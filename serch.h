@@ -12,12 +12,13 @@ class serch : public QWidget
     Q_OBJECT
 
 public:
-    explicit serch(const QString &serchv,QWidget *parent = nullptr);
+    explicit serch(const QString &Account_ID,const QString &searchText,QWidget *parent = nullptr);
     ~serch();
 
 private:
     Ui::serch *ui;
-    QString serchv;
+    QString Account_ID;
+    QString searchText;
 };
 
 #endif // SERCH_H

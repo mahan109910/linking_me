@@ -139,7 +139,7 @@
       <property name="rightMargin">
        <number>10</number>
       </property>
-      <item row="0" column="1">
+      <item row="0" column="2">
        <widget class="QLineEdit" name="lineEdit_name">
         <property name="maximumSize">
          <size>
@@ -152,7 +152,7 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
+      <item row="1" column="2">
        <widget class="QLineEdit" name="lineEdit_last_name">
         <property name="maximumSize">
          <size>
@@ -165,7 +165,7 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="1">
+      <item row="8" column="2">
        <widget class="QPushButton" name="pushButton_ok">
         <property name="maximumSize">
          <size>
@@ -191,7 +191,7 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
+      <item row="3" column="2">
        <widget class="QLineEdit" name="emailLineEdit">
         <property name="maximumSize">
          <size>
@@ -252,7 +252,7 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="7" column="2">
        <widget class="QListWidget" name="listWidget_available_skills">
         <property name="maximumSize">
          <size>
@@ -290,7 +290,7 @@
         </item>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="6" column="2">
        <widget class="QListWidget" name="listWidget_skills">
         <property name="maximumSize">
          <size>
@@ -303,14 +303,24 @@
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="6" column="0">
+       <widget class="QPushButton" name="pushButton_remove_skill">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
        <widget class="QLineEdit" name="lineEdit_password">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
+      <item row="2" column="2">
        <widget class="QLineEdit" name="phoneLineEdit">
         <property name="maximumSize">
          <size>
@@ -349,13 +359,6 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEdit_id">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-       </widget>
-      </item>
       <item row="3" column="0">
        <widget class="QPushButton" name="pushButton_emailLineEdit">
         <property name="maximumSize">
@@ -372,8 +375,8 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
-       <widget class="QPushButton" name="pushButton_remove_skill">
+      <item row="5" column="2">
+       <widget class="QPushButton" name="pushButton_id_2">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
