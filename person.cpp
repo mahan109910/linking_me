@@ -27,7 +27,7 @@ bool Person::applyForJob(Job1 &job) {
 
 bool Person::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT INTO Person (Account_ID, First_name, Last_name) VALUES (?, ?, ?)");
+    query.prepare("INSERT OR REPLACE INTO Person (Account_ID, First_name, Last_name) VALUES (?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(First_name));
     query.addBindValue(QString::fromStdString(Last_name));
@@ -35,6 +35,28 @@ bool Person::saveToDatabase(QSqlDatabase& db) const {
         qDebug() << "Error inserting into Person table:" << query.lastError();
         return false;
     }
+
+    // Delete existing skills
+    QSqlQuery deleteSkillsQuery(db);
+    deleteSkillsQuery.prepare("DELETE FROM PersonSkills WHERE Account_ID = ?");
+    deleteSkillsQuery.addBindValue(QString::fromStdString(Account_ID));
+    if (!deleteSkillsQuery.exec()) {
+        qDebug() << "Error deleting existing skills:" << deleteSkillsQuery.lastError();
+        return false;
+    }
+
+    // Save new skills
+    for (const auto& skill : Skills) {
+        QSqlQuery skillQuery(db);
+        skillQuery.prepare("INSERT INTO PersonSkills (Account_ID, Skill) VALUES (?, ?)");
+        skillQuery.addBindValue(QString::fromStdString(Account_ID));
+        skillQuery.addBindValue(QString::fromStdString(skill));
+        if (!skillQuery.exec()) {
+            qDebug() << "Error inserting into PersonSkills table:" << skillQuery.lastError();
+            return false;
+        }
+    }
+
     return true;
 }
 
@@ -49,6 +71,21 @@ bool Person::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     Account_ID = query.value(0).toString().toStdString();
     First_name = query.value(1).toString().toStdString();
     Last_name = query.value(2).toString().toStdString();
+
+    // Load skills
+    QSqlQuery skillQuery(db);
+    skillQuery.prepare("SELECT Skill FROM PersonSkills WHERE Account_ID = ?");
+    skillQuery.addBindValue(QString::fromStdString(Account_ID));
+    if (!skillQuery.exec()) {
+        qDebug() << "Error loading from PersonSkills table:" << skillQuery.lastError();
+        return false;
+    }
+
+    Skills.clear();
+    while (skillQuery.next()) {
+        Skills.push_back(skillQuery.value(0).toString().toStdString());
+    }
+
     return true;
 }
 

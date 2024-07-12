@@ -1,6 +1,4 @@
 #include "account.h"
-#include "post.h"
-#include "direct_message.h"
 #include <sstream>
 #include <iostream>
 #include <QSqlQuery>
@@ -9,9 +7,9 @@
 #include <QDebug>
 
 Account::Account(const std::string &id, const std::string &phone, const std::string &email, const std::string &password/*, const std::string &bio*/)
-    : Account_ID(id), Phone_number(phone), Email(email), Password(password)/*, Bio(bio)*/ {
-    std::cout << "Account created" << std::endl;
-}
+    : Account_ID(id), Phone_number(phone), Email(email), Password(password)/*, Bio(bio)*/ {}
+
+Account::Account() {}
 
 Account::~Account() {
     std::cout << "Account destroyed" << std::endl;
@@ -35,13 +33,13 @@ void Account::addPost(const Post &post) {
 
 bool Account::saveToDatabase(QSqlDatabase& db) const {
     QSqlQuery query(db);
-    query.prepare("INSERT OR REPLACE INTO Account (Account_ID, Phone_number, Email, Password, Profile_Picture) VALUES (?, ?, ?, ?, ?, ?)");
+    query.prepare("INSERT OR REPLACE INTO Account (Account_ID, Phone_number, Email, Password, Profile_Picture, Bio) VALUES (?, ?, ?, ?, ?, ?)");
     query.addBindValue(QString::fromStdString(Account_ID));
     query.addBindValue(QString::fromStdString(Phone_number));
     query.addBindValue(QString::fromStdString(Email));
     query.addBindValue(QString::fromStdString(Password));
-    //query.addBindValue(QString::fromStdString(Bio));  // اضافه کردن بیوگرافی
     query.addBindValue(QByteArray::fromStdString(Profile_Picture));
+    //query.addBindValue(QString::fromStdString(Bio));
 
     if (!query.exec()) {
         qDebug() << "Error inserting into Account table:" << query.lastError();
@@ -93,7 +91,7 @@ bool Account::saveToDatabase(QSqlDatabase& db) const {
 
 bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     QSqlQuery query(db);
-    query.prepare("SELECT Account_ID, Phone_number, Email, Password, Profile_Picture FROM Account WHERE Account_ID = ?");
+    query.prepare("SELECT Account_ID, Phone_number, Email, Password, Profile_Picture, Bio FROM Account WHERE Account_ID = ?");
     query.addBindValue(QString::fromStdString(id));
     if (!query.exec() || !query.next()) {
         qDebug() << "Error loading from Account table:" << query.lastError();
@@ -104,7 +102,7 @@ bool Account::loadFromDatabase(const std::string &id, QSqlDatabase& db) {
     Email = query.value(2).toString().toStdString();
     Password = query.value(3).toString().toStdString();
     Profile_Picture = query.value(4).toByteArray().toStdString();
-    //Bio = query.value(5).toString().toStdString();  // بارگذاری بیوگرافی
+    //Bio = query.value(5).toString().toStdString();
 
     return true;
 }
@@ -116,3 +114,11 @@ std::string Account::getProfilePicture() const {
 void Account::setProfilePicture(const std::string &picture) {
     Profile_Picture = picture;
 }
+
+/*std::string Account::getBio() const {
+    return Bio;
+}
+
+void Account::setBio(const std::string &bio) {
+    Bio = bio;
+}*/

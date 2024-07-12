@@ -17,12 +17,11 @@
 #include <sstream>
 #include "iostream"
 
-static bool selectedLanguage ;
+static bool selectedLanguage;
 static bool isDarkMode;
 
 full_information::full_information(const QString &username, QWidget *parent)
-    : QWidget(parent), ui(new Ui::full_information), username(username)
-{
+    : QWidget(parent), ui(new Ui::full_information), username(username) {
     ui->setupUi(this);
 
     db = QSqlDatabase::database();
@@ -32,13 +31,11 @@ full_information::full_information(const QString &username, QWidget *parent)
     translateUi(welcome::selectedLanguage);
 }
 
-full_information::~full_information()
-{
+full_information::~full_information() {
     delete ui;
 }
 
-void full_information::on_pushButton_select_photo_clicked()
-{
+void full_information::on_pushButton_select_photo_clicked() {
     QString fileName = QFileDialog::getOpenFileName(this, tr("Select Photo"), "", tr("Images (*.png *.xpm *.jpg)"));
     if (!fileName.isEmpty()) {
         QPixmap pixmap(fileName);
@@ -53,8 +50,7 @@ void full_information::on_pushButton_select_photo_clicked()
     }
 }
 
-void full_information::on_pushButton_ok_clicked()
-{
+void full_information::on_pushButton_ok_clicked() {
     // خواندن اطلاعات از ویجت‌ها
     QString firstName = ui->lineEdit_name->text();
     QString lastName = ui->lineEdit_last_name->text();
@@ -63,7 +59,7 @@ void full_information::on_pushButton_ok_clicked()
     QString password = ui->lineEdit_password->text();
     QString id = ui->lineEdit_id->text();
     //QString bio = ui->bioTextEdit->toPlainText();
-    QByteArray profilePictureData = profilePicture;  // اینجا شما باید کدی بنویسید که عکس پروفایل را بخواند
+    QByteArray profilePictureData = profilePicture;
 
     // تبدیل QString به std::string
     std::string firstNameStr = firstName.toStdString();
@@ -90,6 +86,11 @@ void full_information::on_pushButton_ok_clicked()
 
     // ذخیره اطلاعات در جدول Person
     Person person(idStr, firstNameStr, lastNameStr);
+    std::vector<std::string> skills;
+    for (const QString &skill : skillsList) {
+        skills.push_back(skill.toStdString());
+    }
+    person.setSkills(skills);
 
     if (person.saveToDatabase(db)) {
         QMessageBox::information(this, "Success", "Person data saved successfully!");
@@ -98,9 +99,8 @@ void full_information::on_pushButton_ok_clicked()
     }
 }
 
-void full_information::on_pushButton_skill_clicked()
-{
-    QList<QListWidgetItem*> selectedItems = ui->listWidget_skills->selectedItems();
+void full_information::on_pushButton_skill_clicked() {
+    QList<QListWidgetItem*> selectedItems = ui->listWidget_available_skills->selectedItems();
     foreach (QListWidgetItem *item, selectedItems) {
         QString skill = item->text();
         if (!skillsList.contains(skill)) { // بررسی تکراری نبودن مهارت
@@ -110,8 +110,7 @@ void full_information::on_pushButton_skill_clicked()
     updateSkillsDisplay();
 }
 
-void full_information::updateSkillsDisplay()
-{
+void full_information::updateSkillsDisplay() {
     ui->listWidget_skills->clear();
     foreach (const QString &skill, skillsList) {
         QListWidgetItem *item = new QListWidgetItem(skill, ui->listWidget_skills);
@@ -119,17 +118,16 @@ void full_information::updateSkillsDisplay()
     }
 }
 
-void full_information::loadUserData()
-{
+void full_information::loadUserData() {
     QSqlDatabase db = QSqlDatabase::database();
 
-    Account account("", "", "", ""); // مقداردهی اولیه با آرگومان‌های خالی
+    Account account("", "", "", ""/*, ""*/); // مقداردهی اولیه با آرگومان‌های خالی
     if (account.loadFromDatabase(username.toStdString(), db)) {
         ui->lineEdit_id->setText(QString::fromStdString(account.Account_ID));
         ui->emailLineEdit->setText(QString::fromStdString(account.Email));
         ui->phoneLineEdit->setText(QString::fromStdString(account.Phone_number));
         ui->lineEdit_password->setText(QString::fromStdString(account.password));
-        //ui->bioTextEdit->setText(QString::fromStdString(account.bio));
+        //ui->bioTextEdit->setText(QString::fromStdString(account.Bio));
 
         // بارگذاری عکس پروفایل
         QPixmap pixmap;
@@ -143,12 +141,23 @@ void full_information::loadUserData()
     if (person.loadFromDatabase(username.toStdString(), db)) {
         ui->lineEdit_name->setText(QString::fromStdString(person.First_name));
         ui->lineEdit_last_name->setText(QString::fromStdString(person.Last_name));
-        /*QStringList skillList = QStringList::fromVector(QVector<QString>::fromStdVector(person.getSkills()));
-        skillsList = skillList;*/
+        QStringList skillList;
+        for (const auto &skill : person.getSkills()) {
+            skillList.append(QString::fromStdString(skill));
+        }
+        skillsList = skillList;
         updateSkillsDisplay();
     } else {
         QMessageBox::critical(this, "Error", "Failed to load person data.");
     }
+}
+void full_information::on_pushButton_remove_skill_clicked() {
+    QList<QListWidgetItem*> selectedItems = ui->listWidget_skills->selectedItems();
+    foreach (QListWidgetItem *item, selectedItems) {
+        QString skill = item->text();
+        skillsList.removeAll(skill);
+    }
+    updateSkillsDisplay();
 }
 
 //رفتن به صفحات بعد
@@ -199,6 +208,7 @@ void full_information::translateUi(bool Language) {
         ui->pushButton_password->setText("رمز");
         ui->pushButton_phoneLineEdit->setText("شماره همراه");
         ui->pushButton_skill->setText("مهارت");
+        ui->pushButton_remove_skill->setText("حذف مهارت");
         ui->pushButton_select_photo->setText("انتخاب عکس");
 
     } else {
@@ -213,6 +223,7 @@ void full_information::translateUi(bool Language) {
         ui->pushButton_password->setText("password");
         ui->pushButton_phoneLineEdit->setText("phone");
         ui->pushButton_skill->setText("skill");
+        ui->pushButton_remove_skill->setText("remove skill");
         ui->pushButton_select_photo->setText("select photo");
     }
 }

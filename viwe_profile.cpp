@@ -35,7 +35,12 @@ viwe_profile::viwe_profile(const QString &serchv, QWidget *parent)
     if (person.loadFromDatabase(serchv.toStdString(), db)) {
         ui->pushButton_First_name->setText(QString::fromStdString(person.First_name));
         ui->pushButton_Last_name->setText(QString::fromStdString(person.Last_name));
-        //ui->pushButton_Skill->->setText(QString::fromStdString(person.Skills));
+    }
+
+    // نمایش مهارت‌ها
+    ui->listWidget_Skill->clear();
+    for (const auto& skill : person.Skills) {
+        ui->listWidget_Skill->addItem(QString::fromStdString(skill));
     }
 }
 

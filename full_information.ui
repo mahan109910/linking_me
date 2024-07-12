@@ -139,12 +139,125 @@
       <property name="rightMargin">
        <number>10</number>
       </property>
-      <item row="6" column="1">
-       <widget class="QListWidget" name="listWidget_skills">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEdit_name">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="lineEdit_last_name">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QPushButton" name="pushButton_ok">
+        <property name="maximumSize">
+         <size>
+          <width>100</width>
           <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>تایید </string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="pushButton_password">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLineEdit" name="emailLineEdit">
+        <property name="maximumSize">
+         <size>
+          <width>999999</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="pushButton_last_name">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>50</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>نام خانودادگی خود را وارد کنید</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QPushButton" name="pushButton_name">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>40</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>نام خود را وارد کنید </string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QPushButton" name="pushButton_skill">
+        <property name="maximumSize">
+         <size>
+          <width>9999999</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>مهارت خود را انتخاب کنید </string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QListWidget" name="listWidget_available_skills">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -177,6 +290,19 @@
         </item>
        </widget>
       </item>
+      <item row="6" column="1">
+       <widget class="QListWidget" name="listWidget_skills">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>100</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="1">
        <widget class="QLineEdit" name="lineEdit_password">
         <property name="styleSheet">
@@ -184,11 +310,11 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QLineEdit" name="emailLineEdit">
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="phoneLineEdit">
         <property name="maximumSize">
          <size>
-          <width>999999</width>
+          <width>99999</width>
           <height>50</height>
          </size>
         </property>
@@ -197,14 +323,34 @@
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_last_name">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="pushButton_phoneLineEdit">
         <property name="maximumSize">
          <size>
-          <width>16777215</width>
+          <width>200</width>
           <height>50</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>شماره ی همراه خود را وارد کنید </string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QPushButton" name="pushButton_id">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(1, 116, 190);</string>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLineEdit" name="lineEdit_id">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
@@ -226,136 +372,13 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QPushButton" name="pushButton_phoneLineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>شماره ی همراه خود را وارد کنید </string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QPushButton" name="pushButton_name">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>نام خود را وارد کنید </string>
-        </property>
-       </widget>
-      </item>
       <item row="6" column="0">
-       <widget class="QPushButton" name="pushButton_skill">
-        <property name="maximumSize">
-         <size>
-          <width>9999999</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>مهارت خود را انتخاب کنید </string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPushButton" name="pushButton_last_name">
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>نام خانودادگی خود را وارد کنید</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QPushButton" name="pushButton_password">
+       <widget class="QPushButton" name="pushButton_remove_skill">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(1, 116, 190);</string>
         </property>
         <property name="text">
          <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
-       <widget class="QPushButton" name="pushButton_id">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>PushButton</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
-       <widget class="QLineEdit" name="lineEdit_id">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="1">
-       <widget class="QLineEdit" name="lineEdit_name">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>40</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLineEdit" name="phoneLineEdit">
-        <property name="maximumSize">
-         <size>
-          <width>99999</width>
-          <height>50</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="1">
-       <widget class="QPushButton" name="pushButton_ok">
-        <property name="maximumSize">
-         <size>
-          <width>100</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(1, 116, 190);</string>
-        </property>
-        <property name="text">
-         <string>تایید </string>
         </property>
        </widget>
       </item>

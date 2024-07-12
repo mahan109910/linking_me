@@ -68,7 +68,7 @@
       <widget class="QPushButton" name="pushButton_Account_ID">
        <property name="maximumSize">
         <size>
-         <width>250</width>
+         <width>16777215</width>
          <height>16777215</height>
         </size>
        </property>
@@ -90,16 +90,6 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="1">
-      <widget class="QPushButton" name="pushButton_Skill">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(1, 116, 190);</string>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
      <item row="4" column="0">
       <widget class="QPushButton" name="pushButton_Skill_2">
        <property name="styleSheet">
@@ -112,6 +102,16 @@
      </item>
      <item row="2" column="0">
       <widget class="QPushButton" name="pushButton_Last_name_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(1, 116, 190);</string>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pushButton_First_name">
        <property name="styleSheet">
         <string notr="true">background-color: rgb(1, 116, 190);</string>
        </property>
@@ -160,6 +160,16 @@
        </property>
       </widget>
      </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="pushButton_First_name_2">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(1, 116, 190);</string>
+       </property>
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="1">
       <widget class="QPushButton" name="pushButton_Last_name">
        <property name="styleSheet">
@@ -170,23 +180,13 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QPushButton" name="pushButton_First_name">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(1, 116, 190);</string>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="pushButton_First_name_2">
-       <property name="styleSheet">
-        <string notr="true">background-color: rgb(1, 116, 190);</string>
-       </property>
-       <property name="text">
-        <string>PushButton</string>
+     <item row="4" column="1">
+      <widget class="QListWidget" name="listWidget_Skill">
+       <property name="maximumSize">
+        <size>
+         <width>400</width>
+         <height>16777215</height>
+        </size>
        </property>
       </widget>
      </item>

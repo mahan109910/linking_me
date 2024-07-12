@@ -20,6 +20,7 @@ public:
     ~full_information();
 
 private slots:
+    void on_pushButton_remove_skill_clicked();
     void on_pushButton_persian_clicked();
     void on_pushButton_english_clicked();
     void on_pushButton_home_clicked();
