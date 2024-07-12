@@ -14,16 +14,13 @@ SOURCES += \
     full_company.cpp \
     full_information.cpp \
     home.cpp \
-    information.cpp \
     job1.cpp \
     job_company.cpp \
     job_person.cpp \
     main.cpp \
-    managers.cpp \
     message.cpp \
     network_company.cpp \
     network_person.cpp \
-    ok.cpp \
     person.cpp \
     post.cpp \
     serch.cpp \
@@ -43,15 +40,12 @@ HEADERS += \
     full_company.h \
     full_information.h \
     home.h \
-    information.h \
     job1.h \
     job_company.h \
     job_person.h \
-    managers.h \
     message.h \
     network_company.h \
     network_person.h \
-    ok.h \
     person.h \
     post.h \
     serch.h \
@@ -66,14 +60,11 @@ FORMS += \
     full_company.ui \
     full_information.ui \
     home.ui \
-    information.ui \
     job_company.ui \
     job_person.ui \
-    managers.ui \
     message.ui \
     network_company.ui \
     network_person.ui \
-    ok.ui \
     serch.ui \
     signin.ui \
     viwe_profile.ui \
