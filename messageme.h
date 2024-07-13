@@ -21,6 +21,8 @@ public:
 
 private slots:
     void sendMessage();
+    //void translateUi(bool selectedLanguage);
+    void setDarkMode(bool dark);
 
 private:
     Ui::messageme *ui; // تعریف اشاره‌گر به کلاس Ui::MessageMe

@@ -5,6 +5,7 @@
 #include "home.h"
 #include "welcome.h"
 #include "company.h"
+#include "messageme.h"
 
 static bool selectedLanguage ;
 static bool isDarkMode;
@@ -101,3 +102,11 @@ void viwe_profile::setDarkMode(bool dark)
 
     }
 }
+
+void viwe_profile::on_pushButton_message_clicked()
+{
+    messageme *messagemepage = new messageme(myAccountID, selectedUserID);
+    messagemepage->show();
+    this->hide();
+}
+

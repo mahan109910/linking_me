@@ -23,6 +23,8 @@ private slots:
     void setDarkMode(bool dark);
 
 
+    void on_pushButton_message_clicked();
+
 private:
     Ui::viwe_profile *ui;
     QString myAccountID;

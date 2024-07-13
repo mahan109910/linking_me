@@ -6,6 +6,9 @@
 #include <QDateTime>
 #include <QUuid>
 
+//static bool selectedLanguage ;
+static bool isDarkMode;
+
 messageme::messageme(const QString &Account_ID, const QString &targetUser, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::messageme), // درست کردن تعریف اشاره‌گر به ui
@@ -74,5 +77,18 @@ void messageme::loadMessages()
         }
     } else {
         qDebug() << "Error loading messages from database:" << query.lastError();
+    }
+}
+
+
+void messageme::setDarkMode(bool dark)
+{
+    isDarkMode = dark;
+    if (dark) {
+        this->setStyleSheet("background-color: rgb(9, 0, 137); color: rgb(255, 255, 255);");
+
+    } else {
+        this->setStyleSheet("background-color: rgb(145, 206, 255); color: rgb(0, 0, 0);");
+
     }
 }
