@@ -80,11 +80,73 @@ void home::on_pushButton_ago_clicked() {
     }
 }
 
-//رفتن به صفحات دیگر
 void home::on_pushButton_serch_home_clicked()
 {
-    QString searchText = ui->lineEdit_serch_home->text();
-    serch *serchPage = new serch(Account_ID,searchText);
+    saveSearchHistory(ui->lineEdit_serch_home->text());
+    showSearchPage(ui->lineEdit_serch_home->text());
+}
+
+void home::on_pushButton_serch_home_1_clicked()
+{
+    saveSearchHistory(ui->pushButton_serch_home_1->text());
+    showSearchPage(ui->pushButton_serch_home_1->text());
+
+}
+
+void home::on_pushButton_serch_home_2_clicked()
+{
+    saveSearchHistory(ui->pushButton_serch_home_2->text());
+    showSearchPage(ui->pushButton_serch_home_2->text());
+}
+
+void home::on_pushButton_serch_home_3_clicked()
+{
+    saveSearchHistory(ui->pushButton_serch_home_3->text());
+    showSearchPage(ui->pushButton_serch_home_3->text());
+}
+
+void home::on_pushButton_serch_home_4_clicked()
+{
+    saveSearchHistory(ui->pushButton_serch_home_4->text());
+    showSearchPage(ui->pushButton_serch_home_4->text());
+}
+
+void home::on_pushButton_serch_home_5_clicked()
+{
+    saveSearchHistory(ui->pushButton_serch_home_5->text());
+    showSearchPage(ui->pushButton_serch_home_5->text());
+}
+
+void home::saveSearchHistory(const QString &searchText)
+{
+    QSqlDatabase db = QSqlDatabase::database(); // دریافت اتصال به پایگاه داده
+
+    if (!db.isValid()) {
+        qDebug() << "Database is not valid!";
+        return;
+    }
+
+    QSqlQuery query(db);
+
+    // اجرای کوئری برای ذخیره تاریخچه جستجو
+    query.prepare("INSERT OR REPLACE INTO serch (Account, 1, 2, 3, 4, 5)"
+                  " VALUES (:Account, :1, :2, :3, :4, :5)");
+
+    query.bindValue(":Account", Account_ID);
+    query.bindValue(":1", searchText);
+    query.bindValue(":2", ui->pushButton_serch_home->text());
+    query.bindValue(":3", ui->pushButton_serch_home_1->text());
+    query.bindValue(":4", ui->pushButton_serch_home_2->text());
+    query.bindValue(":5", ui->pushButton_serch_home_3->text());
+
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError().text();
+    }
+}
+
+void home::showSearchPage(const QString &searchText)
+{
+    serch *serchPage = new serch(Account_ID, searchText);
     serchPage->show();
 }
 
@@ -215,3 +277,4 @@ void home::translateUi(bool Language) {
         ui->pushButton_start_post->setText("start post");
     }
 }
+

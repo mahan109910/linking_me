@@ -38,6 +38,15 @@ private slots:
 
     void on_pushButton_serch_home_clicked();
 
+    void on_pushButton_serch_home_1_clicked();
+    void on_pushButton_serch_home_2_clicked();
+    void on_pushButton_serch_home_3_clicked();
+    void on_pushButton_serch_home_4_clicked();
+    void on_pushButton_serch_home_5_clicked();
+
+    void showSearchPage(const QString &searchText);
+    void saveSearchHistory(const QString &searchText);
+
 private:
     Ui::home *ui;
     QString Account_ID;

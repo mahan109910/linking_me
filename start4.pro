@@ -19,6 +19,7 @@ SOURCES += \
     job_person.cpp \
     main.cpp \
     message.cpp \
+    messageme.cpp \
     network_company.cpp \
     network_person.cpp \
     person.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     job_company.h \
     job_person.h \
     message.h \
+    messageme.h \
     network_company.h \
     network_person.h \
     person.h \
@@ -63,6 +65,7 @@ FORMS += \
     job_company.ui \
     job_person.ui \
     message.ui \
+    messageme.ui \
     network_company.ui \
     network_person.ui \
     serch.ui \
