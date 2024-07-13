@@ -14,7 +14,7 @@ SOURCES += \
     full_company.cpp \
     full_information.cpp \
     home.cpp \
-    job1.cpp \
+    job.cpp \
     job_company.cpp \
     job_person.cpp \
     main.cpp \
@@ -26,6 +26,7 @@ SOURCES += \
     post.cpp \
     serch.cpp \
     signin.cpp \
+    snowanimation.cpp \
     time1.cpp \
     viwe_profile.cpp \
     welcome.cpp \
@@ -41,7 +42,7 @@ HEADERS += \
     full_company.h \
     full_information.h \
     home.h \
-    job1.h \
+    job.h \
     job_company.h \
     job_person.h \
     message.h \
@@ -52,6 +53,7 @@ HEADERS += \
     post.h \
     serch.h \
     signin.h \
+    snowanimation.h \
     time1.h \
     viwe_profile.h \
     welcome.h \

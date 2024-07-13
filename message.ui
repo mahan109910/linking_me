@@ -83,8 +83,7 @@
          <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/new/prefix1/image/home-me.png);
-</string>
+         <string notr="true">border-image: url(:/new/prefix1/image/home-sun.png);</string>
         </property>
         <property name="text">
          <string/>
@@ -165,7 +164,7 @@
          </size>
         </property>
         <property name="styleSheet">
-         <string notr="true">border-image: url(:/new/prefix1/image/message-sun.png);</string>
+         <string notr="true">border-image: url(:/new/prefix1/image/message-me.png);</string>
         </property>
         <property name="text">
          <string/>

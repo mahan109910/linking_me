@@ -11,7 +11,7 @@ Company::Company(const std::string &accountId, const std::string &name, int comp
     std::cout << "Company created" << std::endl;
 }
 
-void Company::createJob(const Job1 &job) {
+void Company::createJob(const Job &job) {
     Jobs.push_back(job);
 }
 

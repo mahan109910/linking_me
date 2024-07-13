@@ -23,6 +23,7 @@ private:
     void translateUi(bool Language);
     void setDarkMode(bool dark);
     void loadCompanyData(const QString &accountId); // اضافه کردن این خط
+    void animatePushButton();
 
 private slots:
     void on_pushButton_ok_company_clicked();

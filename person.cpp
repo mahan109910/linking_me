@@ -1,5 +1,5 @@
 #include "person.h"
-#include "job1.h"
+#include "job.h"
 #include "iostream"
 #include <QSqlQuery>
 #include <QSqlError>
@@ -20,7 +20,7 @@ Person::Person(const Person &other)
     std::cout << "Person copied" << std::endl;
 }
 
-bool Person::applyForJob(Job1 &job) {
+bool Person::applyForJob(Job &job) {
     job.addApplicant(*this);
     return true;
 }

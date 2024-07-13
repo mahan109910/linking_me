@@ -1,7 +1,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#include "job1.h"
+#include "job.h"
 #include <string>
 #include <QSqlDatabase>
 #include <vector>
@@ -18,7 +18,7 @@ public:
     std::vector<std::string> Skills;
     std::vector<std::string> SearchHistory;
 
-    bool applyForJob(Job1 &job);
+    bool applyForJob(Job &job);
     bool saveToDatabase(QSqlDatabase& db) const;
     bool loadFromDatabase(const std::string &id, QSqlDatabase& db);
     std::vector<std::string> getSkills() const;

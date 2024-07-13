@@ -1,22 +1,26 @@
-#ifndef JOB_H
-#define JOB_H
+#ifndef JOB1_H
+#define JOB1_H
 
-#include <QWidget>
+#include <string>
+#include <vector>
+#include <QSqlDatabase>
 
-namespace Ui {
-class job;
-}
+class Person; // Forward declaration
 
-class job : public QWidget
-{
-    Q_OBJECT
-
+class Job {
 public:
-    explicit job(QWidget *parent = nullptr);
-    ~job();
+    std::string Job_ID;
+    std::string Job_Title;
+    std::string Company_ID;
+    std::string Description;
+    std::vector<Person> applicants;
 
-private:
-    Ui::job *ui;
+    Job() = default;
+    Job(const std::string &jobId, const std::string &jobTitle, const std::string &companyId, const std::string &description);
+
+    void addApplicant(const Person &person);
+    bool saveToDatabase(QSqlDatabase& db) const;
+    bool loadFromDatabase(const std::string &id, QSqlDatabase& db);
 };
 
-#endif // JOB_H
+#endif // JOB1_H

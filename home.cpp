@@ -1,6 +1,6 @@
 #include "home.h"
-#include "job_company.h"
 #include "job_person.h"
+#include "job_company.h"
 #include "network_company.h"
 #include "network_person.h"
 #include "account.h"

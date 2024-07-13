@@ -20,16 +20,21 @@ public:
     ~messageme();
 
 private slots:
-    void sendMessage();
-    //void translateUi(bool selectedLanguage);
     void setDarkMode(bool dark);
+    void sendMessage();
+    void sendImage();
+    void sendAudio();
+    void sendVideo();
+    void displayMessage(const QString &senderId, const QString &content, const QString &contentType);
 
 private:
-    Ui::messageme *ui; // تعریف اشاره‌گر به کلاس Ui::MessageMe
+    Ui::messageme *ui;
     QString Account_ID;
     QString targetUser;
 
     void loadMessages();
+    void sendFile(const QString &filePath, const QString &fileType); // افزودن این خط
+
 };
 
 #endif // MESSAGEME_H

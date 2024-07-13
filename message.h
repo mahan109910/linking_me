@@ -5,6 +5,8 @@
 #include <QListWidget>
 #include <QStackedWidget>
 #include "messageme.h"
+#include <QString>
+#include <QSqlDatabase>
 
 namespace Ui {
 class message;
@@ -21,10 +23,18 @@ public:
 private slots:
     void openChat(QListWidgetItem *item);
 
+    void on_pushButton_network_home_clicked();
+
+    void on_pushButton_job_home_clicked();
+
+    void on_pushButton_home_home_clicked();
+
 private:
     Ui::message *ui;
     QString Account_ID;
     QStackedWidget *stackedWidget;
+    bool isCompany;
+    QSqlDatabase db;
 };
 
 #endif // MESSAGE_H

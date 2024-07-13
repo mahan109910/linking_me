@@ -8,6 +8,13 @@
 #include <QDebug>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QApplication>
+#include <QWidget>
+#include <QPushButton>
+#include <QPropertyAnimation>
+#include "snowanimation.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 static bool isDarkMode;
 static bool selectedLanguage;
@@ -17,10 +24,25 @@ Full_company::Full_company(const QString &username, QWidget *parent)
 {
     ui->setupUi(this);
 
+    // ایجاد QGraphicsScene
+    QGraphicsScene *scene = new QGraphicsScene(this);
+    QGraphicsView *view = new QGraphicsView(scene);
+    scene->setBackgroundBrush(QBrush(QPixmap(":/images/background.jpg"))); // تنظیم عکس پس‌زمینه از فایل منبع
+
+    // ایجاد شیء برف
+    SnowAnimation *snow = new SnowAnimation();
+    scene->addItem(snow);
+
+    // اضافه کردن QGraphicsView به پنجره‌ی اصلی
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(view);
+    ui->gridWidget_full_company->setLayout(layout); // جایگزین کنید ui->centralWidget با نام مناسب برای ویجت اصلی شما.
+
     setDarkMode(home::isDarkMode);
     translateUi(welcome::selectedLanguage);
     loadCompanyData(m_username);
 }
+
 
 Full_company::~Full_company()
 {
@@ -39,6 +61,7 @@ void Full_company::loadCompanyData(const QString &accountId) {
 }
 
 void Full_company::on_pushButton_ok_company_clicked() {
+    animatePushButton();
     QString companyCode = ui->lineEdit_code_company->text();
     QString companyName = ui->lineEdit_name_company->text();
 
@@ -139,3 +162,13 @@ void Full_company::translateUi(bool selectedLanguage) {
         ui->pushButton_ok_company->setText("OK");
     }
 }
+
+void Full_company::animatePushButton() {
+    QPropertyAnimation *animation = new QPropertyAnimation(ui->pushButton_ok_company, "geometry");
+    animation->setDuration(500); // مدت زمان انیمیشن به میلی‌ثانیه
+    animation->setStartValue(ui->pushButton_ok_company->geometry());
+    animation->setEndValue(QRect(ui->pushButton_ok_company->x(), ui->pushButton_ok_company->y(), ui->pushButton_ok_company->width() + 10, ui->pushButton_ok_company->height() + 10));
+    animation->setEasingCurve(QEasingCurve::OutBounce); // نوع انیمیشن
+    animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
