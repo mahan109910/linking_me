@@ -18,6 +18,8 @@ public:
     // مخرب
     ~Account();
 
+    static std::vector<std::string> getAllUsernames();
+
     // متغیرها
     std::string Account_ID;
     std::string Phone_number;
@@ -38,6 +40,10 @@ public:
     void setProfilePicture(const std::string &picture);
     //std::string getBio() const;
     //void setBio(const std::string &bio);
+
+    std::string getAccountID() const;
+
+
 
 private:
     std::vector<std::string> Connection;

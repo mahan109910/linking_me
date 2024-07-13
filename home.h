@@ -36,6 +36,8 @@ private slots:
     void displayPosts(const QList<QString> &posts);
     void determineUserType();
 
+    void on_pushButton_serch_home_clicked();
+
 private:
     Ui::home *ui;
     QString Account_ID;

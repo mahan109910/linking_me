@@ -15,7 +15,7 @@ class viwe_profile : public QWidget
     Q_OBJECT
 
 public:
-    explicit viwe_profile(const QString &serchv, QWidget *parent = nullptr);
+    explicit viwe_profile(const QString &myAccountID, const QString &selectedUserID, QWidget *parent = nullptr);
     ~viwe_profile();
 
 private slots:
@@ -25,7 +25,8 @@ private slots:
 
 private:
     Ui::viwe_profile *ui;
-    QString serchv;
+    QString myAccountID;
+    QString selectedUserID;
     bool isCompany;
     QSqlDatabase db;
     QStringList skillsList;

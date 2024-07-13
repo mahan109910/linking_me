@@ -18,6 +18,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QStringListModel>  // برای نمایش لیست پست‌ها
+#include "serch.h"
 
 static bool selectedLanguage;
 bool home::isDarkMode = false;  // مقداردهی متغیر استاتیک در اینجا
@@ -80,6 +81,13 @@ void home::on_pushButton_ago_clicked() {
 }
 
 //رفتن به صفحات دیگر
+void home::on_pushButton_serch_home_clicked()
+{
+    QString searchText = ui->lineEdit_serch_home->text();
+    serch *serchPage = new serch(Account_ID,searchText);
+    serchPage->show();
+}
+
 void home::on_pushButton_home_home_clicked()
 {
     home *homePage = new home(Account_ID);
@@ -122,7 +130,7 @@ void home::on_comboBox_me_activated(int index)
 {
     switch (index) {
     case 0:{
-        viwe_profile *viwe_profilePage = new viwe_profile(Account_ID);
+        viwe_profile *viwe_profilePage = new viwe_profile(Account_ID ,Account_ID);
         viwe_profilePage->show();
         break;
     }

@@ -15,6 +15,27 @@ Account::~Account() {
     std::cout << "Account destroyed" << std::endl;
 }
 
+std::vector<std::string> Account::getAllUsernames() {
+    std::vector<std::string> usernames;
+    QSqlDatabase db = QSqlDatabase::database();
+    QSqlQuery query(db);
+    query.prepare("SELECT Account_ID FROM Account");
+    if (!query.exec()) {
+        qDebug() << "Error executing query:" << query.lastError();
+        return usernames;
+    }
+
+    while (query.next()) {
+        usernames.push_back(query.value("Account_ID").toString().toStdString());
+    }
+
+    return usernames;
+}
+
+std::string Account::getAccountID() const {
+    return Account_ID;
+}
+
 void Account::addConnection(const std::string &id) {
     Connection.push_back(id);
 }
